@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "burgerbot-fdc33": {
+      "hosting": {
+        "opus": [
+          "burgerbot-fdc33"
+        ]
+      }
+    }
+  }
+}
