@@ -1,0 +1,13 @@
+<div cdkDropListGroup>
+  <div *ngFor="let lane of lanes">
+    <h2>{{lane}}</h2>
+    <div
+      cdkDropList
+      cdkDropListOrientation="horizontal"
+      [cdkDropListData]="board[lane]"
+      class="lane"
+      (cdkDropListDropped)="drop($event)">
+      <div class="item" *ngFor="let item of board[lane]" cdkDrag>{{item}}</div>
+    </div>
+  </div>
+</div>

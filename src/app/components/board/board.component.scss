@@ -1,0 +1,36 @@
+.lane {
+  display: flex;
+  flex-direction: row;
+  overflow: scroll hidden;
+  min-height: 92px;
+}
+
+.item {
+  flex: 0 0 300px;
+  margin: 1rem .5rem;
+  padding: 1rem;
+  background-color: var(--gray-200);
+  border-radius: 8px;
+  cursor: move;
+
+  &:last-child {
+    border: none;
+  }
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating, .cdk-drop-list-dragging .item:not(.cdk-drag-placeholder) {
+  transition: transform .25s ease;
+}
+
+::-webkit-scrollbar {
+  height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--gray-200);
+  border-radius: 4px;
+}

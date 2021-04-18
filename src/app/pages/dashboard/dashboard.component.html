@@ -1,8 +1,8 @@
 <app-container>
-  <p>Dashboard</p>
   <ul>
     <li *ngFor="let project of data.projects$ | async">
-      bruh
+      Project
     </li>
   </ul>
+  <app-board></app-board>
 </app-container>

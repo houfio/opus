@@ -1,3 +1,4 @@
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { NgModule } from '@angular/core';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
@@ -10,6 +11,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { environment } from '../environments/environment';
 
 import { AppComponent } from './app.component';
+import { BoardComponent } from './components/board/board.component';
 import { ButtonComponent } from './components/button/button.component';
 import { ContainerComponent } from './components/container/container.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
@@ -29,6 +31,7 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     // components
+    BoardComponent,
     ButtonComponent,
     ContainerComponent,
     NavigationComponent,
@@ -42,7 +45,8 @@ const routes: Routes = [
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFirestoreModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    DragDropModule
   ],
   providers: [
     AuthService,
