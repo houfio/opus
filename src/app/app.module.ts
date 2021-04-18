@@ -5,6 +5,7 @@ import { canActivate } from '@angular/fire/auth-guard';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { environment } from '../environments/environment';
 
@@ -16,6 +17,8 @@ import { authorized } from './guards/authorized';
 import { unauthorized } from './guards/unauthorized';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { LoginComponent } from './pages/login/login.component';
+import { AuthService } from './services/auth.service';
+import { DataService } from './services/data.service';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent, ...canActivate(authorized) },
@@ -38,9 +41,13 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    FontAwesomeModule
   ],
-  providers: [],
+  providers: [
+    AuthService,
+    DataService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

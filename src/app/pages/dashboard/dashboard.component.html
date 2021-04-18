@@ -1,4 +1,8 @@
 <app-container>
   <p>Dashboard</p>
-  <app-button (press)="logout()">Logout</app-button>
+  <ul>
+    <li *ngFor="let project of data.projects$ | async">
+      bruh
+    </li>
+  </ul>
 </app-container>

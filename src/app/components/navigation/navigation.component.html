@@ -1,3 +1,9 @@
 <app-container>
-  <p>navigation</p>
+  <span class="logo">
+    <fa-icon [icon]="logo"></fa-icon>
+    Opus
+  </span>
+  <app-button *ngIf="auth.authenticated$ | async" (press)="auth.logout()">
+    Logout
+  </app-button>
 </app-container>
