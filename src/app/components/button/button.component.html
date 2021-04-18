@@ -1,0 +1,14 @@
+<ng-container *ngTemplateOutlet="route ? anchor : button"></ng-container>
+<ng-template #content>
+  <ng-content></ng-content>
+</ng-template>
+<ng-template #anchor>
+  <a [routerLink]="route!" [queryParams]="params">
+    <ng-container *ngTemplateOutlet="content"></ng-container>
+  </a>
+</ng-template>
+<ng-template #button>
+  <button (click)="press.emit()">
+    <ng-container *ngTemplateOutlet="content"></ng-container>
+  </button>
+</ng-template>

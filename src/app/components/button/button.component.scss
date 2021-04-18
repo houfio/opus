@@ -1,0 +1,21 @@
+button, a {
+  display: inline-block;
+  padding: .5rem 1rem;
+  color: var(--gray-500);
+  background-color: var(--gray-200);
+  border-radius: 8px;
+  font-size: .9rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: box-shadow .25s ease, opacity .25s ease;
+
+  &:focus {
+    box-shadow: 0 0 0 3px inset var(--gray-500);
+  }
+
+  &:disabled {
+    pointer-events: none;
+    opacity: .75;
+  }
+}
