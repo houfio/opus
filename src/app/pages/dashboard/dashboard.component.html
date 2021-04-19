@@ -1,4 +1,7 @@
 <app-container>
+  <app-button (press)="createProject()">
+    Add project
+  </app-button>
   <ul>
     <li *ngFor="let project of data.projects$ | async">
       Project
