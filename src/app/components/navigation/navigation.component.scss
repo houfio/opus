@@ -2,16 +2,21 @@
   display: block;
   position: sticky;
   top: 0;
+  border-top: 3px solid var(--yellow-200);
 }
 
 app-container {
   flex-direction: row;
-  justify-content: space-between;
   align-items: center;
   height: 7.5rem;
+
+  & > app-button {
+    margin-left: 1rem;
+  }
 }
 
 .logo {
+  flex: 1;
   display: inline-block;
   font-size: .9rem;
   font-weight: bold;

@@ -3,12 +3,12 @@
   <ng-content></ng-content>
 </ng-template>
 <ng-template #anchor>
-  <a [routerLink]="route!" [queryParams]="params">
+  <a [routerLink]="route!" [queryParams]="params" [appPalette]="palette">
     <ng-container *ngTemplateOutlet="content"></ng-container>
   </a>
 </ng-template>
 <ng-template #button>
-  <button (click)="press.emit()">
+  <button (click)="press.emit()" [appPalette]="palette">
     <ng-container *ngTemplateOutlet="content"></ng-container>
   </button>
 </ng-template>

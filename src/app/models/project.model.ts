@@ -1,5 +1,4 @@
 export interface ProjectModel {
-  id: string;
   name: string;
   owner: string; // -> UserModel
   // users: UserModel[];

@@ -11,17 +11,17 @@ import { map, tap } from 'rxjs/operators';
 export class AuthService {
   public readonly authenticated$: Observable<boolean>;
 
-  private id?: string;
+  private state?: firebase.User;
 
   constructor(private auth: AngularFireAuth, private router: Router) {
     this.authenticated$ = auth.authState.pipe(
-      tap((state) => this.id = state?.uid),
+      tap((state) => this.state = state ?? undefined),
       map((state) => Boolean(state))
     );
   }
 
-  public get userId() {
-    return this.id;
+  public get user() {
+    return this.state;
   }
 
   public login() {

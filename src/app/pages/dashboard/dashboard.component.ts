@@ -10,8 +10,4 @@ import { DataService } from '../../services/data.service';
 export class DashboardComponent {
   constructor(public data: DataService) {
   }
-
-  public createProject() {
-    this.data.createProject();
-  }
 }

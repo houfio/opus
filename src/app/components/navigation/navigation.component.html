@@ -3,7 +3,15 @@
     <fa-icon [icon]="logo"></fa-icon>
     Opus
   </span>
-  <app-button *ngIf="auth.authenticated$ | async" (press)="auth.logout()">
-    Logout
-  </app-button>
+  <ng-container *ngIf="auth.authenticated$ | async" >
+    <app-button [route]="['/']" [palette]="['gray-500', 'gray-0']">
+      Dashboard
+    </app-button>
+    <app-button (press)="auth.logout()" [palette]="['gray-500', 'gray-0']">
+      Logout
+    </app-button>
+    <app-button (press)="createProject()" [palette]="['gray-0', 'yellow-200']">
+      Create project
+    </app-button>
+  </ng-container>
 </app-container>
