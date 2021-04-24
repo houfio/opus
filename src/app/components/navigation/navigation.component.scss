@@ -1,3 +1,5 @@
+@import "src/utils";
+
 :host {
   display: block;
   position: sticky;
@@ -21,4 +23,12 @@ app-container {
   font-size: .9rem;
   font-weight: bold;
   text-transform: uppercase;
+}
+
+.items {
+  display: none;
+
+  @include with-breakpoint(tablet) {
+    display: block;
+  }
 }

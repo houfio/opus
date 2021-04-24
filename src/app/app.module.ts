@@ -13,9 +13,12 @@ import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { BoardComponent } from './components/board/board.component';
 import { ButtonComponent } from './components/button/button.component';
+import { ColumnComponent } from './components/column/column.component';
 import { ContainerComponent } from './components/container/container.component';
 import { HeadingComponent } from './components/heading/heading.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
+import { ProjectCardComponent } from './components/project-card/project-card.component';
+import { RowComponent } from './components/row/row.component';
 import { PaletteDirective } from './directives/palette.directive';
 import { authorized } from './guards/authorized';
 import { unauthorized } from './guards/unauthorized';
@@ -39,9 +42,12 @@ const routes: Routes = [
     // components
     BoardComponent,
     ButtonComponent,
+    ColumnComponent,
     ContainerComponent,
     HeadingComponent,
     NavigationComponent,
+    ProjectCardComponent,
+    RowComponent,
     // pages
     DashboardComponent,
     LoginComponent,

@@ -1,7 +1,9 @@
+@import "src/utils";
+
 .heading {
   margin-left: -.25rem;
   margin-bottom: 3rem;
-  font-size: 3rem;
+  font-size: 2rem;
 
   &::after {
     content: "";
@@ -10,5 +12,9 @@
     width: 2rem;
     height: 3px;
     background-color: var(--yellow-200);
+  }
+
+  @include with-breakpoint(tablet) {
+    font-size: 3rem;
   }
 }

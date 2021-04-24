@@ -3,7 +3,7 @@
     <fa-icon [icon]="logo"></fa-icon>
     Opus
   </span>
-  <ng-container *ngIf="auth.authenticated$ | async" >
+  <div *ngIf="auth.authenticated$ | async" class="items">
     <app-button [route]="['/']" [palette]="['gray-500', 'gray-0']">
       Dashboard
     </app-button>
@@ -13,5 +13,5 @@
     <app-button (press)="createProject()" [palette]="['gray-0', 'yellow-200']">
       Create project
     </app-button>
-  </ng-container>
+  </div>
 </app-container>

@@ -1,24 +1,23 @@
-import { Directive, ElementRef, Input, OnInit } from '@angular/core';
+import { Directive, ElementRef, Input } from '@angular/core';
 
 import { Palette } from '../types';
 
 @Directive({
   selector: '[appPalette]'
 })
-export class PaletteDirective implements OnInit {
-  @Input() appPalette?: Palette;
-
-  constructor(private el: ElementRef) {
-  }
-
-  public ngOnInit() {
-    if (!this.appPalette) {
+export class PaletteDirective {
+  @Input()
+  set appPalette(value: Palette | undefined) {
+    if (!value) {
       return;
     }
 
-    const [foreground, background] = this.appPalette;
+    const [foreground, background] = value;
 
     this.el.nativeElement.style.color = `var(--${foreground})`;
     this.el.nativeElement.style.backgroundColor = `var(--${background})`;
+  }
+
+  constructor(private el: ElementRef) {
   }
 }

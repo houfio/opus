@@ -2,7 +2,9 @@
   <app-heading>
     Dashboard
   </app-heading>
-  <app-button *ngFor="let project of data.projects$ | async" [route]="[project.id]">
-    {{ project.name }}
-  </app-button>
+  <app-row [spaces]="{ phone: 2 }">
+    <app-column *ngFor="let project of data.projects$ | async" [columns]="{ phone: 6, tablet: 3, laptop: 2, desktop: 1 }">
+      <app-project-card [project]="project"></app-project-card>
+    </app-column>
+  </app-row>
 </app-container>
