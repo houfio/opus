@@ -12,7 +12,7 @@ import { DataService } from '../../services/data.service';
 export class NavigationComponent {
   public readonly logo = faTable;
 
-  constructor(public auth: AuthService, private data: DataService) {
+  public constructor(public auth: AuthService, private data: DataService) {
   }
 
   public createProject() {

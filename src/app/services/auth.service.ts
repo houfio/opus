@@ -13,7 +13,7 @@ export class AuthService {
 
   private state?: firebase.User;
 
-  constructor(private auth: AngularFireAuth, private router: Router) {
+  public constructor(private auth: AngularFireAuth, private router: Router) {
     this.authenticated$ = auth.authState.pipe(
       tap((state) => this.state = state ?? undefined),
       map((state) => Boolean(state))

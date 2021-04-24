@@ -14,7 +14,7 @@ import { DataService } from '../../services/data.service';
 export class ProjectComponent {
   public project?: IdentifiableModel<ProjectModel>;
 
-  constructor(route: ActivatedRoute, data: DataService) {
+  public constructor(route: ActivatedRoute, data: DataService) {
     route.paramMap.pipe(
       switchMap((params) => data.getProject(params.get('project') ?? ''))
     ).subscribe((project) => {

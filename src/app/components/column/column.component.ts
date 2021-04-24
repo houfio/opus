@@ -6,8 +6,8 @@ import { Component, ElementRef, Input } from '@angular/core';
   styleUrls: ['./column.component.scss']
 })
 export class ColumnComponent {
-  @Input('columns')
-  set columns(value: Record<string, number> | undefined) {
+  @Input()
+  public set columns(value: Record<string, number> | undefined) {
     if (!value) {
       return;
     }
@@ -17,6 +17,6 @@ export class ColumnComponent {
     }
   }
 
-  constructor(private el: ElementRef) {
+  public constructor(private el: ElementRef) {
   }
 }

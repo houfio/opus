@@ -7,7 +7,7 @@ import { Palette } from '../types';
 })
 export class PaletteDirective {
   @Input()
-  set appPalette(value: Palette | undefined) {
+  public set appPalette(value: Palette | undefined) {
     if (!value) {
       return;
     }
@@ -18,6 +18,6 @@ export class PaletteDirective {
     this.el.nativeElement.style.backgroundColor = `var(--${background})`;
   }
 
-  constructor(private el: ElementRef) {
+  public constructor(private el: ElementRef) {
   }
 }

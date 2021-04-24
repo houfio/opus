@@ -13,7 +13,7 @@ import { AuthService } from './auth.service';
 export class DataService {
   public readonly projects$: Observable<(ProjectModel & { id: string })[]>;
 
-  constructor(private store: AngularFirestore, private auth: AuthService) {
+  public constructor(private store: AngularFirestore, private auth: AuthService) {
     this.projects$ = store.collection<ProjectModel>('projects').valueChanges({
       idField: 'id'
     }).pipe(

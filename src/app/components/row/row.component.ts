@@ -6,8 +6,8 @@ import { Component, ElementRef, Input } from '@angular/core';
   styleUrls: ['./row.component.scss']
 })
 export class RowComponent {
-  @Input('spaces')
-  set spaces(value: Record<string, number> | undefined) {
+  @Input()
+  public set spaces(value: Record<string, number> | undefined) {
     if (!value) {
       return;
     }
@@ -17,6 +17,6 @@ export class RowComponent {
     }
   }
 
-  constructor(private el: ElementRef) {
+  public constructor(private el: ElementRef) {
   }
 }

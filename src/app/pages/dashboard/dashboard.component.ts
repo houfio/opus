@@ -8,6 +8,6 @@ import { DataService } from '../../services/data.service';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent {
-  constructor(public data: DataService) {
+  public constructor(public data: DataService) {
   }
 }
