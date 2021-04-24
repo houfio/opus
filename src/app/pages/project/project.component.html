@@ -1,4 +1,6 @@
-<app-container>
-  {{project?.name}} ({{project?.id}})
+<app-container *ngIf="project">
+  <app-heading>
+    {{project.name}}
+  </app-heading>
   <app-board></app-board>
 </app-container>

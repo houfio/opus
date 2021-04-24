@@ -1,0 +1,14 @@
+.heading {
+  margin-left: -.25rem;
+  margin-bottom: 3rem;
+  font-size: 3rem;
+
+  &::after {
+    content: "";
+    display: block;
+    margin: .25rem 0 0 .25rem;
+    width: 2rem;
+    height: 3px;
+    background-color: var(--yellow-200);
+  }
+}

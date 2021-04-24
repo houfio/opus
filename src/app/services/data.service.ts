@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable, of } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { ProjectModel } from '../models/project.model';
 
@@ -15,7 +16,9 @@ export class DataService {
   constructor(private store: AngularFirestore, private auth: AuthService) {
     this.projects$ = store.collection<ProjectModel>('projects').valueChanges({
       idField: 'id'
-    });
+    }).pipe(
+      map((projects) => projects.filter((p) => p.owner === auth.user?.uid))
+    );
   }
 
   public createProject(name: string) {

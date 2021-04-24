@@ -14,6 +14,7 @@ import { AppComponent } from './app.component';
 import { BoardComponent } from './components/board/board.component';
 import { ButtonComponent } from './components/button/button.component';
 import { ContainerComponent } from './components/container/container.component';
+import { HeadingComponent } from './components/heading/heading.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { PaletteDirective } from './directives/palette.directive';
 import { authorized } from './guards/authorized';
@@ -39,6 +40,7 @@ const routes: Routes = [
     BoardComponent,
     ButtonComponent,
     ContainerComponent,
+    HeadingComponent,
     NavigationComponent,
     // pages
     DashboardComponent,

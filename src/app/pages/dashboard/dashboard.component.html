@@ -1,4 +1,7 @@
 <app-container>
+  <app-heading>
+    Dashboard
+  </app-heading>
   <app-button *ngFor="let project of data.projects$ | async" [route]="[project.id]">
     {{ project.name }}
   </app-button>
