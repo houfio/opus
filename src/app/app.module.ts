@@ -31,7 +31,7 @@ import { DataService } from './services/data.service';
 const routes: Routes = [
   { path: '', component: DashboardComponent, ...canActivate(authorized) },
   { path: 'login', component: LoginComponent, ...canActivate(unauthorized) },
-  { path: ':project', component: ProjectComponent, ...canActivate(authorized) }
+  { path: 'projects/:project', component: ProjectComponent, ...canActivate(authorized) }
 ];
 
 @NgModule({

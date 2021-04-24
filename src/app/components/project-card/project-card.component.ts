@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 import { IdentifiableModel } from '../../models/identifiable.model';
 import { ProjectModel } from '../../models/project.model';
@@ -9,5 +10,7 @@ import { ProjectModel } from '../../models/project.model';
   styleUrls: ['./project-card.component.scss']
 })
 export class ProjectCardComponent {
-  @Input() public project!: IdentifiableModel<ProjectModel>;
+  @Input() public project?: IdentifiableModel<ProjectModel>;
+
+  public icon = faPlus;
 }

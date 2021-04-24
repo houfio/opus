@@ -3,7 +3,9 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { IdentifiableModel } from '../models/identifiable.model';
 import { ProjectModel } from '../models/project.model';
+import { UserModel } from '../models/user.model';
 
 import { AuthService } from './auth.service';
 
@@ -49,6 +51,12 @@ export class DataService {
 
   public getProject(id: string) {
     return this.store.collection<ProjectModel>('projects').doc(id).valueChanges({
+      idField: 'id'
+    });
+  }
+
+  public getUsers(project: IdentifiableModel<ProjectModel>) {
+    return this.store.collection('projects').doc(project.id).collection<UserModel>('users').valueChanges({
       idField: 'id'
     });
   }

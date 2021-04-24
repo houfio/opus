@@ -1,5 +1,5 @@
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-board',
@@ -7,10 +7,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./board.component.scss']
 })
 export class BoardComponent {
+  @Input()
+  public set lanes(value: string[]) {
+    this.board = [...value, 'default'].reduce((acc, lane) => ({
+      ...acc,
+      [lane]: this.board[lane] ?? []
+    }), {})
+  }
+
   public board: Record<string, string[]> = {
-    indy: [],
-    lex: [],
-    admin: [
+    default: [
       'Get to work',
       'Pick up groceries',
       'Go home',

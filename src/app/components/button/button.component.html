@@ -3,7 +3,7 @@
   <ng-content></ng-content>
 </ng-template>
 <ng-template #anchor>
-  <a [routerLink]="route!" [queryParams]="params" [appPalette]="palette">
+  <a [routerLink]="route" [queryParams]="params" [appPalette]="palette">
     <ng-container *ngTemplateOutlet="content"></ng-container>
   </a>
 </ng-template>

@@ -1,0 +1,23 @@
+.card {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  height: 5rem;
+  padding: 1rem;
+  color: var(--gray-500);
+  background-color: var(--gray-200);
+  text-decoration: none;
+  border-radius: 8px;
+  transition: box-shadow .25s ease;
+
+  &:focus {
+    box-shadow: 0 0 0 3px inset var(--gray-500);
+  }
+
+  &[data-fallback="true"] {
+    justify-content: center;
+    align-items: center;
+    background-color: var(--gray-0);
+    border: 1px dashed var(--gray-300);
+  }
+}

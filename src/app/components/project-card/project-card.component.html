@@ -1,3 +1,8 @@
-<app-button [route]="[project.id]">
-  {{ project.name }}
-</app-button>
+<a class="card" [attr.data-fallback]="!project" [routerLink]="project ? ['projects', project.id] : ['projects']">
+  <ng-container *ngIf="project; else fallback">
+    {{ project.name }}
+  </ng-container>
+  <ng-template #fallback>
+    <fa-icon [icon]="icon"></fa-icon>
+  </ng-template>
+</a>
