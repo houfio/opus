@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { of } from 'rxjs';
-import { switchMap, tap } from 'rxjs/operators';
+import { combineLatest, Observable, of } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 
 import { IdentifiableModel } from '../../models/identifiable.model';
 import { ProjectModel } from '../../models/project.model';
-import { UserModel } from '../../models/user.model';
+import { filterNullish } from '../../operators/filter-nullish';
 import { DataService } from '../../services/data.service';
 
 @Component({
@@ -14,20 +14,22 @@ import { DataService } from '../../services/data.service';
   styleUrls: ['./project.component.scss']
 })
 export class ProjectComponent {
-  public project?: IdentifiableModel<ProjectModel>;
-  public users: IdentifiableModel<UserModel>[] = [];
-
-  public get lanes() {
-    return this.users.map((u) => u.name);
-  }
+  public projects$: Observable<IdentifiableModel<ProjectModel> & {
+    lanes: string[]
+  }>;
 
   public constructor(route: ActivatedRoute, data: DataService) {
-    route.paramMap.pipe(
+    this.projects$ = route.paramMap.pipe(
       switchMap((params) => data.getProject(params.get('project') ?? '')),
-      tap((project) => this.project = project),
-      switchMap((project) => project ? data.getUsers(project) : of([]))
-    ).subscribe((users) => {
-      this.users = users;
-    });
+      filterNullish(),
+      switchMap((project) => combineLatest([
+        of(project),
+        data.getUsers(project)
+      ])),
+      map(([project, users]) => ({
+        ...project,
+        lanes: users.map((user) => user.name)
+      }))
+    );
   }
 }

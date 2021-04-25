@@ -25,12 +25,14 @@ import { unauthorized } from './guards/unauthorized';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { LoginComponent } from './pages/login/login.component';
 import { ProjectComponent } from './pages/project/project.component';
+import { ProjectsComponent } from './pages/projects/projects.component';
 import { AuthService } from './services/auth.service';
 import { DataService } from './services/data.service';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent, ...canActivate(authorized) },
   { path: 'login', component: LoginComponent, ...canActivate(unauthorized) },
+  { path: 'projects', component: ProjectsComponent, ...canActivate(authorized) },
   { path: 'projects/:project', component: ProjectComponent, ...canActivate(authorized) }
 ];
 
@@ -51,7 +53,8 @@ const routes: Routes = [
     // pages
     DashboardComponent,
     LoginComponent,
-    ProjectComponent
+    ProjectComponent,
+    ProjectsComponent
   ],
   imports: [
     BrowserModule,

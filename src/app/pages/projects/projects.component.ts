@@ -6,14 +6,14 @@ import { ProjectModel } from '../../models/project.model';
 import { DataService } from '../../services/data.service';
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  selector: 'app-projects',
+  templateUrl: './projects.component.html',
+  styleUrls: ['./projects.component.scss']
 })
-export class DashboardComponent {
+export class ProjectsComponent {
   public projects$: Observable<IdentifiableModel<ProjectModel>[]>;
 
   public constructor(data: DataService) {
-    this.projects$ = data.getProjects(true);
+    this.projects$ = data.getProjects(false);
   }
 }

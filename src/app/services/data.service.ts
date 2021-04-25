@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Observable, of } from 'rxjs';
+import { of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { IdentifiableModel } from '../models/identifiable.model';
@@ -13,13 +13,25 @@ import { AuthService } from './auth.service';
   providedIn: 'root'
 })
 export class DataService {
-  public readonly projects$: Observable<(ProjectModel & { id: string })[]>;
-
   public constructor(private store: AngularFirestore, private auth: AuthService) {
-    this.projects$ = store.collection<ProjectModel>('projects').valueChanges({
+  }
+
+  public getProjects(userOf?: boolean) {
+    const user = this.auth.user;
+
+    if (userOf !== undefined && !user) {
+      return of([]);
+    }
+
+    return this.store.collection<ProjectModel>(
+      'projects',
+      (ref) => userOf ? ref.where('users', 'array-contains', user!.uid) : ref
+    ).valueChanges({
       idField: 'id'
     }).pipe(
-      map((projects) => projects.filter((p) => p.owner === auth.user?.uid))
+      map((projects) => userOf !== false ? projects : projects.filter(
+        (project) => !project.users.includes(user!.uid)
+      ))
     );
   }
 
@@ -36,7 +48,10 @@ export class DataService {
     batch.set(project, {
       name,
       owner: user.uid,
-      archived: false
+      archived: false,
+      users: [
+        user.uid
+      ]
     });
 
     const users = project.collection('users');
@@ -55,8 +70,25 @@ export class DataService {
     });
   }
 
+  private getUserCollection(project: IdentifiableModel<ProjectModel>) {
+    return this.store.collection('projects').doc(project.id).collection<UserModel>('users');
+  }
+
+  public joinProject(project: IdentifiableModel<ProjectModel>) {
+    const user = this.auth.user;
+
+    if (!user) {
+      return;
+    }
+
+    return of(this.getUserCollection(project).doc(user.uid).set({
+      name: user.displayName ?? 'Anonymous',
+      role: 'Member'
+    }));
+  }
+
   public getUsers(project: IdentifiableModel<ProjectModel>) {
-    return this.store.collection('projects').doc(project.id).collection<UserModel>('users').valueChanges({
+    return this.getUserCollection(project).valueChanges({
       idField: 'id'
     });
   }

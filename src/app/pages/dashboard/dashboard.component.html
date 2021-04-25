@@ -3,10 +3,10 @@
     Dashboard
   </app-heading>
   <app-row [spaces]="{ phone: 2 }">
-    <app-column *ngFor="let project of data.projects$ | async" [columns]="{ phone: 6, tablet: 3, laptop: 2, desktop: 1 }">
+    <app-column *ngFor="let project of projects$ | async" [columns]="{ phone: 6, tablet: 3, laptop: 2 }">
       <app-project-card [project]="project"></app-project-card>
     </app-column>
-    <app-column [columns]="{ phone: 6, tablet: 3, laptop: 2, desktop: 1 }">
+    <app-column [columns]="{ phone: 6, tablet: 3, laptop: 2 }">
       <app-project-card></app-project-card>
     </app-column>
   </app-row>

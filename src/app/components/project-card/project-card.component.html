@@ -1,8 +1,22 @@
-<a class="card" [attr.data-fallback]="!project" [routerLink]="project ? ['projects', project.id] : ['projects']">
+<ng-container *ngTemplateOutlet="isButton ? button : anchor"></ng-container>
+<ng-template #content>
   <ng-container *ngIf="project; else fallback">
     {{ project.name }}
+    <div class="subtle">
+      {{ project.users.length }} user(s)
+    </div>
   </ng-container>
   <ng-template #fallback>
     <fa-icon [icon]="icon"></fa-icon>
   </ng-template>
-</a>
+</ng-template>
+<ng-template #anchor>
+  <a class="card" [attr.data-fallback]="!project" [routerLink]="project ? ['projects', project.id] : ['projects']">
+    <ng-container *ngTemplateOutlet="content"></ng-container>
+  </a>
+</ng-template>
+<ng-template #button>
+  <a class="card" (click)="press.emit()">
+    <ng-container *ngTemplateOutlet="content"></ng-container>
+  </a>
+</ng-template>

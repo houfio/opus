@@ -1,8 +1,9 @@
 .card {
   display: flex;
+  flex-direction: column;
   justify-content: flex-end;
   align-items: flex-end;
-  height: 5rem;
+  height: 7.5rem;
   padding: 1rem;
   color: var(--gray-500);
   background-color: var(--gray-200);
@@ -17,7 +18,12 @@
   &[data-fallback="true"] {
     justify-content: center;
     align-items: center;
-    background-color: var(--gray-0);
-    border: 1px dashed var(--gray-300);
+    color: var(--gray-300);
+    background-color: transparent;
+    border: 1px dashed currentColor;
   }
+}
+
+.subtle {
+  color: var(--gray-400);
 }

@@ -9,14 +9,14 @@ import { Component, Input } from '@angular/core';
 export class BoardComponent {
   @Input()
   public set lanes(value: string[]) {
-    this.board = [...value, 'default'].reduce((acc, lane) => ({
+    this.board = ['Unassigned', ...value].reduce((acc, lane) => ({
       ...acc,
       [lane]: this.board[lane] ?? []
     }), {})
   }
 
   public board: Record<string, string[]> = {
-    default: [
+    Unassigned: [
       'Get to work',
       'Pick up groceries',
       'Go home',

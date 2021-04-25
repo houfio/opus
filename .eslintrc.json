@@ -50,6 +50,7 @@
             }
           }
         ],
+        "import/namespace": "off",
         "no-multiple-empty-lines": [
           "error",
           {

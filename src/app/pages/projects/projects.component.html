@@ -1,0 +1,8 @@
+<app-container>
+  <app-heading>
+    New project
+  </app-heading>
+  <div *ngFor="let project of projects$ | async">
+    {{ project.name }}
+  </div>
+</app-container>
