@@ -13,6 +13,14 @@
       </form>
     </app-column>
   </app-row>
-  or request to join an exiting one
-  <app-project-card *ngFor="let project of projects$ | async" [project]="project" (press)="joinProject(project)"></app-project-card>
+  <ng-container *ngIf="projects$ | async; let projects">
+    <div class="subtle">
+      or request to join an exiting project
+    </div>
+    <app-row [spaces]="{ phone: 2 }">
+      <app-column *ngFor="let project of projects" [columns]="{ phone: 6, tablet: 3, laptop: 2 }">
+        <app-project-card [project]="project" (press)="joinProject(project)"></app-project-card>
+      </app-column>
+    </app-row>
+  </ng-container>
 </app-container>

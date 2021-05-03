@@ -1,4 +1,4 @@
-<app-container *ngIf="projects$ | async; let project">
+<app-container *ngIf="projects$ | async; let project; else loading">
   <app-heading>
     {{project.name}}
     <app-button action [route]="['settings']">
@@ -7,3 +7,6 @@
   </app-heading>
   <app-board [lanes]="project.lanes"></app-board>
 </app-container>
+<ng-template #loading>
+  <app-spinner></app-spinner>
+</ng-template>

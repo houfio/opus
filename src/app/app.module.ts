@@ -21,6 +21,7 @@ import { InputComponent } from './components/input/input.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { ProjectCardComponent } from './components/project-card/project-card.component';
 import { RowComponent } from './components/row/row.component';
+import { SpinnerComponent } from './components/spinner/spinner.component';
 import { PaletteDirective } from './directives/palette.directive';
 import { authorized } from './guards/authorized';
 import { unauthorized } from './guards/unauthorized';
@@ -55,6 +56,7 @@ const routes: Routes = [
     NavigationComponent,
     ProjectCardComponent,
     RowComponent,
+    SpinnerComponent,
     // pages
     DashboardComponent,
     LoginComponent,

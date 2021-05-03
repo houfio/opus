@@ -1,3 +1,8 @@
-<app-container>
-  settings
+<app-container *ngIf="projects$ | async; let project; else loading">
+  <app-heading>
+    Settings
+  </app-heading>
 </app-container>
+<ng-template #loading>
+  <app-spinner></app-spinner>
+</ng-template>

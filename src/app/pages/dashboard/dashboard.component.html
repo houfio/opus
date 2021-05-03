@@ -1,9 +1,9 @@
-<app-container>
+<app-container *ngIf="projects$ | async; let projects; else loading">
   <app-heading>
     Dashboard
   </app-heading>
   <app-row [spaces]="{ phone: 2 }">
-    <app-column *ngFor="let project of projects$ | async" [columns]="{ phone: 6, tablet: 3, laptop: 2 }">
+    <app-column *ngFor="let project of projects" [columns]="{ phone: 6, tablet: 3, laptop: 2 }">
       <app-project-card [project]="project"></app-project-card>
     </app-column>
     <app-column [columns]="{ phone: 6, tablet: 3, laptop: 2 }">
@@ -11,3 +11,6 @@
     </app-column>
   </app-row>
 </app-container>
+<ng-template #loading>
+  <app-spinner></app-spinner>
+</ng-template>
