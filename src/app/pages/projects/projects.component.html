@@ -2,7 +2,17 @@
   <app-heading>
     New project
   </app-heading>
-  <div *ngFor="let project of projects$ | async">
-    {{ project.name }}
-  </div>
+  <app-row>
+    <app-column [columns]="{ phone: 6, laptop: 3 }">
+      <form (ngSubmit)="createProject()" class="form">
+        <app-input name="name" label="Name" [(ngModel)]="project.name"></app-input>
+        <app-input name="description" label="Description" [(ngModel)]="project.description"></app-input>
+        <app-button class="submit">
+          Create
+        </app-button>
+      </form>
+    </app-column>
+  </app-row>
+  or request to join an exiting one
+  <app-project-card *ngFor="let project of projects$ | async" [project]="project" (press)="joinProject(project)"></app-project-card>
 </app-container>

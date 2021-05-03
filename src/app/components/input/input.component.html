@@ -1,0 +1,11 @@
+<label [htmlFor]="name" class="label">
+  {{ label }}
+</label>
+<input
+  [id]="name"
+  [name]="name"
+  class="input"
+  [ngModel]="value"
+  (ngModelChange)="onChange($event)"
+  (blur)="onTouch()"
+/>

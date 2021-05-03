@@ -3,7 +3,7 @@
   <ng-container *ngIf="project; else fallback">
     {{ project.name }}
     <div class="subtle">
-      {{ project.users.length }} user(s)
+      {{ project.description }} - {{ project.users.length }} user(s)
     </div>
   </ng-container>
   <ng-template #fallback>
@@ -16,7 +16,7 @@
   </a>
 </ng-template>
 <ng-template #button>
-  <a class="card" (click)="press.emit()">
+  <button class="card" (click)="press.emit()">
     <ng-container *ngTemplateOutlet="content"></ng-container>
-  </a>
+  </button>
 </ng-template>

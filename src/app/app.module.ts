@@ -4,6 +4,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { canActivate } from '@angular/fire/auth-guard';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -16,6 +17,7 @@ import { ButtonComponent } from './components/button/button.component';
 import { ColumnComponent } from './components/column/column.component';
 import { ContainerComponent } from './components/container/container.component';
 import { HeadingComponent } from './components/heading/heading.component';
+import { InputComponent } from './components/input/input.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { ProjectCardComponent } from './components/project-card/project-card.component';
 import { RowComponent } from './components/row/row.component';
@@ -47,6 +49,7 @@ const routes: Routes = [
     ColumnComponent,
     ContainerComponent,
     HeadingComponent,
+    InputComponent,
     NavigationComponent,
     ProjectCardComponent,
     RowComponent,
@@ -59,6 +62,7 @@ const routes: Routes = [
   imports: [
     BrowserModule,
     RouterModule.forRoot(routes),
+    FormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFirestoreModule,
