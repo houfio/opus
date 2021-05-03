@@ -28,7 +28,7 @@ export class ProjectComponent {
       ])),
       map(([project, users]) => ({
         ...project,
-        lanes: users.map((user) => user.name)
+        lanes: users.filter((user) => project.users.indexOf(user.id) !== -1).map((user) => user.name)
       }))
     );
   }

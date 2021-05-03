@@ -26,6 +26,7 @@ import { authorized } from './guards/authorized';
 import { unauthorized } from './guards/unauthorized';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { LoginComponent } from './pages/login/login.component';
+import { ProjectSettingsComponent } from './pages/project-settings/project-settings.component';
 import { ProjectComponent } from './pages/project/project.component';
 import { ProjectsComponent } from './pages/projects/projects.component';
 import { AuthService } from './services/auth.service';
@@ -35,7 +36,8 @@ const routes: Routes = [
   { path: '', component: DashboardComponent, ...canActivate(authorized) },
   { path: 'login', component: LoginComponent, ...canActivate(unauthorized) },
   { path: 'projects', component: ProjectsComponent, ...canActivate(authorized) },
-  { path: 'projects/:project', component: ProjectComponent, ...canActivate(authorized) }
+  { path: 'projects/:project', component: ProjectComponent, ...canActivate(authorized) },
+  { path: 'projects/:project/settings', component: ProjectSettingsComponent, ...canActivate(authorized) }
 ];
 
 @NgModule({
@@ -56,6 +58,7 @@ const routes: Routes = [
     // pages
     DashboardComponent,
     LoginComponent,
+    ProjectSettingsComponent,
     ProjectComponent,
     ProjectsComponent
   ],

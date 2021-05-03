@@ -1,6 +1,9 @@
 <app-container *ngIf="projects$ | async; let project">
   <app-heading>
     {{project.name}}
+    <app-button action [route]="['settings']">
+      Settings
+    </app-button>
   </app-heading>
   <app-board [lanes]="project.lanes"></app-board>
 </app-container>
