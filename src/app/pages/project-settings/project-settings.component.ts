@@ -19,7 +19,7 @@ export class ProjectSettingsComponent implements OnDestroy {
 
   private subscription: Subscription;
 
-  public constructor(route: ActivatedRoute, router: Router, auth: AuthService, data: DataService) {
+  public constructor(route: ActivatedRoute, router: Router, auth: AuthService, private data: DataService) {
     this.projects$ = route.parent!.paramMap.pipe(
       switchMap((params) => data.getProject(params.get('project') ?? '')),
       filterNullish()
@@ -30,6 +30,10 @@ export class ProjectSettingsComponent implements OnDestroy {
         router.navigate(['/']);
       }
     });
+  }
+
+  public updateProject(project: IdentifiableModel<ProjectModel>) {
+    this.data.updateProject(project)?.subscribe();
   }
 
   public ngOnDestroy() {

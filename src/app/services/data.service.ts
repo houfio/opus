@@ -88,6 +88,19 @@ export class DataService {
     }));
   }
 
+  public updateProject(project: IdentifiableModel<ProjectModel>) {
+    const user = this.auth.user;
+
+    if (!user || project.owner !== user.uid) {
+      return;
+    }
+
+    return defer(() => this.store.collection('projects').doc(project.id).update({
+      name: project.name,
+      description: project.description
+    }));
+  }
+
   public getUsers(project: IdentifiableModel<ProjectModel>) {
     return this.getUserCollection(project).valueChanges({
       idField: 'id'
