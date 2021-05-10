@@ -1,14 +1,7 @@
 @import "src/utils";
 
-:host {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 3rem;
-}
-
 .heading {
-  margin-left: -.25rem;
+  margin: 0 0 3rem -.25rem;
   font-size: 2rem;
 
   &::after {

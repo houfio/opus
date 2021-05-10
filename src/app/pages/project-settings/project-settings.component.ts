@@ -1,7 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, tap } from 'rxjs/operators';
 
 import { IdentifiableModel } from '../../models/identifiable.model';
 import { ProjectModel } from '../../models/project.model';
@@ -20,7 +20,8 @@ export class ProjectSettingsComponent implements OnDestroy {
   private subscription: Subscription;
 
   public constructor(route: ActivatedRoute, router: Router, auth: AuthService, data: DataService) {
-    this.projects$ = route.paramMap.pipe(
+    this.projects$ = route.parent!.paramMap.pipe(
+      tap((value) => console.log(value)),
       switchMap((params) => data.getProject(params.get('project') ?? '')),
       filterNullish()
     );

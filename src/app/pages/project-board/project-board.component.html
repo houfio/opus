@@ -1,7 +1,8 @@
 <ng-container *ngIf="projects$ | async; let project; else loading">
   <app-heading>
-    Settings
+    {{project.name}}
   </app-heading>
+  <app-board [lanes]="project.lanes"></app-board>
 </ng-container>
 <ng-template #loading>
   <app-spinner></app-spinner>

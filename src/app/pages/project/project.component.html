@@ -1,12 +1,10 @@
-<app-container *ngIf="projects$ | async; let project; else loading">
-  <app-heading>
-    {{project.name}}
-    <app-button action [route]="['settings']">
-      Settings
-    </app-button>
-  </app-heading>
-  <app-board [lanes]="project.lanes"></app-board>
+<app-container>
+  <app-row [spaces]="{ phone: 2 }">
+    <app-column [columns]="{ phone: 6, laptop: 1 }">
+      <app-sidebar></app-sidebar>
+    </app-column>
+    <app-column [columns]="{ phone: 6, laptop: 5 }">
+      <router-outlet></router-outlet>
+    </app-column>
+  </app-row>
 </app-container>
-<ng-template #loading>
-  <app-spinner></app-spinner>
-</ng-template>

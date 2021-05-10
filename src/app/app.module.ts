@@ -21,12 +21,14 @@ import { InputComponent } from './components/input/input.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { ProjectCardComponent } from './components/project-card/project-card.component';
 import { RowComponent } from './components/row/row.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { PaletteDirective } from './directives/palette.directive';
 import { authorized } from './guards/authorized';
 import { unauthorized } from './guards/unauthorized';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { LoginComponent } from './pages/login/login.component';
+import { ProjectBoardComponent } from './pages/project-board/project-board.component';
 import { ProjectSettingsComponent } from './pages/project-settings/project-settings.component';
 import { ProjectComponent } from './pages/project/project.component';
 import { ProjectsComponent } from './pages/projects/projects.component';
@@ -37,8 +39,15 @@ const routes: Routes = [
   { path: '', component: DashboardComponent, ...canActivate(authorized) },
   { path: 'login', component: LoginComponent, ...canActivate(unauthorized) },
   { path: 'projects', component: ProjectsComponent, ...canActivate(authorized) },
-  { path: 'projects/:project', component: ProjectComponent, ...canActivate(authorized) },
-  { path: 'projects/:project/settings', component: ProjectSettingsComponent, ...canActivate(authorized) }
+  {
+    path: 'projects/:project',
+    component: ProjectComponent,
+    ...canActivate(authorized),
+    children: [
+      { path: '', component: ProjectBoardComponent },
+      { path: 'settings', component: ProjectSettingsComponent }
+    ]
+  }
 ];
 
 @NgModule({
@@ -56,10 +65,12 @@ const routes: Routes = [
     NavigationComponent,
     ProjectCardComponent,
     RowComponent,
+    SidebarComponent,
     SpinnerComponent,
     // pages
     DashboardComponent,
     LoginComponent,
+    ProjectBoardComponent,
     ProjectSettingsComponent,
     ProjectComponent,
     ProjectsComponent
