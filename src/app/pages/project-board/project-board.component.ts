@@ -19,7 +19,7 @@ export class ProjectBoardComponent {
   }>;
 
   public constructor(route: ActivatedRoute, data: DataService) {
-    this.projects$ = route.paramMap.pipe(
+    this.projects$ = route.parent!.paramMap.pipe(
       switchMap((params) => data.getProject(params.get('project') ?? '')),
       filterNullish(),
       switchMap((project) => combineLatest([

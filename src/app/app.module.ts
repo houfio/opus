@@ -28,6 +28,7 @@ import { authorized } from './guards/authorized';
 import { unauthorized } from './guards/unauthorized';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { LoginComponent } from './pages/login/login.component';
+import { ProjectBacklogComponent } from './pages/project-backlog/project-backlog.component';
 import { ProjectBoardComponent } from './pages/project-board/project-board.component';
 import { ProjectSettingsComponent } from './pages/project-settings/project-settings.component';
 import { ProjectComponent } from './pages/project/project.component';
@@ -44,7 +45,8 @@ const routes: Routes = [
     component: ProjectComponent,
     ...canActivate(authorized),
     children: [
-      { path: '', component: ProjectBoardComponent },
+      { path: '', component: ProjectBacklogComponent },
+      { path: 'board', component: ProjectBoardComponent },
       { path: 'settings', component: ProjectSettingsComponent }
     ]
   }
@@ -70,6 +72,7 @@ const routes: Routes = [
     // pages
     DashboardComponent,
     LoginComponent,
+    ProjectBacklogComponent,
     ProjectBoardComponent,
     ProjectSettingsComponent,
     ProjectComponent,
