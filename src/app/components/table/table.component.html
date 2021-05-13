@@ -1,0 +1,15 @@
+<table cdk-table [dataSource]="data">
+  <ng-container *ngFor="let column of columns" [cdkColumnDef]="column[0]">
+    <th cdk-header-cell *cdkHeaderCellDef>{{ column[1] }}</th>
+    <td cdk-cell *cdkCellDef="let element">
+      <ng-container *ngIf="column[2]; let template; else fallback">
+        <ng-container *ngTemplateOutlet="template; context: element"></ng-container>
+      </ng-container>
+      <ng-template #fallback>
+        {{ element[column[0]] }}
+      </ng-template>
+    </td>
+  </ng-container>
+  <tr cdk-header-row *cdkHeaderRowDef="columnKeys"></tr>
+  <tr cdk-row *cdkRowDef="let row; columns: columnKeys;"></tr>
+</table>

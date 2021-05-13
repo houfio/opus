@@ -1,4 +1,5 @@
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { CdkTableModule } from '@angular/cdk/table';
 import { NgModule } from '@angular/core';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
@@ -23,6 +24,7 @@ import { ProjectCardComponent } from './components/project-card/project-card.com
 import { RowComponent } from './components/row/row.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
+import { TableComponent } from './components/table/table.component';
 import { PaletteDirective } from './directives/palette.directive';
 import { authorized } from './guards/authorized';
 import { unauthorized } from './guards/unauthorized';
@@ -43,12 +45,12 @@ const routes: Routes = [
   {
     path: 'projects/:project',
     component: ProjectComponent,
-    ...canActivate(authorized),
     children: [
       { path: '', component: ProjectBacklogComponent },
       { path: 'board', component: ProjectBoardComponent },
       { path: 'settings', component: ProjectSettingsComponent }
-    ]
+    ],
+    ...canActivate(authorized)
   }
 ];
 
@@ -69,6 +71,7 @@ const routes: Routes = [
     RowComponent,
     SidebarComponent,
     SpinnerComponent,
+    TableComponent,
     // pages
     DashboardComponent,
     LoginComponent,
@@ -86,7 +89,8 @@ const routes: Routes = [
     AngularFireAuthModule,
     AngularFirestoreModule,
     FontAwesomeModule,
-    DragDropModule
+    DragDropModule,
+    CdkTableModule
   ],
   providers: [
     AuthService,

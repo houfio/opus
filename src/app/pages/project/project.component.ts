@@ -19,7 +19,7 @@ export class ProjectComponent {
 
   public constructor(route: ActivatedRoute, data: DataService, public auth: AuthService) {
     this.project$ = route.paramMap.pipe(
-      switchMap((params) => data.getProject(params.get('project') ?? '')),
+      switchMap((params) => data.getProject(params.get('project'))),
       filterNullish()
     );
   }

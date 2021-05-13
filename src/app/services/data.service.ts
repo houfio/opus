@@ -65,7 +65,11 @@ export class DataService {
     return defer(() => batch.commit());
   }
 
-  public getProject(id: string) {
+  public getProject(id: string | null) {
+    if (!id) {
+      return of(null);
+    }
+
     return this.store.collection<ProjectModel>('projects').doc(id).valueChanges({
       idField: 'id'
     });
