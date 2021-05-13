@@ -20,9 +20,10 @@
     ]"
   >
     <ng-template #detail let-data>
-      <div style="padding: 1rem">
-        detail {{ data.id }}
-      </div>
+      <form style="padding: 1rem; width: 100%">
+        <app-input name="name" label="Name" [(ngModel)]="data.name"></app-input>
+        <app-input name="role" label="Role" [(ngModel)]="data.role"></app-input>
+      </form>
     </ng-template>
     <ng-template #accepted let-value>
       <fa-icon [icon]="value ? checked : unchecked" [fixedWidth]="true"></fa-icon>

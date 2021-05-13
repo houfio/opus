@@ -34,3 +34,7 @@ cdk-header-cell {
   font-weight: bold;
   text-transform: uppercase;
 }
+
+cdk-cell:first-child:last-child {
+  width: 100%;
+}

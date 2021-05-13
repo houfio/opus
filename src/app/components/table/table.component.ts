@@ -10,7 +10,7 @@ import { Component, Input, TemplateRef } from '@angular/core';
       state('true', style({
         marginBottom: '1rem'
       })),
-      state('false', style({
+      state('false, void', style({
         display: 'none',
         height: '0',
         opacity: '0',
