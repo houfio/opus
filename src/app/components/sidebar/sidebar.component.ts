@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { faBorderAll, faCog, faStream } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -7,6 +7,9 @@ import { faBorderAll, faCog, faStream } from '@fortawesome/free-solid-svg-icons'
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent {
+  @Input()
+  public owner!: boolean;
+
   public backlog = faStream;
   public board = faBorderAll;
   public settings = faCog;

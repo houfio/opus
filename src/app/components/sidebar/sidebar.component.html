@@ -6,7 +6,7 @@
   <fa-icon [icon]="board" [fixedWidth]="true" class="icon"></fa-icon>
   <span class="text">Board</span>
 </app-button>
-<app-button [route]="['settings']">
+<app-button *ngIf="owner" [route]="['settings']">
   <fa-icon [icon]="settings" [fixedWidth]="true" class="icon"></fa-icon>
   <span class="text">Settings</span>
 </app-button>

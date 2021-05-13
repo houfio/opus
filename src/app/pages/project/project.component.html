@@ -1,10 +1,16 @@
-<app-container>
+<app-container *ngIf="project$ | async; let project; else loading">
+  <app-heading>
+    {{ project.name }}
+  </app-heading>
   <app-row [spaces]="{ phone: 2 }">
     <app-column [columns]="{ phone: 12, laptop: 3, desktop: 2 }">
-      <app-sidebar></app-sidebar>
+      <app-sidebar [owner]="project.owner === auth.user?.uid"></app-sidebar>
     </app-column>
     <app-column [columns]="{ phone: 12, laptop: 9, desktop: 10 }">
       <router-outlet></router-outlet>
     </app-column>
   </app-row>
 </app-container>
+<ng-template #loading>
+  <app-spinner message="Loading project..."></app-spinner>
+</ng-template>

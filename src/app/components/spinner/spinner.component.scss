@@ -1,8 +1,9 @@
 :host {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: calc(100vh - 7.5rem - 3px);
+  height: 50vh;
 }
 
 .spinner {

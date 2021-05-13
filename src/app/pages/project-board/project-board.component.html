@@ -1,9 +1,6 @@
 <ng-container *ngIf="projects$ | async; let project; else loading">
-  <app-heading>
-    Board
-  </app-heading>
   <app-board [lanes]="project.lanes"></app-board>
 </ng-container>
 <ng-template #loading>
-  <app-spinner></app-spinner>
+  <app-spinner message="Loading board..."></app-spinner>
 </ng-template>

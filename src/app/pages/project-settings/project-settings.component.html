@@ -1,7 +1,4 @@
-<ng-container *ngIf="projects$ | async; let project; else loading">
-  <app-heading>
-    Settings
-  </app-heading>
+<ng-container *ngIf="project$ | async; let project; else loading">
   <app-row>
     <app-column [columns]="{ phone: 12, laptop: 6 }">
       <form (ngSubmit)="updateProject(project)" class="form">
@@ -15,5 +12,5 @@
   </app-row>
 </ng-container>
 <ng-template #loading>
-  <app-spinner></app-spinner>
+  <app-spinner message="Loading settings..."></app-spinner>
 </ng-template>
