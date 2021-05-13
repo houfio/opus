@@ -1,3 +1,12 @@
-<app-button [route]="['.']">Backlog</app-button>
-<app-button [route]="['board']">Board</app-button>
-<app-button [route]="['settings']">Settings</app-button>
+<app-button [route]="['.']">
+  <fa-icon [icon]="backlog" [fixedWidth]="true" class="icon"></fa-icon>
+  <span class="text">Backlog</span>
+</app-button>
+<app-button [route]="['board']">
+  <fa-icon [icon]="board" [fixedWidth]="true" class="icon"></fa-icon>
+  <span class="text">Board</span>
+</app-button>
+<app-button [route]="['settings']">
+  <fa-icon [icon]="settings" [fixedWidth]="true" class="icon"></fa-icon>
+  <span class="text">Settings</span>
+</app-button>

@@ -3,7 +3,7 @@
     Settings
   </app-heading>
   <app-row>
-    <app-column [columns]="{ phone: 6, laptop: 3 }">
+    <app-column [columns]="{ phone: 12, laptop: 6 }">
       <form (ngSubmit)="updateProject(project)" class="form">
         <app-input name="name" label="Name" [(ngModel)]="project.name"></app-input>
         <app-input name="description" label="Description" [(ngModel)]="project.description"></app-input>

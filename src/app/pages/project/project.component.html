@@ -1,9 +1,9 @@
 <app-container>
   <app-row [spaces]="{ phone: 2 }">
-    <app-column [columns]="{ phone: 6, laptop: 1 }">
+    <app-column [columns]="{ phone: 12, laptop: 3, desktop: 2 }">
       <app-sidebar></app-sidebar>
     </app-column>
-    <app-column [columns]="{ phone: 6, laptop: 5 }">
+    <app-column [columns]="{ phone: 12, laptop: 9, desktop: 10 }">
       <router-outlet></router-outlet>
     </app-column>
   </app-row>

@@ -3,7 +3,7 @@
     New project
   </app-heading>
   <app-row>
-    <app-column [columns]="{ phone: 6, laptop: 3 }">
+    <app-column [columns]="{ phone: 12, laptop: 6 }">
       <form (ngSubmit)="createProject()" class="form">
         <app-input name="name" label="Name" [(ngModel)]="project.name"></app-input>
         <app-input name="description" label="Description" [(ngModel)]="project.description"></app-input>
@@ -18,7 +18,7 @@
       or request to join an exiting project
     </div>
     <app-row [spaces]="{ phone: 2 }">
-      <app-column *ngFor="let project of projects" [columns]="{ phone: 6, tablet: 3, laptop: 2 }">
+      <app-column *ngFor="let project of projects" [columns]="{ phone: 12, tablet: 6, laptop: 4 }">
         <app-project-card [project]="project" (press)="joinProject(project)"></app-project-card>
       </app-column>
     </app-row>

@@ -1,6 +1,6 @@
 <ng-container *ngIf="projects$ | async; let project; else loading">
   <app-heading>
-    {{project.name}}
+    Board
   </app-heading>
   <app-board [lanes]="project.lanes"></app-board>
 </ng-container>
