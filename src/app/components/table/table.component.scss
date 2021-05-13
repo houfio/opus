@@ -1,47 +1,36 @@
 @import "src/utils";
 
-.cdk-table {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0 1rem;
+cdk-table {
+  display: flex;
+  flex-direction: column;
 }
 
-.cdk-header-cell, .cdk-cell {
-  padding: 1rem .5rem;
+cdk-header-row {
+  display: flex;
+  padding: 1rem;
+}
 
-  &:not(:first-child) {
-    display: none;
+cdk-row {
+  display: flex;
+  margin-left: 1rem;
+  background-color: var(--gray-200);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: box-shadow .25s ease;
 
-    @include with-breakpoint(tablet) {
-      display: table-cell;
-    }
+  &:focus {
+    box-shadow: 0 0 0 3px inset var(--gray-500);
   }
 
-  &:first-child {
-    padding-left: 1rem;
-    border-radius: 8px;
-
-    @include with-breakpoint(tablet) {
-      border-radius: 8px 0 0 8px;
-    }
-  }
-
-  &:last-child {
-    padding-right: 1rem;
-    border-radius: 0 8px 8px 0;
+  &[tabindex] {
+    padding: 1rem;
+    margin: 0 0 1rem;
   }
 }
 
-.cdk-header-cell {
-  padding-top: 0;
-  padding-bottom: 0;
+cdk-header-cell {
   color: var(--gray-400);
   font-size: .9rem;
   font-weight: bold;
   text-transform: uppercase;
-  text-align: start;
-}
-
-.cdk-row {
-  background-color: var(--gray-200);
 }

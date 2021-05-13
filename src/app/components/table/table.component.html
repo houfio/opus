@@ -1,15 +1,26 @@
-<table cdk-table [dataSource]="data">
-  <ng-container *ngFor="let column of columns" [cdkColumnDef]="column[0]">
-    <th cdk-header-cell *cdkHeaderCellDef>{{ column[1] }}</th>
-    <td cdk-cell *cdkCellDef="let element">
-      <ng-container *ngIf="column[2]; let template; else fallback">
-        <ng-container *ngTemplateOutlet="template; context: element"></ng-container>
+<cdk-table [dataSource]="data" [multiTemplateDataRows]="true">
+  <ng-container *ngFor="let column of columns" [cdkColumnDef]="column.key">
+    <cdk-header-cell *cdkHeaderCellDef [ngStyle]="getColumnSize(column)">{{ column.title }}</cdk-header-cell>
+    <cdk-cell *cdkCellDef="let element" [ngStyle]="getColumnSize(column)">
+      <ng-container *ngIf="column.template; else fallback">
+        <ng-container *ngTemplateOutlet="column.template; context: { $implicit: element[column.key] }"></ng-container>
       </ng-container>
       <ng-template #fallback>
-        {{ element[column[0]] }}
+        {{ element[column.key] }}
       </ng-template>
-    </td>
+    </cdk-cell>
   </ng-container>
-  <tr cdk-header-row *cdkHeaderRowDef="columnKeys"></tr>
-  <tr cdk-row *cdkRowDef="let row; columns: columnKeys;"></tr>
-</table>
+  <ng-container cdkColumnDef="detail">
+    <cdk-cell *cdkCellDef="let element" [attr.colspan]="columns.length">
+      <ng-container *ngTemplateOutlet="detail; context: { $implicit: element }"></ng-container>
+    </cdk-cell>
+  </ng-container>
+  <cdk-header-row *cdkHeaderRowDef="columnKeys"></cdk-header-row>
+  <cdk-row
+    *cdkRowDef="let row; columns: columnKeys;"
+    tabindex="0"
+    (click)="setExpanded(row)"
+    (keydown.enter)="setExpanded(row)"
+  ></cdk-row>
+  <cdk-row *cdkRowDef="let row; columns: ['detail']" [@detail]="row === expanded"></cdk-row>
+</cdk-table>

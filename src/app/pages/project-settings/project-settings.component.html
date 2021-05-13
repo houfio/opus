@@ -12,9 +12,19 @@
   </app-row>
   <app-table
     [data]="project.userData"
-    [columns]="[['name', 'Name'], ['role', 'Role'], ['accepted', 'Accepted', accepted]]"
+    [detail]="detail"
+    [columns]="[
+      { key: 'name', title: 'Name' },
+      { key: 'role', title: 'Role', width: '10rem' },
+      { key: 'accepted', title: 'Accepted', width: '5rem', template: accepted }
+    ]"
   >
-    <ng-template #accepted let-value="accepted">
+    <ng-template #detail let-data>
+      <div style="padding: 1rem">
+        detail {{ data.id }}
+      </div>
+    </ng-template>
+    <ng-template #accepted let-value>
       <fa-icon [icon]="value ? checked : unchecked" [fixedWidth]="true"></fa-icon>
     </ng-template>
   </app-table>
