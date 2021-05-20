@@ -14,12 +14,12 @@ import { DataService } from '../../services/data.service';
   styleUrls: ['./project-board.component.scss']
 })
 export class ProjectBoardComponent {
-  public projects$: Observable<IdentifiableModel<ProjectModel> & {
+  public project$: Observable<IdentifiableModel<ProjectModel> & {
     lanes: string[]
   }>;
 
   public constructor(route: ActivatedRoute, data: DataService) {
-    this.projects$ = route.parent!.paramMap.pipe(
+    this.project$ = route.parent!.paramMap.pipe(
       switchMap((params) => data.getProject(params.get('project'))),
       filterNullish(),
       switchMap((project) => combineLatest([
