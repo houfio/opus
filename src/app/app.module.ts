@@ -38,6 +38,7 @@ import { ProjectComponent } from './pages/project/project.component';
 import { ProjectsComponent } from './pages/projects/projects.component';
 import { AuthService } from './services/auth.service';
 import { ProjectService } from './services/project.service';
+import { SprintService } from './services/sprint.service';
 import { UserService } from './services/user.service';
 
 const routes: Routes = [
@@ -98,6 +99,7 @@ const routes: Routes = [
   providers: [
     AuthService,
     ProjectService,
+    SprintService,
     UserService
   ],
   bootstrap: [AppComponent]

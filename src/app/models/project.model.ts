@@ -3,6 +3,7 @@ export interface ProjectModel {
   description: string;
   owner: string; // -> UserModel
   users: string[];
+  currentSprint: string; // -> SprintModel
   // users: UserModel[];
   // states: StateModel[];
   // tasks: TaskModel[];
