@@ -16,7 +16,7 @@ export class DataService {
   public constructor(private store: AngularFirestore, private auth: AuthService) {
   }
 
-  public getProjects(userOf?: boolean) {
+  public getProjects(userOf?: boolean, archived = false) {
     const user = this.auth.user;
 
     if (userOf !== undefined && !user) {
@@ -31,7 +31,8 @@ export class DataService {
     }).pipe(
       map((projects) => userOf !== false ? projects : projects.filter(
         (project) => !project.users.includes(user!.uid)
-      ))
+      )),
+      map((projects) => archived ? projects : projects.filter((project) => !project.archived))
     );
   }
 

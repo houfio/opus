@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { ActivatedRoute, Router } from '@angular/router';
+import { EMPTY, Observable } from 'rxjs';
+import { catchError, switchMap } from 'rxjs/operators';
 
 import { IdentifiableModel } from '../../models/identifiable.model';
 import { ProjectModel } from '../../models/project.model';
@@ -17,10 +17,15 @@ import { DataService } from '../../services/data.service';
 export class ProjectComponent {
   public project$: Observable<IdentifiableModel<ProjectModel>>;
 
-  public constructor(route: ActivatedRoute, data: DataService, public auth: AuthService) {
+  public constructor(route: ActivatedRoute, router: Router, data: DataService, public auth: AuthService) {
     this.project$ = route.paramMap.pipe(
       switchMap((params) => data.getProject(params.get('project'))),
-      filterNullish()
+      filterNullish(),
+      catchError(() => {
+        router.navigate(['/']);
+
+        return EMPTY;
+      })
     );
   }
 }
