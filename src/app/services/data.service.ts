@@ -110,6 +110,12 @@ export class DataService {
     });
   }
 
+  public getOwner(project: IdentifiableModel<ProjectModel>) {
+    return this.getUserCollection(project).doc(project.owner).valueChanges({
+      idField: 'id'
+    });
+  }
+
   public updateUser(project: IdentifiableModel<ProjectModel>, user: IdentifiableModel<UserModel>) {
     const batch = this.store.firestore.batch();
     const document = this.store.firestore.collection('projects').doc(project.id);

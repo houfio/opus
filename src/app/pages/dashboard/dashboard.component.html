@@ -4,7 +4,7 @@
   </app-heading>
   <app-row [spaces]="{ phone: 2 }">
     <app-column *ngFor="let project of projects" [columns]="{ phone: 12, tablet: 6, laptop: 4 }">
-      <app-project-card [project]="project"></app-project-card>
+      <app-project-card [project]="project" [owner]="project.ownerData"></app-project-card>
     </app-column>
     <app-column [columns]="{ phone: 12, tablet: 6, laptop: 4 }">
       <app-project-card></app-project-card>

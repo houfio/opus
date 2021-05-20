@@ -3,6 +3,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 import { IdentifiableModel } from '../../models/identifiable.model';
 import { ProjectModel } from '../../models/project.model';
+import { UserModel } from '../../models/user.model';
 
 @Component({
   selector: 'app-project-card',
@@ -11,6 +12,7 @@ import { ProjectModel } from '../../models/project.model';
 })
 export class ProjectCardComponent {
   @Input() public project?: IdentifiableModel<ProjectModel>;
+  @Input() public owner?: IdentifiableModel<UserModel>;
   @Output() public press = new EventEmitter<void>();
 
   public icon = faPlus;
