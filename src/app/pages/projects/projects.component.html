@@ -14,8 +14,8 @@
     </app-column>
   </app-row>
   <ng-container *ngIf="projects$ | async; let projects">
-    <div class="subtle">
-      or request to join an exiting project
+    <div *ngIf="projects.length > 0" class="subtle">
+      or request to join an existing project
     </div>
     <app-row [spaces]="{ phone: 2 }">
       <app-column *ngFor="let project of projects" [columns]="{ phone: 12, tablet: 6, laptop: 4 }">
