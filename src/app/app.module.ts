@@ -39,6 +39,7 @@ import { ProjectsComponent } from './pages/projects/projects.component';
 import { AuthService } from './services/auth.service';
 import { ProjectService } from './services/project.service';
 import { SprintService } from './services/sprint.service';
+import { StateService } from './services/state.service';
 import { TaskService } from './services/task.service';
 import { UserService } from './services/user.service';
 
@@ -101,6 +102,7 @@ const routes: Routes = [
     AuthService,
     ProjectService,
     SprintService,
+    StateService,
     TaskService,
     UserService
   ],
