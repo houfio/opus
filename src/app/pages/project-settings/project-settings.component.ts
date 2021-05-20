@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { combineLatest, Observable, of } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { map, switchMap, tap } from 'rxjs/operators';
 
 import { IdentifiableModel } from '../../models/identifiable.model';
 import { ProjectModel } from '../../models/project.model';
@@ -32,6 +32,7 @@ export class ProjectSettingsComponent {
         of(project),
         data.getUsers(project)
       ])),
+      tap((value) => console.log(value)),
       map(([project, users]) => ({
         ...project,
         userData: users.map((user) => ({
@@ -44,5 +45,13 @@ export class ProjectSettingsComponent {
 
   public updateProject(project: IdentifiableModel<ProjectModel>) {
     this.data.updateProject(project)?.subscribe();
+  }
+
+  public updateUser(project: IdentifiableModel<ProjectModel>, user: IdentifiableModel<UserModel>) {
+    this.data.updateUser(project, user).subscribe();
+  }
+
+  public deleteUser(project: IdentifiableModel<ProjectModel>, user: IdentifiableModel<UserModel>) {
+    this.data.deleteUser(project, user).subscribe();
   }
 }

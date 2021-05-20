@@ -25,6 +25,10 @@ cdk-row {
   &[tabindex] {
     padding: 1rem;
     margin: 0 0 1rem;
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 }
 

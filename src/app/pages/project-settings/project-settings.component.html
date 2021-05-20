@@ -20,9 +20,15 @@
     ]"
   >
     <ng-template #detail let-data>
-      <form style="padding: 1rem; width: 100%">
+      <form style="padding: 1rem; width: 100%" (ngSubmit)="updateUser(project, data)">
         <app-input name="name" label="Name" [(ngModel)]="data.name"></app-input>
         <app-input name="role" label="Role" [(ngModel)]="data.role"></app-input>
+        <app-button [palette]="['gray-0', 'yellow-200']">
+          {{ data.accepted ? 'Save' : 'Accept and save' }}
+        </app-button>
+        <app-button *ngIf="project.owner !== data.id" [palette]="['red-200', 'gray-200']" (press)="deleteUser(project, data)">
+          Remove
+        </app-button>
       </form>
     </ng-template>
     <ng-template #accepted let-value>

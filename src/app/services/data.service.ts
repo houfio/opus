@@ -43,9 +43,9 @@ export class DataService {
     }
 
     const batch = this.store.firestore.batch();
-    const project = this.store.firestore.collection('projects').doc();
+    const document = this.store.firestore.collection('projects').doc();
 
-    batch.set(project, {
+    batch.set(document, {
       name,
       description,
       owner: user.uid,
@@ -55,9 +55,7 @@ export class DataService {
       ]
     });
 
-    const users = project.collection('users');
-
-    batch.set(users.doc(user.uid), {
+    batch.set(document.collection('users').doc(user.uid), {
       name: user.displayName ?? 'Anonymous',
       role: 'Owner'
     });
@@ -109,5 +107,39 @@ export class DataService {
     return this.getUserCollection(project).valueChanges({
       idField: 'id'
     });
+  }
+
+  public updateUser(project: IdentifiableModel<ProjectModel>, user: IdentifiableModel<UserModel>) {
+    const batch = this.store.firestore.batch();
+    const document = this.store.firestore.collection('projects').doc(project.id);
+
+    if (project.users.indexOf(user.id) === -1) {
+      batch.update(document, {
+        users: [
+          ...project.users,
+          user.id
+        ]
+      });
+    }
+
+    batch.set(document.collection('users').doc(user.id), {
+      name: user.name,
+      role: user.role
+    });
+
+    return defer(() => batch.commit());
+  }
+
+  public deleteUser(project: IdentifiableModel<ProjectModel>, user: IdentifiableModel<UserModel>) {
+    const batch = this.store.firestore.batch();
+    const document = this.store.firestore.collection('projects').doc(project.id);
+
+    batch.update(document, {
+      users: project.users.filter((id) => id !== user.id)
+    });
+
+    batch.delete(document.collection('users').doc(user.id));
+
+    return defer(() => batch.commit());
   }
 }

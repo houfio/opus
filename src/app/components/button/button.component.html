@@ -8,7 +8,7 @@
   </a>
 </ng-template>
 <ng-template #button>
-  <button (click)="press.emit()" [appPalette]="palette">
+  <button [type]="type" (click)="press.emit()" [appPalette]="palette">
     <ng-container *ngTemplateOutlet="content"></ng-container>
   </button>
 </ng-template>

@@ -12,4 +12,8 @@ export class ButtonComponent {
   @Input() public route?: string[];
   @Input() public params?: object;
   @Output() public press = new EventEmitter<void>();
+
+  public get type() {
+    return this.press.observers.length ? 'button' : 'submit';
+  }
 }
