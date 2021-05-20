@@ -25,14 +25,25 @@ export class ProjectService {
 
     return this.store.collection<ProjectModel>(
       'projects',
-      (ref) => userOf ? ref.where('users', 'array-contains', user!.uid) : ref
+      (ref) => {
+        let query = ref as any;
+
+        if (userOf) {
+          query = query.where('users', 'array-contains', user!.uid);
+        }
+
+        if (!archived) {
+          query = query.where('archived', '==', false);
+        }
+
+        return query;
+      }
     ).valueChanges({
       idField: 'id'
     }).pipe(
       map((projects) => userOf !== false ? projects : projects.filter(
         (project) => !project.users.includes(user!.uid)
-      )),
-      map((projects) => archived ? projects : projects.filter((project) => !project.archived))
+      ))
     );
   }
 
