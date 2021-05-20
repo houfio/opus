@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { defer, of } from 'rxjs';
+import { defer, EMPTY, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { IdentifiableModel } from '../models/identifiable.model';
@@ -40,7 +40,7 @@ export class DataService {
     const user = this.auth.user;
 
     if (!user) {
-      return;
+      return EMPTY;
     }
 
     const batch = this.store.firestore.batch();
@@ -82,7 +82,7 @@ export class DataService {
     const user = this.auth.user;
 
     if (!user) {
-      return;
+      return EMPTY;
     }
 
     return defer(() => this.getUserCollection(project).doc(user.uid).set({
@@ -92,15 +92,15 @@ export class DataService {
   }
 
   public updateProject(project: IdentifiableModel<ProjectModel>) {
-    const user = this.auth.user;
-
-    if (!user || project.owner !== user.uid) {
-      return;
-    }
-
     return defer(() => this.store.collection('projects').doc(project.id).update({
       name: project.name,
       description: project.description
+    }));
+  }
+
+  public archiveProject(project: IdentifiableModel<ProjectModel>) {
+    return defer(() => this.store.collection('projects').doc(project.id).update({
+      archived: !project.archived
     }));
   }
 

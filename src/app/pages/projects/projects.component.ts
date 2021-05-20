@@ -23,12 +23,10 @@ export class ProjectsComponent {
   }
 
   public createProject() {
-    this.data.createProject(this.project.name, this.project.description)
-      ?.subscribe(() => this.router.navigate(['']));
+    this.data.createProject(this.project.name, this.project.description).subscribe(() => this.router.navigate(['']));
   }
 
   public joinProject(project: IdentifiableModel<ProjectModel>) {
-    this.data.joinProject(project)
-      ?.subscribe(() => this.router.navigate(['']));
+    this.data.joinProject(project).subscribe(() => this.router.navigate(['']));
   }
 }

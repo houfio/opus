@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { combineLatest, Observable, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
@@ -24,7 +24,7 @@ export class ProjectSettingsComponent {
   public checked = faCheck;
   public unchecked = faTimes;
 
-  public constructor(route: ActivatedRoute, private data: DataService) {
+  public constructor(route: ActivatedRoute, private router: Router, private data: DataService) {
     this.project$ = route.parent!.paramMap.pipe(
       switchMap((params) => data.getProject(params.get('project'))),
       filterNullish(),
@@ -43,7 +43,11 @@ export class ProjectSettingsComponent {
   }
 
   public updateProject(project: IdentifiableModel<ProjectModel>) {
-    this.data.updateProject(project)?.subscribe();
+    this.data.updateProject(project).subscribe();
+  }
+
+  public archiveProject(project: IdentifiableModel<ProjectModel>) {
+    this.data.archiveProject(project).subscribe(() => this.router.navigate(['/']));
   }
 
   public updateUser(project: IdentifiableModel<ProjectModel>, user: IdentifiableModel<UserModel>) {
