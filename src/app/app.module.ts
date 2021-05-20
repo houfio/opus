@@ -37,7 +37,8 @@ import { ProjectSettingsComponent } from './pages/project-settings/project-setti
 import { ProjectComponent } from './pages/project/project.component';
 import { ProjectsComponent } from './pages/projects/projects.component';
 import { AuthService } from './services/auth.service';
-import { DataService } from './services/data.service';
+import { ProjectService } from './services/project.service';
+import { UserService } from './services/user.service';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent, ...canActivate(authorized) },
@@ -96,7 +97,8 @@ const routes: Routes = [
   ],
   providers: [
     AuthService,
-    DataService
+    ProjectService,
+    UserService
   ],
   bootstrap: [AppComponent]
 })

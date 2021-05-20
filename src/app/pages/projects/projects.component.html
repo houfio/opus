@@ -5,8 +5,8 @@
   <app-row>
     <app-column [columns]="{ phone: 12, laptop: 6 }">
       <form (ngSubmit)="createProject()" class="form">
-        <app-input name="name" label="Name" [(ngModel)]="project.name"></app-input>
-        <app-input name="description" label="Description" [(ngModel)]="project.description"></app-input>
+        <app-input name="name" label="Name" [(ngModel)]="data.name"></app-input>
+        <app-input name="description" label="Description" [(ngModel)]="data.description"></app-input>
         <app-button class="submit">
           Create
         </app-button>

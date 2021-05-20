@@ -6,7 +6,8 @@ import { map, switchMap } from 'rxjs/operators';
 import { IdentifiableModel } from '../../models/identifiable.model';
 import { ProjectModel } from '../../models/project.model';
 import { filterNullish } from '../../operators/filter-nullish';
-import { DataService } from '../../services/data.service';
+import { ProjectService } from '../../services/project.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-project-board',
@@ -18,13 +19,13 @@ export class ProjectBoardComponent {
     lanes: string[]
   }>;
 
-  public constructor(route: ActivatedRoute, data: DataService) {
+  public constructor(route: ActivatedRoute, project: ProjectService, user: UserService) {
     this.project$ = route.parent!.paramMap.pipe(
-      switchMap((params) => data.getProject(params.get('project'))),
+      switchMap((params) => project.getProject(params.get('project'))),
       filterNullish(),
       switchMap((project) => combineLatest([
         of(project),
-        data.getUsers(project)
+        user.getUsers(project)
       ])),
       map(([project, users]) => ({
         ...project,

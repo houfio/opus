@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 import { IdentifiableModel } from '../../models/identifiable.model';
 import { ProjectModel } from '../../models/project.model';
-import { DataService } from '../../services/data.service';
+import { ProjectService } from '../../services/project.service';
 
 @Component({
   selector: 'app-projects',
@@ -13,20 +13,20 @@ import { DataService } from '../../services/data.service';
 })
 export class ProjectsComponent {
   public projects$: Observable<IdentifiableModel<ProjectModel>[]>;
-  public project = {
+  public data = {
     name: '',
     description: ''
   };
 
-  public constructor(private router: Router, private data: DataService) {
-    this.projects$ = data.getProjects(false);
+  public constructor(private router: Router, private project: ProjectService) {
+    this.projects$ = project.getProjects(false);
   }
 
   public createProject() {
-    this.data.createProject(this.project.name, this.project.description).subscribe(() => this.router.navigate(['']));
+    this.project.createProject(this.data.name, this.data.description).subscribe(() => this.router.navigate(['']));
   }
 
   public joinProject(project: IdentifiableModel<ProjectModel>) {
-    this.data.joinProject(project).subscribe(() => this.router.navigate(['']));
+    this.project.joinProject(project).subscribe(() => this.router.navigate(['']));
   }
 }

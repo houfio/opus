@@ -5,7 +5,8 @@ import { map, switchMap } from 'rxjs/operators';
 import { IdentifiableModel } from '../../models/identifiable.model';
 import { ProjectModel } from '../../models/project.model';
 import { UserModel } from '../../models/user.model';
-import { DataService } from '../../services/data.service';
+import { ProjectService } from '../../services/project.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,11 +18,11 @@ export class DashboardComponent {
     ownerData?: IdentifiableModel<UserModel>
   }>[]>;
 
-  public constructor(data: DataService) {
-    this.projects$ = data.getProjects(true).pipe(
+  public constructor(project: ProjectService, user: UserService) {
+    this.projects$ = project.getProjects(true).pipe(
       switchMap((projects) => combineLatest(projects.map((project) => combineLatest([
         of(project),
-        data.getOwner(project)
+        user.getOwner(project)
       ])))),
       map((projects) => projects.map(([project, ownerData]) => ({
         ...project,

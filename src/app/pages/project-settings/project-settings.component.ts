@@ -8,7 +8,8 @@ import { IdentifiableModel } from '../../models/identifiable.model';
 import { ProjectModel } from '../../models/project.model';
 import { UserModel } from '../../models/user.model';
 import { filterNullish } from '../../operators/filter-nullish';
-import { DataService } from '../../services/data.service';
+import { ProjectService } from '../../services/project.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-project-settings',
@@ -24,13 +25,13 @@ export class ProjectSettingsComponent {
   public checked = faCheck;
   public unchecked = faTimes;
 
-  public constructor(route: ActivatedRoute, private router: Router, private data: DataService) {
+  public constructor(route: ActivatedRoute, private router: Router, private project: ProjectService, private user: UserService) {
     this.project$ = route.parent!.paramMap.pipe(
-      switchMap((params) => data.getProject(params.get('project'))),
+      switchMap((params) => project.getProject(params.get('project'))),
       filterNullish(),
       switchMap((project) => combineLatest([
         of(project),
-        data.getUsers(project)
+        user.getUsers(project)
       ])),
       map(([project, users]) => ({
         ...project,
@@ -43,18 +44,18 @@ export class ProjectSettingsComponent {
   }
 
   public updateProject(project: IdentifiableModel<ProjectModel>) {
-    this.data.updateProject(project).subscribe();
+    this.project.updateProject(project).subscribe();
   }
 
   public archiveProject(project: IdentifiableModel<ProjectModel>) {
-    this.data.archiveProject(project).subscribe(() => this.router.navigate(['/']));
+    this.project.archiveProject(project).subscribe(() => this.router.navigate(['/']));
   }
 
   public updateUser(project: IdentifiableModel<ProjectModel>, user: IdentifiableModel<UserModel>) {
-    this.data.updateUser(project, user).subscribe();
+    this.user.updateUser(project, user).subscribe();
   }
 
   public deleteUser(project: IdentifiableModel<ProjectModel>, user: IdentifiableModel<UserModel>) {
-    this.data.deleteUser(project, user).subscribe();
+    this.user.deleteUser(project, user).subscribe();
   }
 }
