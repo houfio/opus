@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
+
 import { IdentifiableModel } from '../models/identifiable.model';
 import { ProjectModel } from '../models/project.model';
 import { SprintModel } from '../models/sprint.model';
