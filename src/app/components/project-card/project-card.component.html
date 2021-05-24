@@ -13,10 +13,16 @@
 <ng-template #anchor>
   <a class="card" [attr.data-fallback]="!project" [routerLink]="project ? ['projects', project.id] : ['projects']">
     <ng-container *ngTemplateOutlet="content"></ng-container>
+    <span *ngIf="text" class="text">
+      {{ text }}
+    </span>
   </a>
 </ng-template>
 <ng-template #button>
-  <button class="card" (click)="press.emit()">
+  <button class="card" [attr.data-fallback]="!project" (click)="press.emit()">
     <ng-container *ngTemplateOutlet="content"></ng-container>
+    <span *ngIf="text" class="text">
+      {{ text }}
+    </span>
   </button>
 </ng-template>

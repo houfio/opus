@@ -8,10 +8,14 @@ import { Palette } from '../../types';
   styleUrls: ['./button.component.scss']
 })
 export class ButtonComponent {
-  @Input() public palette?: Palette;
-  @Input() public route?: string[];
-  @Input() public params?: object;
-  @Output() public press = new EventEmitter<void>();
+  @Input()
+  public palette?: Palette;
+  @Input()
+  public route?: string[];
+  @Input()
+  public params?: object;
+  @Output()
+  public press = new EventEmitter<void>();
 
   public get type() {
     return this.press.observers.length ? 'button' : 'submit';
