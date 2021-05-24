@@ -4,7 +4,7 @@
   </app-heading>
   <app-row [spaces]="{ phone: 2 }">
     <app-column [columns]="{ phone: 12, laptop: 3, desktop: 2 }">
-      <app-sidebar [owner]="project.owner === authService.user?.uid"></app-sidebar>
+      <app-sidebar [owner]="project.owner === project.userId"></app-sidebar>
     </app-column>
     <app-column [columns]="{ phone: 12, laptop: 9, desktop: 10 }">
       <router-outlet></router-outlet>

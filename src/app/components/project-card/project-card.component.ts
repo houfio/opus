@@ -19,8 +19,9 @@ export class ProjectCardComponent {
   @Input()
   public icon: IconProp = faPlus;
   @Input()
-  public text?:string;
-  @Output() public press = new EventEmitter<void>();
+  public text?: string;
+  @Output()
+  public press = new EventEmitter<void>();
 
   public get isButton() {
     return Boolean(this.press.observers.length);

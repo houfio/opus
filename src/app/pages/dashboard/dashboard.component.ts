@@ -21,7 +21,7 @@ export class DashboardComponent {
   public icon = faTrash;
   public showArchived = false;
 
-  public constructor(projectService: ProjectService, userService: UserService) {
+  public constructor(private projectService: ProjectService, userService: UserService) {
     this.projects$ = projectService.getProjects(true, true).pipe(
       switchMap((projects) => combineLatest(projects.map((project) => combineLatest([
         of(project),
@@ -34,7 +34,15 @@ export class DashboardComponent {
     );
   }
 
-  public unarchived<T extends { archived: boolean }>(projects: T[]) {
-    return projects.filter((project) => !project.archived);
+  public hasArchived(projects: IdentifiableModel<ProjectModel>[]) {
+    return projects.some((project) => project.archived);
+  }
+
+  public filterProjects<T extends { archived: boolean }>(projects: T[], archived: boolean) {
+    return projects.filter((project) => project.archived === archived);
+  }
+
+  public archiveProject(project: IdentifiableModel<ProjectModel>) {
+    this.projectService.archiveProject(project).subscribe();
   }
 }

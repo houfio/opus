@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { EMPTY, Observable } from 'rxjs';
-import { catchError, switchMap } from 'rxjs/operators';
+import { combineLatest, EMPTY, Observable } from 'rxjs';
+import { catchError, map, switchMap } from 'rxjs/operators';
 
 import { IdentifiableModel } from '../../models/identifiable.model';
 import { ProjectModel } from '../../models/project.model';
@@ -15,11 +15,20 @@ import { ProjectService } from '../../services/project.service';
   styleUrls: ['./project.component.scss']
 })
 export class ProjectComponent {
-  public project$: Observable<IdentifiableModel<ProjectModel>>;
+  public project$: Observable<IdentifiableModel<ProjectModel> & {
+    userId: string
+  }>;
 
-  public constructor(route: ActivatedRoute, router: Router, projectService: ProjectService, public authService: AuthService) {
+  public constructor(route: ActivatedRoute, router: Router, projectService: ProjectService, authService: AuthService) {
     this.project$ = route.paramMap.pipe(
-      switchMap((params) => projectService.getProject(params.get('project'))),
+      switchMap((params) => combineLatest([
+        projectService.getProject(params.get('project')),
+        authService.user$
+      ])),
+      map(([project, user]) => !project || !user ? undefined : ({
+        ...project,
+        userId: user.uid
+      })),
       filterNullish(),
       catchError(() => {
         router.navigate(['/']);

@@ -8,6 +8,10 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-  public constructor(public authService: AuthService) {
+  public constructor(private authService: AuthService) {
+  }
+
+  public login() {
+    this.authService.login().subscribe();
   }
 }

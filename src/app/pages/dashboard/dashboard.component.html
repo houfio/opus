@@ -2,19 +2,24 @@
   <app-heading>
     Dashboard
   </app-heading>
-  <app-row [spaces]="{ phone: 2 }">
-    <app-column *ngFor="let project of unarchived(projects)" [columns]="{ phone: 12, tablet: 6, laptop: 4 }">
+  <app-row [spaces]="{ phone: 2 }" class="projects">
+    <app-column *ngFor="let project of filterProjects(projects, false)" [columns]="{ phone: 12, tablet: 6, laptop: 4 }">
       <app-project-card [project]="project" [owner]="project.ownerData"></app-project-card>
     </app-column>
     <app-column [columns]="{ phone: 12, tablet: 6, laptop: 4 }">
       <app-project-card></app-project-card>
     </app-column>
-    <app-column *ngIf="!showArchived" [columns]="{ phone: 12, tablet: 6, laptop: 4 }">
+    <app-column *ngIf="hasArchived(projects)" [columns]="{ phone: 12, tablet: 6, laptop: 4 }">
       <app-project-card
         [icon]="icon"
-        text="Show archived projects"
-        (press)="showArchived = true"
+        [text]="(showArchived ? 'Hide' : 'Show') + ' archived projects'"
+        (press)="showArchived = !showArchived"
       ></app-project-card>
+    </app-column>
+  </app-row>
+  <app-row *ngIf="showArchived" [spaces]="{ phone: 2 }">
+    <app-column *ngFor="let project of filterProjects(projects, true)" [columns]="{ phone: 12, tablet: 6, laptop: 4 }">
+      <app-project-card [project]="project"></app-project-card>
     </app-column>
   </app-row>
 </app-container>
