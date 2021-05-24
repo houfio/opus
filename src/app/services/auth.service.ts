@@ -12,7 +12,7 @@ export class AuthService {
   public readonly user$: Observable<firebase.User | undefined>;
 
   public constructor(private auth: AngularFireAuth, private router: Router) {
-    this.user$ = auth.authState.pipe(
+    this.user$ = auth.user.pipe(
       map((state) => state ?? undefined)
     );
   }
