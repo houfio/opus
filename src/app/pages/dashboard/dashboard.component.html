@@ -19,7 +19,7 @@
   </app-row>
   <app-row *ngIf="showArchived" [spaces]="{ phone: 2 }">
     <app-column *ngFor="let project of filterProjects(projects, true)" [columns]="{ phone: 12, tablet: 6, laptop: 4 }">
-      <app-project-card [project]="project"></app-project-card>
+      <app-project-card [project]="project" (press)="archiveProject(project)"></app-project-card>
     </app-column>
   </app-row>
 </app-container>
