@@ -11,6 +11,6 @@ import { AuthService } from '../../services/auth.service';
 export class NavigationComponent {
   public readonly logo = faTable;
 
-  public constructor(public auth: AuthService) {
+  public constructor(public authService: AuthService) {
   }
 }

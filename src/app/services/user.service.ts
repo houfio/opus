@@ -6,13 +6,11 @@ import { IdentifiableModel } from '../models/identifiable.model';
 import { ProjectModel } from '../models/project.model';
 import { UserModel } from '../models/user.model';
 
-import { AuthService } from './auth.service';
-
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  public constructor(private store: AngularFirestore, private auth: AuthService) {
+  public constructor(private store: AngularFirestore) {
   }
 
   private getUserCollection(project: IdentifiableModel<ProjectModel>) {

@@ -21,11 +21,11 @@ export class DashboardComponent {
   public icon = faTrash;
   public showArchived = false;
 
-  public constructor(project: ProjectService, user: UserService) {
-    this.projects$ = project.getProjects(true, true).pipe(
+  public constructor(projectService: ProjectService, userService: UserService) {
+    this.projects$ = projectService.getProjects(true, true).pipe(
       switchMap((projects) => combineLatest(projects.map((project) => combineLatest([
         of(project),
-        user.getOwner(project)
+        userService.getOwner(project)
       ])))),
       map((projects) => projects.map(([project, ownerData]) => ({
         ...project,

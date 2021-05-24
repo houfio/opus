@@ -17,9 +17,9 @@ import { ProjectService } from '../../services/project.service';
 export class ProjectComponent {
   public project$: Observable<IdentifiableModel<ProjectModel>>;
 
-  public constructor(route: ActivatedRoute, router: Router, project: ProjectService, public auth: AuthService) {
+  public constructor(route: ActivatedRoute, router: Router, projectService: ProjectService, public authService: AuthService) {
     this.project$ = route.paramMap.pipe(
-      switchMap((params) => project.getProject(params.get('project'))),
+      switchMap((params) => projectService.getProject(params.get('project'))),
       filterNullish(),
       catchError(() => {
         router.navigate(['/']);

@@ -3,11 +3,11 @@
     <fa-icon [icon]="logo"></fa-icon>
     Opus
   </span>
-  <div *ngIf="auth.authenticated$ | async" class="items">
+  <div *ngIf="authService.authenticated$ | async" class="items">
     <app-button [route]="['']" [palette]="['gray-500', 'gray-0']">
       Dashboard
     </app-button>
-    <app-button (press)="auth.logout()" [palette]="['gray-500', 'gray-0']">
+    <app-button (press)="authService.logout()" [palette]="['gray-500', 'gray-0']">
       Logout
     </app-button>
     <app-button [route]="['projects']" [palette]="['gray-0', 'yellow-200']">

@@ -13,11 +13,11 @@ import { AuthService } from './auth.service';
   providedIn: 'root'
 })
 export class ProjectService {
-  public constructor(private store: AngularFirestore, private auth: AuthService) {
+  public constructor(private store: AngularFirestore, private authService: AuthService) {
   }
 
   public getProjects(userOf?: boolean, archived = false) {
-    const user = this.auth.user;
+    const user = this.authService.user;
 
     if (userOf !== undefined && !user) {
       return of([]);
@@ -48,7 +48,7 @@ export class ProjectService {
   }
 
   public createProject(name: string, description: string) {
-    const user = this.auth.user;
+    const user = this.authService.user;
 
     if (!user) {
       return of(undefined);
@@ -86,7 +86,7 @@ export class ProjectService {
   }
 
   public joinProject(project: IdentifiableModel<ProjectModel>) {
-    const user = this.auth.user;
+    const user = this.authService.user;
 
     if (!user) {
       return of(undefined);

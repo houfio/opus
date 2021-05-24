@@ -18,15 +18,15 @@ export class ProjectsComponent {
     description: ''
   };
 
-  public constructor(private router: Router, private project: ProjectService) {
-    this.projects$ = project.getProjects(false);
+  public constructor(private router: Router, private projectService: ProjectService) {
+    this.projects$ = projectService.getProjects(false);
   }
 
   public createProject() {
-    this.project.createProject(this.data.name, this.data.description).subscribe(() => this.router.navigate(['']));
+    this.projectService.createProject(this.data.name, this.data.description).subscribe(() => this.router.navigate(['']));
   }
 
   public joinProject(project: IdentifiableModel<ProjectModel>) {
-    this.project.joinProject(project).subscribe(() => this.router.navigate(['']));
+    this.projectService.joinProject(project).subscribe(() => this.router.navigate(['']));
   }
 }

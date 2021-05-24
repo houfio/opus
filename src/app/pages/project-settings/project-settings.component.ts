@@ -25,13 +25,13 @@ export class ProjectSettingsComponent {
   public checked = faCheck;
   public unchecked = faTimes;
 
-  public constructor(route: ActivatedRoute, private router: Router, private project: ProjectService, private user: UserService) {
+  public constructor(route: ActivatedRoute, private router: Router, private projectService: ProjectService, private userService: UserService) {
     this.project$ = route.parent!.paramMap.pipe(
-      switchMap((params) => project.getProject(params.get('project'))),
+      switchMap((params) => projectService.getProject(params.get('project'))),
       filterNullish(),
       switchMap((project) => combineLatest([
         of(project),
-        user.getUsers(project)
+        userService.getUsers(project)
       ])),
       map(([project, users]) => ({
         ...project,
@@ -44,18 +44,18 @@ export class ProjectSettingsComponent {
   }
 
   public updateProject(project: IdentifiableModel<ProjectModel>) {
-    this.project.updateProject(project).subscribe();
+    this.projectService.updateProject(project).subscribe();
   }
 
   public archiveProject(project: IdentifiableModel<ProjectModel>) {
-    this.project.archiveProject(project).subscribe(() => this.router.navigate(['/']));
+    this.projectService.archiveProject(project).subscribe(() => this.router.navigate(['/']));
   }
 
   public updateUser(project: IdentifiableModel<ProjectModel>, user: IdentifiableModel<UserModel>) {
-    this.user.updateUser(project, user).subscribe();
+    this.userService.updateUser(project, user).subscribe();
   }
 
   public deleteUser(project: IdentifiableModel<ProjectModel>, user: IdentifiableModel<UserModel>) {
-    this.user.deleteUser(project, user).subscribe();
+    this.userService.deleteUser(project, user).subscribe();
   }
 }

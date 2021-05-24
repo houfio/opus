@@ -19,13 +19,13 @@ export class ProjectBoardComponent {
     lanes: string[]
   }>;
 
-  public constructor(route: ActivatedRoute, project: ProjectService, user: UserService) {
+  public constructor(route: ActivatedRoute, projectService: ProjectService, userService: UserService) {
     this.project$ = route.parent!.paramMap.pipe(
-      switchMap((params) => project.getProject(params.get('project'))),
+      switchMap((params) => projectService.getProject(params.get('project'))),
       filterNullish(),
       switchMap((project) => combineLatest([
         of(project),
-        user.getUsers(project)
+        userService.getUsers(project)
       ])),
       map(([project, users]) => ({
         ...project,

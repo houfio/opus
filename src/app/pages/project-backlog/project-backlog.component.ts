@@ -26,7 +26,7 @@ export class ProjectBacklogComponent {
     sprints: IdentifiableModel<SprintModel>[]
   }>;
 
-  public constructor(route: ActivatedRoute, private projectService: ProjectService, private taskService: TaskService, private stateService: StateService, private sprintService: SprintService) {
+  public constructor(route: ActivatedRoute, projectService: ProjectService, taskService: TaskService, stateService: StateService, sprintService: SprintService) {
     this.project$ = route.parent!.paramMap.pipe(
       switchMap((params) => projectService.getProject(params.get('project'))),
       filterNullish(),
