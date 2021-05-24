@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { map } from 'rxjs/operators';
 
 import { IdentifiableModel } from '../models/identifiable.model';
 import { ProjectModel } from '../models/project.model';
@@ -20,6 +21,14 @@ export class SprintService {
     return this.getSprintCollection(project).valueChanges({
       idField: 'id'
     });
+  }
+
+  public getSprintBacklog(project: IdentifiableModel<ProjectModel>) {
+    return this.getSprintCollection(project).valueChanges({
+      idField: 'id'
+    }).pipe(
+      map((sprints) => sprints.filter((sprint) => !sprint.endDate || sprint.endDate.toDate() > new Date()))
+    );
   }
 
   public getCurrentSprint(project: IdentifiableModel<ProjectModel>) {

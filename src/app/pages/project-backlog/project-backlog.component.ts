@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { combineLatest, Observable, of } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { filter, map, switchMap, tap } from 'rxjs/operators';
 
 import { IdentifiableModel } from '../../models/identifiable.model';
 import { ProjectModel } from '../../models/project.model';
@@ -32,11 +32,15 @@ export class ProjectBacklogComponent {
       filterNullish(),
       switchMap((project) => combineLatest([
         of(project),
-        taskService.getTasks(project),
         stateService.getStates(project),
-        sprintService.getSprints(project)
+        sprintService.getSprintBacklog(project).pipe(
+          switchMap((sprints) => combineLatest([
+            of(sprints),
+            taskService.getTaskBacklog(project, sprints)
+          ]))
+        )
       ])),
-      map(([project, tasks, states, sprints]) => ({
+      map(([project, states, [sprints, tasks]]) => ({
         ...project,
         tasks,
         states,

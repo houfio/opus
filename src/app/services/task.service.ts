@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, QueryFn } from '@angular/fire/firestore';
 
 import { IdentifiableModel } from '../models/identifiable.model';
 import { ProjectModel } from '../models/project.model';
@@ -13,10 +13,26 @@ export class TaskService {
   public constructor(private store: AngularFirestore) {
   }
 
+  private getTaskCollection(project: IdentifiableModel<ProjectModel>, filter?: QueryFn) {
+    return this.store.collection('projects').doc(project.id).collection<TaskModel>('tasks', filter);
+  }
+
   public getTasks(project: IdentifiableModel<ProjectModel>, sprint?: IdentifiableModel<SprintModel>) {
-    return this.store.collection('projects').doc(project.id).collection<TaskModel>(
-      'tasks',
+    return this.getTaskCollection(
+      project,
       (ref) => sprint ? ref.where('sprint', '==', sprint.id) : ref
+    ).valueChanges({
+      idField: 'id'
+    });
+  }
+
+  public getTaskBacklog(project: IdentifiableModel<ProjectModel>, sprints: IdentifiableModel<SprintModel>[]) {
+    return this.getTaskCollection(
+      project,
+      (ref) => ref.where('sprint', 'in', [
+        ...sprints.map((sprint) => sprint.id),
+        ''
+      ])
     ).valueChanges({
       idField: 'id'
     });
