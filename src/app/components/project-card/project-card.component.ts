@@ -20,6 +20,8 @@ export class ProjectCardComponent {
   public icon: IconProp = faPlus;
   @Input()
   public text?: string;
+  @Input()
+  public archived?: boolean;
   @Output()
   public press = new EventEmitter<void>();
 

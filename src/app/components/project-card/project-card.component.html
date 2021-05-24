@@ -11,7 +11,7 @@
   </ng-template>
 </ng-template>
 <ng-template #anchor>
-  <a class="card" [attr.data-fallback]="!project" [routerLink]="project ? ['projects', project.id] : ['projects']">
+  <a class="card" [class.fallback]="!project" [class.archived]="archived" [routerLink]="project ? ['projects', project.id] : ['projects']">
     <ng-container *ngTemplateOutlet="content"></ng-container>
     <span *ngIf="text" class="text">
       {{ text }}
@@ -19,7 +19,7 @@
   </a>
 </ng-template>
 <ng-template #button>
-  <button class="card" [attr.data-fallback]="!project" (click)="press.emit()">
+  <button class="card" [class.fallback]="!project" [class.archived]="archived" (click)="press.emit()">
     <ng-container *ngTemplateOutlet="content"></ng-container>
     <span *ngIf="text" class="text">
       {{ text }}

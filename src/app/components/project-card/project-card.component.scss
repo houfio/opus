@@ -12,11 +12,15 @@
   border-radius: 8px;
   transition: box-shadow .25s ease;
 
+  &.archived {
+    box-shadow: 0 0 8px inset var(--red-100);
+  }
+
   &:focus {
     box-shadow: 0 0 0 3px inset var(--gray-500);
   }
 
-  &[data-fallback="true"] {
+  &.fallback {
     justify-content: center;
     align-items: center;
     color: var(--gray-300);
