@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { combineLatest, Observable, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
@@ -17,9 +18,11 @@ export class DashboardComponent {
   public projects$: Observable<IdentifiableModel<ProjectModel & {
     ownerData?: IdentifiableModel<UserModel>
   }>[]>;
+  public icon = faTrash;
+  public showArchived = false;
 
   public constructor(project: ProjectService, user: UserService) {
-    this.projects$ = project.getProjects(true).pipe(
+    this.projects$ = project.getProjects(true, true).pipe(
       switchMap((projects) => combineLatest(projects.map((project) => combineLatest([
         of(project),
         user.getOwner(project)
@@ -29,5 +32,9 @@ export class DashboardComponent {
         ownerData
       })))
     );
+  }
+
+  public unarchived<T extends { archived: boolean }>(projects: T[]) {
+    return projects.filter((project) => !project.archived);
   }
 }

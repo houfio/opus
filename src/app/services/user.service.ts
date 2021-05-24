@@ -1,16 +1,18 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { defer } from 'rxjs';
+import { defer, of } from 'rxjs';
 
 import { IdentifiableModel } from '../models/identifiable.model';
 import { ProjectModel } from '../models/project.model';
 import { UserModel } from '../models/user.model';
 
+import { AuthService } from './auth.service';
+
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  public constructor(private store: AngularFirestore) {
+  public constructor(private store: AngularFirestore, private auth: AuthService) {
   }
 
   private getUserCollection(project: IdentifiableModel<ProjectModel>) {
@@ -24,6 +26,10 @@ export class UserService {
   }
 
   public getOwner(project: IdentifiableModel<ProjectModel>) {
+    if (project.archived) {
+      return of(undefined);
+    }
+
     return this.getUserCollection(project).doc(project.owner).valueChanges({
       idField: 'id'
     });
