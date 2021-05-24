@@ -1,0 +1,4 @@
+<p>{{ sprint.name }} <span *ngIf="sprint.id === project.currentSprint">(Current sprint)</span></p>
+<div *ngFor="let task of tasksInSprint" cdkDropList (cdkDropListDropped)="onDrop($event)">
+  {{ task.title }}
+</div>

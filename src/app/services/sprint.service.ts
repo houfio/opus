@@ -27,7 +27,7 @@ export class SprintService {
     return this.getSprintCollection(project).valueChanges({
       idField: 'id'
     }).pipe(
-      map((sprints) => sprints.filter((sprint) => !sprint.endDate || sprint.endDate.toDate() > new Date()))
+      map((sprints) => sprints.filter((sprint) => project.currentSprint === sprint.id || !sprint.endDate || sprint.endDate.toDate() > new Date()))
     );
   }
 
