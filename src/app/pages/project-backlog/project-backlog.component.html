@@ -1,20 +1,11 @@
-<ng-container *ngIf="project$ | async; let project; else loading">
-  <app-row cdkDropListGroup>
-    <app-column [columns]="{ phone: 12, laptop: 6 }">
-      <app-sprint
-        *ngFor="let sprint of project.sprints"
-        [project]="project"
-        [sprint]="sprint"
-        [tasks]="project.tasks"
-      ></app-sprint>
-      <h2>Backlog</h2>
-      <div cdkDropList>
-        <div *ngFor="let task of getBacklog(project.tasks)" cdkDrag>
-          <p>{{ task.title }}</p>
-        </div>
-      </div>
-    </app-column>
-  </app-row>
+<ng-container *ngIf="project$ | async; let project; else loading" cdkDropListGroup>
+  <app-backlog-sprint
+    *ngFor="let sprint of project.sprints"
+    [project]="project"
+    [sprint]="sprint"
+    [tasks]="project.tasks"
+  ></app-backlog-sprint>
+  <app-backlog-sprint [project]="project" [tasks]="project.tasks"></app-backlog-sprint>
 </ng-container>
 <ng-template #loading>
   <app-spinner message="Loading tasks..."></app-spinner>

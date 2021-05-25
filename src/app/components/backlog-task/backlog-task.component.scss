@@ -1,0 +1,23 @@
+:host {
+  display: flex;
+  position: relative;
+  padding: .5rem .75rem;
+  background-color: var(--gray-100);
+  border-radius: 4px;
+  z-index: 1;
+
+  &:not(:last-of-type) {
+    margin-bottom: .5rem;
+  }
+
+  &.fallback {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    padding: calc(.5rem - 1px) calc(.75rem - 1px);
+    color: var(--gray-400);
+    background-color: transparent;
+    border: 1px dashed currentColor;
+    z-index: 0;
+  }
+}

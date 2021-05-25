@@ -48,8 +48,4 @@ export class ProjectBacklogComponent {
       }))
     )
   }
-
-  public getBacklog(tasks: IdentifiableModel<TaskModel>[]) {
-    return tasks.filter((task) => !task.sprint);
-  }
 }

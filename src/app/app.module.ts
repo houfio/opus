@@ -14,6 +14,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { environment } from '../environments/environment';
 
 import { AppComponent } from './app.component';
+import { BacklogSprintComponent } from './components/backlog-sprint/backlog-sprint.component';
+import { BacklogTaskComponent } from './components/backlog-task/backlog-task.component';
 import { BoardComponent } from './components/board/board.component';
 import { ButtonComponent } from './components/button/button.component';
 import { ColumnComponent } from './components/column/column.component';
@@ -25,7 +27,6 @@ import { ProjectCardComponent } from './components/project-card/project-card.com
 import { RowComponent } from './components/row/row.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
-import { SprintComponent } from './components/sprint/sprint.component';
 import { TableComponent } from './components/table/table.component';
 import { PaletteDirective } from './directives/palette.directive';
 import { authorized } from './guards/authorized';
@@ -66,6 +67,8 @@ const routes: Routes = [
     // directives
     PaletteDirective,
     // components
+    BacklogSprintComponent,
+    BacklogTaskComponent,
     BoardComponent,
     ButtonComponent,
     ColumnComponent,
@@ -77,7 +80,6 @@ const routes: Routes = [
     RowComponent,
     SidebarComponent,
     SpinnerComponent,
-    SprintComponent,
     TableComponent,
     // pages
     DashboardComponent,

@@ -72,3 +72,11 @@ button:not(:disabled):hover {
 svg, img {
   vertical-align: middle;
 }
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating, .cdk-drop-list-dragging .item:not(.cdk-drag-placeholder) {
+  transition: transform .25s ease;
+}

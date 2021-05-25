@@ -1,0 +1,10 @@
+<span class="title">
+  {{ sprint ? sprint.name : 'Backlog' }}
+</span>
+<div class="list" cdkDropList (cdkDropListDropped)="onDrop($event)" [style.min-height.px]="minHeight">
+  <app-backlog-task #fallback [@fallback]="empty"></app-backlog-task>
+  <app-backlog-task *ngFor="let task of tasksInSprint" cdkDrag [task]="task"></app-backlog-task>
+</div>
+<div class="footer">
+  Add task...
+</div>

@@ -19,14 +19,6 @@
   }
 }
 
-.cdk-drag-placeholder {
-  opacity: 0;
-}
-
-.cdk-drag-animating, .cdk-drop-list-dragging .item:not(.cdk-drag-placeholder) {
-  transition: transform .25s ease;
-}
-
 ::-webkit-scrollbar {
   height: 8px;
 }
