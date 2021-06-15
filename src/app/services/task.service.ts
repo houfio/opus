@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, QueryFn } from '@angular/fire/firestore';
+import { defer } from 'rxjs';
 
 import { IdentifiableModel } from '../models/identifiable.model';
 import { ProjectModel } from '../models/project.model';
@@ -36,5 +37,11 @@ export class TaskService {
     ).valueChanges({
       idField: 'id'
     });
+  }
+
+  public moveTaskToSprint(project: IdentifiableModel<ProjectModel>, task: IdentifiableModel<TaskModel>, sprint?: string) {
+    return defer(() => this.getTaskCollection(project).doc(task.id).update({
+      sprint: sprint ?? ''
+    }));
   }
 }

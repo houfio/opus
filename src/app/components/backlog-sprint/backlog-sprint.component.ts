@@ -1,10 +1,12 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostBinding, Input, ViewChild } from '@angular/core';
 
 import { IdentifiableModel } from '../../models/identifiable.model';
 import { ProjectModel } from '../../models/project.model';
 import { SprintModel } from '../../models/sprint.model';
 import { TaskModel } from '../../models/task.model';
+import { TaskService } from '../../services/task.service';
 
 @Component({
   selector: 'app-backlog-sprint',
@@ -34,7 +36,7 @@ export class BacklogSprintComponent implements AfterViewInit {
   @ViewChild('fallback', { read: ElementRef })
   public fallback?: ElementRef<HTMLElement>;
 
-  public constructor(private cd: ChangeDetectorRef) {
+  public constructor(private cd: ChangeDetectorRef, private taskService: TaskService) {
   }
 
   @HostBinding('class.current')
@@ -63,7 +65,7 @@ export class BacklogSprintComponent implements AfterViewInit {
     this.cd.detectChanges();
   }
 
-  public onDrop(event: unknown) {
-    console.log(event);
+  public onDrop(event: CdkDragDrop<IdentifiableModel<TaskModel>>) {
+    this.taskService.moveTaskToSprint(this.project, event.item.data, this.sprint?.id).subscribe();
   }
 }
