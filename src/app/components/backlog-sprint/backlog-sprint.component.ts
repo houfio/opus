@@ -6,6 +6,7 @@ import { IdentifiableModel } from '../../models/identifiable.model';
 import { ProjectModel } from '../../models/project.model';
 import { SprintModel } from '../../models/sprint.model';
 import { TaskModel } from '../../models/task.model';
+import { UserModel } from '../../models/user.model';
 import { TaskService } from '../../services/task.service';
 
 @Component({
@@ -35,6 +36,11 @@ export class BacklogSprintComponent implements AfterViewInit {
   public tasks!: IdentifiableModel<TaskModel>[];
   @ViewChild('fallback', { read: ElementRef })
   public fallback?: ElementRef<HTMLElement>;
+  public data = {
+    title: '',
+    points: 0,
+  };
+  public isOpen = false;
 
   public constructor(private cd: ChangeDetectorRef, private taskService: TaskService) {
   }
@@ -63,6 +69,19 @@ export class BacklogSprintComponent implements AfterViewInit {
 
   public ngAfterViewInit() {
     this.cd.detectChanges();
+  }
+
+  public openInput() {
+    this.isOpen = true;
+  }
+
+  public createTask() {
+    this.taskService.createTask(this.project, this.data.title, this.data.points, this.sprint?.id).subscribe();
+    this.data = {
+      title: '',
+      points: 0,
+    };
+    this.isOpen = false;
   }
 
   public onDrop(event: CdkDragDrop<IdentifiableModel<TaskModel>>) {
