@@ -3,27 +3,27 @@
 </span>
 <div class="list" cdkDropList (cdkDropListDropped)="onDrop($event)" [style.min-height.px]="minHeight">
   <app-backlog-task #fallback [@fallback]="empty"></app-backlog-task>
-  <app-backlog-task (click)="openDetails(task)" *ngFor="let task of tasksInSprint" cdkDrag [cdkDragData]="task" [task]="task"></app-backlog-task>
+  <app-backlog-task
+    *ngFor="let task of tasksInSprint"
+    cdkDrag
+    [cdkDragData]="task"
+    [task]="task"
+    (click)="openDetails(task)"
+  ></app-backlog-task>
 </div>
 <div class="footer">
-    <div *ngIf="isOpen; else notActive">
-      <form (ngSubmit)="createTask()">
-        <app-row [spaces]="{ tablet: 1 }">
-          <app-column [columns]="{ phone: 12 }">
-            <input
-              #taskInput
-              name="title"
-              class="taskInput"
-              placeholder="What needs to be done?"
-              [(ngModel)]="data.title"
-              (blur)="setOpen(false)"
-            />
-          </app-column>
-        </app-row>
-        <input type="submit" style="display: none" />
-      </form>
-    </div>
-    <ng-template #notActive>
-      <h1 (click)="setOpen(true)">Add task...</h1>
-    </ng-template>
+  <form *ngIf="data.open; else inactive" (ngSubmit)="createTask()">
+    <input
+      #taskInput
+      name="title"
+      class="input"
+      placeholder="What needs to be done?"
+      [(ngModel)]="data.title"
+      (blur)="setOpen(false)"
+    />
+    <input type="submit" style="display: none"/>
+  </form>
+  <ng-template #inactive>
+    <button class="input" (click)="setOpen(true)">Add task...</button>
+  </ng-template>
 </div>

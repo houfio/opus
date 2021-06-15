@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, QueryFn } from '@angular/fire/firestore';
-import { defer, from, of } from 'rxjs';
-import { isNumeric } from 'rxjs/internal-compatibility';
+import { defer, of } from 'rxjs';
 
 import { IdentifiableModel } from '../models/identifiable.model';
 import { ProjectModel } from '../models/project.model';
@@ -41,20 +40,18 @@ export class TaskService {
   }
 
   public createTask(project: IdentifiableModel<ProjectModel>, title: string, sprint?: string) {
-    if (!title) {
-      return of(undefined)
+    if (!title.trim()) {
+      return of(undefined);
     }
 
-    const newTask = this.getTaskCollection(project).doc().set({
+    return defer(() => this.getTaskCollection(project).doc().set({
       title,
       description: '',
       state: '',
       points: 0,
       sprint: sprint ?? '',
       archived: false
-    });
-
-    return from(newTask);
+    }));
   }
 
   public moveTaskToSprint(project: IdentifiableModel<ProjectModel>, task: IdentifiableModel<TaskModel>, sprint?: string) {

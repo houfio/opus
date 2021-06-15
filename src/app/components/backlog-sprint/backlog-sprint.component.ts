@@ -6,7 +6,6 @@ import { IdentifiableModel } from '../../models/identifiable.model';
 import { ProjectModel } from '../../models/project.model';
 import { SprintModel } from '../../models/sprint.model';
 import { TaskModel } from '../../models/task.model';
-import { UserModel } from '../../models/user.model';
 import { TaskService } from '../../services/task.service';
 
 @Component({
@@ -38,17 +37,18 @@ export class BacklogSprintComponent implements AfterViewInit {
   public fallback?: ElementRef<HTMLElement>;
   @ViewChild('taskInput', { read: ElementRef })
   public taskInput?: ElementRef<HTMLElement>;
+
   public data = {
+    open: false,
     title: ''
   };
-  public isOpen = false;
 
   public constructor(private cd: ChangeDetectorRef, private taskService: TaskService) {
   }
 
   @HostBinding('class.current')
   public get current() {
-    return this.sprint && this.sprint.id === this.project.currentSprint
+    return this.sprint && this.sprint.id === this.project.currentSprint;
   }
 
   @HostBinding('class.backlog')
@@ -72,25 +72,24 @@ export class BacklogSprintComponent implements AfterViewInit {
     this.cd.detectChanges();
   }
 
-  public setOpen(state: boolean) {
-    this.isOpen = state;
+  public setOpen(open: boolean) {
+    this.data = {
+      open,
+      title: ''
+    };
 
-    if (state) {
-      setTimeout(() => {
-        this.taskInput?.nativeElement.focus();
-      });
+    if (open) {
+      setTimeout(() => this.taskInput?.nativeElement.focus());
     }
   }
 
   public createTask() {
     this.taskService.createTask(this.project, this.data.title, this.sprint?.id).subscribe();
-    this.isOpen = false;
-    this.data.title = '';
+    this.setOpen(false);
   }
 
   public openDetails(task: IdentifiableModel<TaskModel>) {
-    console.log('Open details for', task.title);
-    console.log('Info', task);
+    console.log(task);
   }
 
   public onDrop(event: CdkDragDrop<IdentifiableModel<TaskModel>>) {
