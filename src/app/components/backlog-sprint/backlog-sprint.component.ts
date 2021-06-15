@@ -88,6 +88,11 @@ export class BacklogSprintComponent implements AfterViewInit {
     this.data.title = '';
   }
 
+  public openDetails(task: IdentifiableModel<TaskModel>) {
+    console.log('Open details for', task.title);
+    console.log('Info', task);
+  }
+
   public onDrop(event: CdkDragDrop<IdentifiableModel<TaskModel>>) {
     this.taskService.moveTaskToSprint(this.project, event.item.data, this.sprint?.id).subscribe();
   }
