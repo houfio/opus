@@ -26,6 +26,13 @@
   position: relative;
 }
 
+.taskInput {
+  box-shadow: 0 0 0 2px inset var(--gray-500);
+  padding: 0.5rem 0.75rem;
+  background-color: var(--gray-100);
+  border-radius: 4px;
+}
+
 .footer {
   margin-top: .5rem;
 }

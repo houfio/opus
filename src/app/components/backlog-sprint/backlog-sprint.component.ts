@@ -36,9 +36,10 @@ export class BacklogSprintComponent implements AfterViewInit {
   public tasks!: IdentifiableModel<TaskModel>[];
   @ViewChild('fallback', { read: ElementRef })
   public fallback?: ElementRef<HTMLElement>;
+  @ViewChild('taskInput', { read: ElementRef })
+  public taskInput?: ElementRef<HTMLElement>;
   public data = {
-    title: '',
-    points: 0,
+    title: ''
   };
   public isOpen = false;
 
@@ -71,17 +72,20 @@ export class BacklogSprintComponent implements AfterViewInit {
     this.cd.detectChanges();
   }
 
-  public openInput() {
-    this.isOpen = true;
+  public setOpen(state: boolean) {
+    this.isOpen = state;
+
+    if (state) {
+      setTimeout(() => {
+        this.taskInput?.nativeElement.focus();
+      });
+    }
   }
 
   public createTask() {
-    this.taskService.createTask(this.project, this.data.title, this.data.points, this.sprint?.id).subscribe();
-    this.data = {
-      title: '',
-      points: 0,
-    };
+    this.taskService.createTask(this.project, this.data.title, this.sprint?.id).subscribe();
     this.isOpen = false;
+    this.data.title = '';
   }
 
   public onDrop(event: CdkDragDrop<IdentifiableModel<TaskModel>>) {

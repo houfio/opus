@@ -40,8 +40,8 @@ export class TaskService {
     });
   }
 
-  public createTask(project: IdentifiableModel<ProjectModel>, title: string, points: number, sprint?: string) {
-    if (!title || !isNumeric(points) || points < 0) {
+  public createTask(project: IdentifiableModel<ProjectModel>, title: string, sprint?: string) {
+    if (!title) {
       return of(undefined)
     }
 
@@ -49,7 +49,7 @@ export class TaskService {
       title,
       description: '',
       state: '',
-      points,
+      points: 0,
       sprint: sprint ?? '',
       archived: false
     });
