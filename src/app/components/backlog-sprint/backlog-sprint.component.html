@@ -5,6 +5,7 @@
   <app-backlog-task #fallback [@fallback]="empty"></app-backlog-task>
   <app-backlog-task
     *ngFor="let task of tasksInSprint"
+    class="item"
     cdkDrag
     [cdkDragData]="task"
     [task]="task"
