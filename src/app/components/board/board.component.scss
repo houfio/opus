@@ -27,3 +27,17 @@
   background-color: var(--gray-200);
   border-radius: 4px;
 }
+
+.stateNames {
+  display: flex;
+  justify-content: space-around;
+}
+
+.stateColumn {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  border-right: 1px solid var(--gray-500);
+  width: 33%;
+  min-height: 92px;
+}
