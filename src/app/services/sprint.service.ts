@@ -27,7 +27,7 @@ export class SprintService {
   public getSprintBacklog(project: IdentifiableModel<ProjectModel>) {
     return this.getSprintCollection(
       project,
-      (ref) => ref.where('archived', '==', false).orderBy('name')
+      (ref) => ref.where('archived', '==', false).orderBy('startDate').orderBy('name')
     ).valueChanges({
       idField: 'id'
     });
