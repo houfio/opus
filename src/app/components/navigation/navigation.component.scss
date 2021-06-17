@@ -5,6 +5,8 @@
   position: sticky;
   top: 0;
   border-top: 3px solid var(--yellow-200);
+  backdrop-filter: blur(1rem);
+  z-index: 100;
 }
 
 app-container {

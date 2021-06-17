@@ -8,7 +8,7 @@ export interface TaskModel {
   state: string; // -> StateModel
   finishDate?: Timestamp;
   points: number;
-  assignee?: string; // -> UserModel
-  sprint?: string; // -> SprintModel
+  assignee: string; // -> UserModel
+  sprint: string; // -> SprintModel
   archived: boolean;
 }

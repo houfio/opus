@@ -49,6 +49,7 @@ export class TaskService {
       description: '',
       state: '',
       points: 0,
+      assignee: '',
       sprint: sprint ?? '',
       archived: false
     }));
@@ -57,6 +58,13 @@ export class TaskService {
   public moveTaskToSprint(project: IdentifiableModel<ProjectModel>, task: IdentifiableModel<TaskModel>, sprint?: string) {
     return defer(() => this.getTaskCollection(project).doc(task.id).update({
       sprint: sprint ?? ''
+    }));
+  }
+
+  public moveTaskToLane(project: IdentifiableModel<ProjectModel>, task: IdentifiableModel<TaskModel>, assignee?: string, state?: string) {
+    return defer(() => this.getTaskCollection(project).doc(task.id).update({
+      assignee: assignee ?? '',
+      state: state ?? ''
     }));
   }
 }

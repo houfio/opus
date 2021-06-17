@@ -1,55 +1,42 @@
 <h2>Current sprint info</h2>
-<div *ngIf="currSprint">
-  <h1>{{currSprint.name}}</h1>
-  <p>{{currSprint.description}}</p>
-  <p>{{getDate(currSprint.startDate)}} to {{getDate(currSprint.endDate)}}</p>
-</div>
+<h1>{{ activeSprint.name }}</h1>
+<p>{{ activeSprint.description }}</p>
+<p>{{ activeSprint.startDate?.toDate() | date }} to {{ activeSprint.endDate?.toDate() | date }}</p>
 <hr>
-
-<!--<div cdkDropListGroup>-->
-<!--  <div *ngFor="let lane of lanes">-->
-<!--    <h2>{{lane.name}}</h2>-->
-<!--    <div-->
-<!--      cdkDropList-->
-<!--      cdkDropListOrientation="horizontal"-->
-<!--      [cdkDropListData]="board[lane.name]"-->
-<!--      class="lane"-->
-<!--      (cdkDropListDropped)="drop($event)">-->
-<!--      <div class="item" *ngFor="let item of board[lane.name]" cdkDrag>{{item}}</div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->
-
-<div CdkDropListGroup>
+<div cdkDropListGroup>
   <div>
     <h2>Unassigned</h2>
     <div
       cdkDropList
+      cdkDropListSortingDisabled
       cdkDropListOrientation="horizontal"
-      [cdkDropListData]="getAssigneeTask()"
-      (cdkDropListDropped)="taskDrop($event)"
-      class="lane">
-      <div class="item" *ngFor="let task of getAssigneeTask()" cdkDrag>{{task.title}} || {{resolveUser(task.assignee)}}</div>
+      (cdkDropListDropped)="onDrop($event)"
+      class="lane"
+    >
+      <div *ngFor="let task of getTasks()" cdkDrag [cdkDragData]="task" class="item">
+        {{ task.title }}
+      </div>
     </div>
   </div>
-
   <hr>
   <div class="stateNames">
-    <h1 *ngFor="let state of statesInProject">{{state.name}}</h1>
+    <h1 *ngFor="let state of statesInProject">
+      {{ state.name }}
+    </h1>
   </div>
   <hr>
-
-  <div cdkDropList *ngFor="let user of lanes">
-    <h2>{{user.name}}</h2>
-    <div class="lane">
-      <div
-        *ngFor="let state of statesInProject"
-        cdkDropList
-        cdkDropListOrientation="horizontal"
-        [cdkDropListData]="user"
-        (cdkDropListDropped)="userDrop($event)"
-        class="stateColumn">
-        <div class="item" *ngFor="let task of getAssigneeTask(user, state)" cdkDrag>{{task.title}} || {{resolveUser(task.assignee)}}</div>
+  <div *ngFor="let user of lanes" class="lane">
+    <h2>{{ user.name }}</h2>
+    <div
+      *ngFor="let state of statesInProject"
+      cdkDropList
+      cdkDropListSortingDisabled
+      [cdkDropListData]="{ user: user, state: state }"
+      (cdkDropListDropped)="onDrop($event)"
+      class="stateColumn"
+    >
+      <div *ngFor="let task of getTasks(user, state)" cdkDrag [cdkDragData]="task" class="item">
+        {{ task.title }}
       </div>
     </div>
   </div>
