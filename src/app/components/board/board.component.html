@@ -24,9 +24,16 @@
       (cdkDropListDropped)="onDrop($event)"
       class="value"
     >
-      <div *ngFor="let task of getTasks(user, state)" cdkDrag [cdkDragData]="task" class="item">
+      <div
+        *ngFor="let task of getTasks(user, state)"
+        cdkDrag
+        [cdkDragData]="task"
+        class="item"
+        (click)="details = task"
+      >
         {{ task.title }}
       </div>
     </div>
   </div>
 </div>
+<app-overlay *ngIf="details" @ngIfAnimation [task]="details" (dismiss)="details = undefined"></app-overlay>

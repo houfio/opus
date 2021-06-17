@@ -25,7 +25,7 @@
     [cdkDragData]="task"
     [task]="task"
     [states]="states"
-    (click)="openDetails(task)"
+    (click)="details = task"
   ></app-backlog-task>
 </div>
 <div class="footer">
@@ -44,3 +44,4 @@
     <button class="input" (click)="setOpen(true)">Add task...</button>
   </ng-template>
 </div>
+<app-overlay *ngIf="details" @ngIfAnimation [task]="details" (dismiss)="details = undefined"></app-overlay>

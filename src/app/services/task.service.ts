@@ -21,7 +21,7 @@ export class TaskService {
   public getTasks(project: IdentifiableModel<ProjectModel>, sprint?: IdentifiableModel<SprintModel>) {
     return this.getTaskCollection(
       project,
-      (ref) => sprint ? ref.where('sprint', '==', sprint.id) : ref
+      (ref) => (sprint ? ref.where('sprint', '==', sprint.id) : ref).orderBy('title')
     ).valueChanges({
       idField: 'id'
     });
@@ -33,7 +33,7 @@ export class TaskService {
       (ref) => ref.where('sprint', 'in', [
         ...sprints.map((sprint) => sprint.id),
         ''
-      ])
+      ]).orderBy('title')
     ).valueChanges({
       idField: 'id'
     });

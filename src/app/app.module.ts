@@ -23,6 +23,7 @@ import { ContainerComponent } from './components/container/container.component';
 import { HeadingComponent } from './components/heading/heading.component';
 import { InputComponent } from './components/input/input.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
+import { OverlayComponent } from './components/overlay/overlay.component';
 import { ProjectCardComponent } from './components/project-card/project-card.component';
 import { RowComponent } from './components/row/row.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
@@ -76,6 +77,7 @@ const routes: Routes = [
     HeadingComponent,
     InputComponent,
     NavigationComponent,
+    OverlayComponent,
     ProjectCardComponent,
     RowComponent,
     SidebarComponent,

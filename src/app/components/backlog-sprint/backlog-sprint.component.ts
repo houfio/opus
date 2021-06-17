@@ -1,6 +1,7 @@
-import { animate, state, style, transition, trigger } from '@angular/animations';
+import { animateChild, query, transition, trigger } from '@angular/animations';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostBinding, Input, ViewChild } from '@angular/core';
+import { compareDesc, startOfToday } from 'date-fns';
 
 import { IdentifiableModel } from '../../models/identifiable.model';
 import { ProjectModel } from '../../models/project.model';
@@ -15,15 +16,9 @@ import { TaskService } from '../../services/task.service';
   templateUrl: './backlog-sprint.component.html',
   styleUrls: ['./backlog-sprint.component.scss'],
   animations: [
-    trigger('fallback', [
-      state('true', style({
-        opacity: '1'
-      })),
-      state('false', style({
-        opacity: '0'
-      })),
-      transition('* <=> *', [
-        animate('.25s ease')
+    trigger('ngIfAnimation', [
+      transition(':enter, :leave', [
+        query('@*', animateChild())
       ])
     ])
   ]
@@ -34,7 +29,7 @@ export class BacklogSprintComponent implements AfterViewInit {
   @Input()
   public sprint?: IdentifiableModel<SprintModel>;
   @Input()
-  public sprints?: number;
+  public sprints?: IdentifiableModel<SprintModel>[];
   @Input()
   public states!: IdentifiableModel<StateModel>[];
   @Input()
@@ -42,6 +37,7 @@ export class BacklogSprintComponent implements AfterViewInit {
   @ViewChild('input', { read: ElementRef })
   public input?: ElementRef<HTMLElement>;
 
+  public details?: IdentifiableModel<TaskModel>;
   public data = {
     open: false,
     title: ''
@@ -60,12 +56,12 @@ export class BacklogSprintComponent implements AfterViewInit {
     return !this.sprint;
   }
 
-  public get empty() {
-    return !this.tasksInSprint.length;
-  }
-
   public get tasksInSprint() {
     return this.tasks.filter((task) => task.sprint === (this.sprint?.id ?? ''));
+  }
+
+  public get empty() {
+    return !this.tasksInSprint.length;
   }
 
   public get points() {
@@ -92,16 +88,14 @@ export class BacklogSprintComponent implements AfterViewInit {
       return;
     }
 
-    this.sprintService.createSprint(this.project, `Sprint ${this.sprints + 1}`).subscribe();
+    const date = this.sprints.map((s) => s.endDate.toDate()).sort(compareDesc)[0] ?? startOfToday();
+
+    this.sprintService.createSprint(this.project, `Sprint ${this.sprints.length + 1}`, date).subscribe();
   }
 
   public createTask() {
     this.taskService.createTask(this.project, this.data.title, this.sprint?.id).subscribe();
     this.setOpen(false);
-  }
-
-  public openDetails(task: IdentifiableModel<TaskModel>) {
-    console.log(task);
   }
 
   public onDrop(event: CdkDragDrop<IdentifiableModel<TaskModel>>) {

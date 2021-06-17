@@ -8,11 +8,19 @@ import { StateModel } from '../../models/state.model';
 import { TaskModel } from '../../models/task.model';
 import { UserModel } from '../../models/user.model';
 import { TaskService } from '../../services/task.service';
+import { animateChild, query, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html',
-  styleUrls: ['./board.component.scss']
+  styleUrls: ['./board.component.scss'],
+  animations: [
+    trigger('ngIfAnimation', [
+      transition(':enter, :leave', [
+        query('@*', animateChild())
+      ])
+    ])
+  ]
 })
 export class BoardComponent {
   @Input()
@@ -25,6 +33,8 @@ export class BoardComponent {
   public tasks!: IdentifiableModel<TaskModel>[];
   @Input()
   public lanes!: IdentifiableModel<UserModel>[];
+
+  public details?: IdentifiableModel<TaskModel>;
 
   public constructor(private taskService: TaskService) {
   }

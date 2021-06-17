@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import type { QueryFn } from '@angular/fire/firestore/interfaces';
+import { addDays } from 'date-fns';
+import firebase from 'firebase/app';
 import { defer, of } from 'rxjs';
 
 import { IdentifiableModel } from '../models/identifiable.model';
@@ -34,19 +36,27 @@ export class SprintService {
   }
 
   public getCurrentSprint(project: IdentifiableModel<ProjectModel>) {
+    if (!project.currentSprint) {
+      return of(undefined);
+    }
+
     return this.getSprintCollection(project).doc(project.currentSprint).valueChanges({
       idField: 'id'
     });
   }
 
-  public createSprint(project: IdentifiableModel<ProjectModel>, name: string) {
+  public createSprint(project: IdentifiableModel<ProjectModel>, name: string, date: Date) {
     if (!name.trim()) {
       return of(undefined);
     }
 
+    const end = addDays(date, 14);
+
     return defer(() => this.getSprintCollection(project).doc().set({
       name,
       description: '',
+      startDate: firebase.firestore.Timestamp.fromDate(date),
+      endDate: firebase.firestore.Timestamp.fromDate(end),
       archived: false
     }));
   }
