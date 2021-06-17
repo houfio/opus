@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { faBorderAll, faCog, faStream } from '@fortawesome/free-solid-svg-icons';
+import { faBorderAll, faChartBar, faCog, faStream } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-sidebar',
@@ -12,5 +12,6 @@ export class SidebarComponent {
 
   public backlog = faStream;
   public board = faBorderAll;
+  public report = faChartBar;
   public settings = faCog;
 }

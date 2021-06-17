@@ -1,3 +1,4 @@
+import { animateChild, query, transition, trigger } from '@angular/animations';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Component, Input } from '@angular/core';
 
@@ -8,7 +9,6 @@ import { StateModel } from '../../models/state.model';
 import { TaskModel } from '../../models/task.model';
 import { UserModel } from '../../models/user.model';
 import { TaskService } from '../../services/task.service';
-import { animateChild, query, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-board',

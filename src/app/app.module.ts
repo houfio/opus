@@ -10,6 +10,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ChartsModule } from 'ng2-charts';
 
 import { environment } from '../environments/environment';
 
@@ -25,6 +26,7 @@ import { InputComponent } from './components/input/input.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { OverlayComponent } from './components/overlay/overlay.component';
 import { ProjectCardComponent } from './components/project-card/project-card.component';
+import { ReportComponent } from './components/report/report.component';
 import { RowComponent } from './components/row/row.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
@@ -36,6 +38,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { LoginComponent } from './pages/login/login.component';
 import { ProjectBacklogComponent } from './pages/project-backlog/project-backlog.component';
 import { ProjectBoardComponent } from './pages/project-board/project-board.component';
+import { ProjectReportComponent } from './pages/project-report/project-report.component';
 import { ProjectSettingsComponent } from './pages/project-settings/project-settings.component';
 import { ProjectComponent } from './pages/project/project.component';
 import { ProjectsComponent } from './pages/projects/projects.component';
@@ -56,6 +59,7 @@ const routes: Routes = [
     children: [
       { path: '', component: ProjectBacklogComponent },
       { path: 'board', component: ProjectBoardComponent },
+      { path: 'report', component: ProjectReportComponent },
       { path: 'settings', component: ProjectSettingsComponent }
     ],
     ...canActivate(authorized)
@@ -90,7 +94,9 @@ const routes: Routes = [
     ProjectBoardComponent,
     ProjectSettingsComponent,
     ProjectComponent,
-    ProjectsComponent
+    ProjectsComponent,
+    ProjectReportComponent,
+    ReportComponent
   ],
   imports: [
     BrowserModule,
@@ -102,7 +108,8 @@ const routes: Routes = [
     AngularFirestoreModule,
     FontAwesomeModule,
     DragDropModule,
-    CdkTableModule
+    CdkTableModule,
+    ChartsModule
   ],
   providers: [
     AuthService,

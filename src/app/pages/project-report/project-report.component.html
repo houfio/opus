@@ -1,0 +1,15 @@
+<ng-container *ngIf="project$ | async; let project; else loading">
+  <app-report
+    *ngIf="project.activeSprint; else empty"
+    [project]="project"
+    [activeSprint]="project.activeSprint"
+    [states]="project.states"
+    [tasks]="project.tasks"
+  ></app-report>
+  <ng-template #empty>
+    No active sprint
+  </ng-template>
+</ng-container>
+<ng-template #loading>
+  <app-spinner message="Loading report..."></app-spinner>
+</ng-template>
