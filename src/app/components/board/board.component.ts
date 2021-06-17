@@ -29,15 +29,19 @@ export class BoardComponent {
   public constructor(private taskService: TaskService) {
   }
 
-  public get statesInProject() {
+  public get rows() {
+    return [...this.lanes, undefined];
+  }
+
+  public get orderedStates() {
     return this.states.sort((a, b) => a.order - b.order);
   }
 
-  public getTasks(user?: IdentifiableModel<UserModel>, state?: IdentifiableModel<StateModel>) {
-    return this.tasks.filter((task) => task.assignee === (user?.id ?? '') && task.state === (state?.id ?? ''));
+  public getTasks(user: IdentifiableModel<UserModel> | undefined, state: IdentifiableModel<StateModel>) {
+    return this.tasks.filter((task) => (task.assignee === (user?.id ?? '') && task.state === state.id) || (!user && state === this.orderedStates[0] && task.state === ''));
   }
 
-  public onDrop(event: CdkDragDrop<{ user: IdentifiableModel<UserModel>, state: IdentifiableModel<StateModel> }>) {
-    this.taskService.moveTaskToLane(this.project, event.item.data, event.container.data?.user.id, event.container.data?.state.id).subscribe();
+  public onDrop(event: CdkDragDrop<{ user: IdentifiableModel<UserModel> | undefined, state: IdentifiableModel<StateModel> }>) {
+    this.taskService.moveTaskToLane(this.project, event.item.data, event.container.data.user?.id, event.container.data.state.id).subscribe();
   }
 }

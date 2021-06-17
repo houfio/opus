@@ -1,22 +1,67 @@
-.lane {
+.info, .value {
+  background-color: var(--gray-100);
+  border-radius: .5rem;
+}
+
+.info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  padding: 1rem;
+}
+
+.subtle {
+  color: var(--gray-400);
+}
+
+.scroll {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 1rem;
+  overflow-x: scroll;
+  gap: 1rem;
+}
+
+.columns {
+  display: flex;
+  flex-wrap: nowrap;
+  margin-left: 11rem;
+  gap: 1rem;
+}
+
+.column {
+  flex: 0 0 20rem;
+  padding: .5rem .75rem;
+  background-color: var(--gray-100);
+  border-radius: .5rem;
+}
+
+.row {
   display: flex;
   flex-direction: row;
-  overflow: scroll hidden;
-  min-height: 92px;
+  flex-wrap: nowrap;
+  gap: 1rem;
+}
+
+.assignee {
+  flex: 0 0 10rem;
+}
+
+.value {
+  flex: 0 0 20rem;
+  display: flex;
+  flex-direction: column;
+  min-height: 10rem;
+  padding: .5rem;
+  gap: .5rem;
 }
 
 .item {
-  flex: 0 0 300px;
-  margin: 1rem .5rem;
   padding: 1rem;
   background-color: var(--gray-200);
-  border-radius: 8px;
-  cursor: move;
+  border-radius: .5rem;
   user-select: none;
-
-  &:last-child {
-    border: none;
-  }
+  cursor: move;
 }
 
 ::-webkit-scrollbar {
@@ -26,18 +71,4 @@
 ::-webkit-scrollbar-thumb {
   background-color: var(--gray-200);
   border-radius: 4px;
-}
-
-.stateNames {
-  display: flex;
-  justify-content: space-around;
-}
-
-.stateColumn {
-  display: flex;
-  flex-direction: column;
-  gap: .5rem;
-  border-right: 1px solid var(--gray-500);
-  width: 33%;
-  min-height: 92px;
 }

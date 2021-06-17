@@ -74,6 +74,23 @@ export class ProjectService {
           role: 'Owner'
         });
 
+        const states = document.collection('states');
+
+        batch.set(states.doc(), {
+          name: 'Todo',
+          order: 0
+        });
+
+        batch.set(states.doc(), {
+          name: 'In Progress',
+          order: 1
+        });
+
+        batch.set(states.doc(), {
+          name: 'Done',
+          order: 2
+        });
+
         return from(batch.commit());
       })
     );

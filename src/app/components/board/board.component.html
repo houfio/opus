@@ -1,39 +1,28 @@
-<h2>Current sprint info</h2>
-<h1>{{ activeSprint.name }}</h1>
-<p>{{ activeSprint.description }}</p>
-<p>{{ activeSprint.startDate?.toDate() | date }} to {{ activeSprint.endDate?.toDate() | date }}</p>
-<hr>
-<div cdkDropListGroup>
-  <div>
-    <h2>Unassigned</h2>
-    <div
-      cdkDropList
-      cdkDropListSortingDisabled
-      cdkDropListOrientation="horizontal"
-      (cdkDropListDropped)="onDrop($event)"
-      class="lane"
-    >
-      <div *ngFor="let task of getTasks()" cdkDrag [cdkDragData]="task" class="item">
-        {{ task.title }}
-      </div>
+<div class="info">
+  {{ activeSprint.name }}
+  <div *ngIf="activeSprint.startDate && activeSprint.endDate" class="subtle">
+    {{ activeSprint.startDate.toDate() | date }}
+    -
+    {{ activeSprint.endDate.toDate() | date }}
+  </div>
+</div>
+<div cdkDropListGroup class="scroll">
+  <div class="columns">
+    <div *ngFor="let state of orderedStates" class="column">
+      {{ state.name }}
     </div>
   </div>
-  <hr>
-  <div class="stateNames">
-    <h1 *ngFor="let state of statesInProject">
-      {{ state.name }}
-    </h1>
-  </div>
-  <hr>
-  <div *ngFor="let user of lanes" class="lane">
-    <h2>{{ user.name }}</h2>
+  <div *ngFor="let user of rows" class="row">
+    <div class="assignee">
+      {{ user?.name ?? 'Unassigned' }}
+    </div>
     <div
-      *ngFor="let state of statesInProject"
+      *ngFor="let state of orderedStates"
       cdkDropList
       cdkDropListSortingDisabled
       [cdkDropListData]="{ user: user, state: state }"
       (cdkDropListDropped)="onDrop($event)"
-      class="stateColumn"
+      class="value"
     >
       <div *ngFor="let task of getTasks(user, state)" cdkDrag [cdkDragData]="task" class="item">
         {{ task.title }}
