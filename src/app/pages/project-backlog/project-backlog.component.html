@@ -3,9 +3,15 @@
     *ngFor="let sprint of project.sprints"
     [project]="project"
     [sprint]="sprint"
+    [states]="project.states"
     [tasks]="project.tasks"
   ></app-backlog-sprint>
-  <app-backlog-sprint [project]="project" [tasks]="project.tasks" [sprints]="project.sprints.length"></app-backlog-sprint>
+  <app-backlog-sprint
+    [project]="project"
+    [tasks]="project.tasks"
+    [states]="project.states"
+    [sprints]="project.sprints.length"
+  ></app-backlog-sprint>
 </ng-container>
 <ng-template #loading>
   <app-spinner message="Loading tasks..."></app-spinner>

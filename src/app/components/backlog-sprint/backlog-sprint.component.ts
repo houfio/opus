@@ -5,6 +5,7 @@ import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostBinding, I
 import { IdentifiableModel } from '../../models/identifiable.model';
 import { ProjectModel } from '../../models/project.model';
 import { SprintModel } from '../../models/sprint.model';
+import { StateModel } from '../../models/state.model';
 import { TaskModel } from '../../models/task.model';
 import { SprintService } from '../../services/sprint.service';
 import { TaskService } from '../../services/task.service';
@@ -34,6 +35,8 @@ export class BacklogSprintComponent implements AfterViewInit {
   public sprint?: IdentifiableModel<SprintModel>;
   @Input()
   public sprints?: number;
+  @Input()
+  public states!: IdentifiableModel<StateModel>[];
   @Input()
   public tasks!: IdentifiableModel<TaskModel>[];
   @ViewChild('input', { read: ElementRef })
