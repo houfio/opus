@@ -1,11 +1,26 @@
-<span class="title">
+<div class="title">
   {{ sprint ? sprint.name : 'Backlog' }}
-</span>
-<div class="list" cdkDropList (cdkDropListDropped)="onDrop($event)" [style.min-height.px]="minHeight">
-  <app-backlog-task #fallback [@fallback]="empty"></app-backlog-task>
+  <div *ngIf="sprint" class="row">
+    <div *ngIf="sprint.startDate && sprint.endDate" class="subtle">
+      {{ sprint.startDate.toDate() | date }}
+      -
+      {{ sprint.endDate.toDate() | date }}
+    </div>
+    {{ points }} points
+  </div>
+  <app-button *ngIf="!sprint" (press)="createSprint()">
+    Create sprint
+  </app-button>
+</div>
+<div
+  class="list"
+  [class.empty]="!tasksInSprint.length"
+  cdkDropList
+  cdkDropListSortingDisabled
+  (cdkDropListDropped)="onDrop($event)"
+>
   <app-backlog-task
     *ngFor="let task of tasksInSprint"
-    class="item"
     cdkDrag
     [cdkDragData]="task"
     [task]="task"
@@ -15,7 +30,7 @@
 <div class="footer">
   <form *ngIf="data.open; else inactive" (ngSubmit)="createTask()">
     <input
-      #taskInput
+      #input
       name="title"
       class="input"
       placeholder="What needs to be done?"

@@ -5,7 +5,7 @@
     [sprint]="sprint"
     [tasks]="project.tasks"
   ></app-backlog-sprint>
-  <app-backlog-sprint [project]="project" [tasks]="project.tasks"></app-backlog-sprint>
+  <app-backlog-sprint [project]="project" [tasks]="project.tasks" [sprints]="project.sprints.length"></app-backlog-sprint>
 </ng-container>
 <ng-template #loading>
   <app-spinner message="Loading tasks..."></app-spinner>

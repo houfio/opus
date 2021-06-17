@@ -6,6 +6,7 @@ import { IdentifiableModel } from '../../models/identifiable.model';
 import { ProjectModel } from '../../models/project.model';
 import { SprintModel } from '../../models/sprint.model';
 import { TaskModel } from '../../models/task.model';
+import { SprintService } from '../../services/sprint.service';
 import { TaskService } from '../../services/task.service';
 
 @Component({
@@ -32,18 +33,18 @@ export class BacklogSprintComponent implements AfterViewInit {
   @Input()
   public sprint?: IdentifiableModel<SprintModel>;
   @Input()
+  public sprints?: number;
+  @Input()
   public tasks!: IdentifiableModel<TaskModel>[];
-  @ViewChild('fallback', { read: ElementRef })
-  public fallback?: ElementRef<HTMLElement>;
-  @ViewChild('taskInput', { read: ElementRef })
-  public taskInput?: ElementRef<HTMLElement>;
+  @ViewChild('input', { read: ElementRef })
+  public input?: ElementRef<HTMLElement>;
 
   public data = {
     open: false,
     title: ''
   };
 
-  public constructor(private cd: ChangeDetectorRef, private taskService: TaskService) {
+  public constructor(private cd: ChangeDetectorRef, private sprintService: SprintService, private taskService: TaskService) {
   }
 
   @HostBinding('class.current')
@@ -60,12 +61,12 @@ export class BacklogSprintComponent implements AfterViewInit {
     return !this.tasksInSprint.length;
   }
 
-  public get minHeight() {
-    return this.fallback?.nativeElement.offsetHeight;
-  }
-
   public get tasksInSprint() {
     return this.tasks.filter((task) => task.sprint === (this.sprint?.id ?? ''));
+  }
+
+  public get points() {
+    return this.tasksInSprint.reduce((acc, { points }) => acc + points, 0)
   }
 
   public ngAfterViewInit() {
@@ -79,8 +80,16 @@ export class BacklogSprintComponent implements AfterViewInit {
     };
 
     if (open) {
-      setTimeout(() => this.taskInput?.nativeElement.focus());
+      setTimeout(() => this.input?.nativeElement.focus());
     }
+  }
+
+  public createSprint() {
+    if (this.sprints === undefined) {
+      return;
+    }
+
+    this.sprintService.createSprint(this.project, `Sprint ${this.sprints + 1}`).subscribe();
   }
 
   public createTask() {

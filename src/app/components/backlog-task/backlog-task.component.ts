@@ -10,10 +10,5 @@ import { TaskModel } from '../../models/task.model';
 })
 export class BacklogTaskComponent {
   @Input()
-  public task?: IdentifiableModel<TaskModel>;
-
-  @HostBinding('class.fallback')
-  public get fallback() {
-    return !this.task;
-  }
+  public task!: IdentifiableModel<TaskModel>;
 }

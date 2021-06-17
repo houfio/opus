@@ -7,4 +7,5 @@ export interface SprintModel {
   description: string;
   startDate?: Timestamp;
   endDate?: Timestamp;
+  archived: boolean;
 }
