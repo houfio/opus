@@ -30,7 +30,9 @@ import { ReportComponent } from './components/report/report.component';
 import { RowComponent } from './components/row/row.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
+import { SprintOverlayComponent } from './components/sprint-overlay/sprint-overlay.component';
 import { TableComponent } from './components/table/table.component';
+import { TaskOverlayComponent } from './components/task-overlay/task-overlay.component';
 import { PaletteDirective } from './directives/palette.directive';
 import { authorized } from './guards/authorized';
 import { unauthorized } from './guards/unauthorized';
@@ -83,20 +85,22 @@ const routes: Routes = [
     NavigationComponent,
     OverlayComponent,
     ProjectCardComponent,
+    ReportComponent,
     RowComponent,
     SidebarComponent,
     SpinnerComponent,
+    SprintOverlayComponent,
     TableComponent,
+    TaskOverlayComponent,
     // pages
     DashboardComponent,
     LoginComponent,
     ProjectBacklogComponent,
     ProjectBoardComponent,
+    ProjectReportComponent,
     ProjectSettingsComponent,
     ProjectComponent,
-    ProjectsComponent,
-    ProjectReportComponent,
-    ReportComponent
+    ProjectsComponent
   ],
   imports: [
     BrowserModule,

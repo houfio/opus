@@ -1,6 +1,7 @@
 import { animateChild, query, transition, trigger } from '@angular/animations';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostBinding, Input, ViewChild } from '@angular/core';
+import { faCog } from '@fortawesome/free-solid-svg-icons';
 import { compareDesc, startOfToday } from 'date-fns';
 
 import { IdentifiableModel } from '../../models/identifiable.model';
@@ -37,7 +38,9 @@ export class BacklogSprintComponent implements AfterViewInit {
   @ViewChild('input', { read: ElementRef })
   public input?: ElementRef<HTMLElement>;
 
+  public icon = faCog;
   public details?: IdentifiableModel<TaskModel>;
+  public sprintDetails?: IdentifiableModel<SprintModel>;
   public data = {
     open: false,
     title: ''

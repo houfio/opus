@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ProjectReportComponent } from './project-report.component';
+import { TaskOverlayComponent } from './task-overlay.component';
 
-describe('ProjectReportComponent', () => {
-  let component: ProjectReportComponent;
-  let fixture: ComponentFixture<ProjectReportComponent>;
+describe('TaskOverlayComponent', () => {
+  let component: TaskOverlayComponent;
+  let fixture: ComponentFixture<TaskOverlayComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ProjectReportComponent]
+      declarations: [TaskOverlayComponent]
     })
       .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ProjectReportComponent);
+    fixture = TestBed.createComponent(TaskOverlayComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

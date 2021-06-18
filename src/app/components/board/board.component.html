@@ -36,4 +36,9 @@
     </div>
   </div>
 </div>
-<app-overlay *ngIf="details" @ngIfAnimation [task]="details" (dismiss)="details = undefined"></app-overlay>
+<app-task-overlay
+  *ngIf="details"
+  @ngIfAnimation
+  [task]="details"
+  (dismiss)="details = undefined"
+></app-task-overlay>

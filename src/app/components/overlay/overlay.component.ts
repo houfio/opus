@@ -30,8 +30,6 @@ import { TaskModel } from '../../models/task.model';
   ]
 })
 export class OverlayComponent {
-  @Input()
-  public task!: IdentifiableModel<TaskModel>;
   @Output()
   public dismiss = new EventEmitter();
 

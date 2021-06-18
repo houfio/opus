@@ -2,7 +2,7 @@
   <app-report
     *ngIf="project.activeSprint; else empty"
     [project]="project"
-    [activeSprint]="project.activeSprint"
+    [sprint]="project.activeSprint"
     [states]="project.states"
     [tasks]="project.tasks"
   ></app-report>

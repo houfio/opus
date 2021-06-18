@@ -1,17 +1,18 @@
-<div class="title">
+<button class="title" (click)="sprintDetails = sprint" [disabled]="!sprint">
   {{ sprint ? sprint.name : 'Backlog' }}
-  <div *ngIf="sprint" class="row">
-    <div *ngIf="sprint.startDate && sprint.endDate" class="subtle">
+  <span *ngIf="sprint" class="row">
+    <span *ngIf="sprint.startDate && sprint.endDate" class="subtle">
       {{ sprint.startDate.toDate() | date }}
       -
       {{ sprint.endDate.toDate() | date }}
-    </div>
+    </span>
     {{ points }} points
-  </div>
+    <fa-icon *ngIf="sprint" [icon]="icon" class="icon"></fa-icon>
+  </span>
   <app-button *ngIf="!sprint" (press)="createSprint()">
     Create sprint
   </app-button>
-</div>
+</button>
 <div
   class="list"
   [class.empty]="!tasksInSprint.length"
@@ -44,4 +45,15 @@
     <button class="input" (click)="setOpen(true)">Add task...</button>
   </ng-template>
 </div>
-<app-overlay *ngIf="details" @ngIfAnimation [task]="details" (dismiss)="details = undefined"></app-overlay>
+<app-task-overlay
+  *ngIf="details"
+  @ngIfAnimation
+  [task]="details"
+  (dismiss)="details = undefined"
+></app-task-overlay>
+<app-sprint-overlay
+  *ngIf="sprintDetails"
+  @ngIfAnimation
+  [sprint]="sprintDetails"
+  (dismiss)="sprintDetails = undefined"
+></app-sprint-overlay>

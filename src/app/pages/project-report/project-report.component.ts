@@ -1,9 +1,5 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
-import * as pluginAnnotations from 'chartjs-plugin-annotation';
-import { eachDayOfInterval } from 'date-fns'
-import { Color, Label } from 'ng2-charts';
 import { combineLatest, Observable, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
@@ -44,7 +40,7 @@ export class ProjectReportComponent {
         ...project,
         states,
         activeSprint,
-        tasks: tasks.filter((task) => task.sprint === project.currentSprint),
+        tasks: tasks.filter((task) => task.sprint === project.currentSprint)
       }))
     );
   }
