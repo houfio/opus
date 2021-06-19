@@ -25,7 +25,7 @@ export class DashboardComponent {
 
   public constructor(authService: AuthService, private projectService: ProjectService, userService: UserService) {
     this.projects$ = projectService.getProjects(true, true).pipe(
-      switchMap((projects) => combineLatest(projects.map((project) => combineLatest([
+      switchMap((projects) => !projects.length ? of([]) : combineLatest(projects.map((project) => combineLatest([
         of(project),
         authService.user$,
         userService.getOwner(project)
