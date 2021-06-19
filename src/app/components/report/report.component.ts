@@ -33,7 +33,15 @@ export class ReportComponent implements OnInit {
     },
     plugins: {
       legend: {
-        display: false
+        display: false,
+      },
+      tooltip: {
+        displayColors: false,
+        callbacks: {
+          label: ({ dataset , parsed }) => {
+            return `-${this.getDifference(parsed.y, dataset.data![parsed.x - 1] as number)} points`
+          }
+        }
       }
     }
   };
@@ -44,13 +52,16 @@ export class ReportComponent implements OnInit {
     const tomorrow = startOfTomorrow();
     const done = days.filter((day) => isBefore(day, tomorrow));
     const step = points / (days.length - 1);
+    const pointData = done.map((day) => points - this.getFinishedPoints(day));
+    const hitData = pointData.map((point, i) => Math.min(this.getDifference(point, pointData[i - 1]) * 1.5), 16);
 
     this.data.labels = days.map((date) => format(date, 'MMM d'));
     this.data.datasets.push({
-      data: done.map((day) => points - this.getFinishedPoints(day)),
+      data: pointData,
       borderColor: '#ffba05',
-      pointRadius: 0,
-      pointHitRadius: 0
+      pointRadius: hitData,
+      pointHitRadius: hitData,
+      pointHoverRadius: hitData,
     });
     this.data.datasets.push({
       data: days.map((_, i) => points - step * i),
@@ -62,18 +73,18 @@ export class ReportComponent implements OnInit {
     });
   }
 
-  public getDays() {
+  private getDays() {
     return eachDayOfInterval({
       start: this.sprint.startDate.toDate(),
       end: this.sprint.endDate.toDate()
     });
   }
 
-  public getTotalPoints() {
+  private getTotalPoints() {
     return this.tasks.reduce((acc, { points }) => acc + points, 0);
   }
 
-  public getFinishedPoints(date: Date) {
+  private getFinishedPoints(date: Date) {
     return this.tasks.reduce((acc, { finishDate, points }) => {
       if (!finishDate || isAfter(endOfDay(finishDate.toDate()), date)) {
         return acc;
@@ -81,5 +92,13 @@ export class ReportComponent implements OnInit {
 
       return acc + points;
     }, 0);
+  }
+
+  private getDifference(current: number, previous?: number) {
+    if (!previous) {
+      return 0;
+    }
+
+    return previous - current;
   }
 }
