@@ -32,7 +32,7 @@ export class BoardComponent {
   @Input()
   public tasks!: IdentifiableModel<TaskModel>[];
   @Input()
-  public lanes!: IdentifiableModel<UserModel>[];
+  public users!: IdentifiableModel<UserModel>[];
 
   public details?: IdentifiableModel<TaskModel>;
 
@@ -40,7 +40,7 @@ export class BoardComponent {
   }
 
   public get rows() {
-    return [...this.lanes, undefined];
+    return [...this.users, undefined];
   }
 
   public get orderedStates() {

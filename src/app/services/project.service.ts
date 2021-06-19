@@ -63,10 +63,11 @@ export class ProjectService {
           name,
           description,
           owner: user.uid,
-          archived: false,
           users: [
             user.uid
-          ]
+          ],
+          currentSprint: '',
+          archived: false
         });
 
         batch.set(document.collection('users').doc(user.uid), {

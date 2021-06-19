@@ -26,7 +26,7 @@ export class ProjectBoardComponent {
     states: IdentifiableModel<StateModel>[],
     activeSprint?: IdentifiableModel<SprintModel>,
     tasks: IdentifiableModel<TaskModel>[],
-    lanes: IdentifiableModel<UserModel>[]
+    userData: IdentifiableModel<UserModel>[]
   }>;
 
   public constructor(route: ActivatedRoute, projectService: ProjectService, stateService: StateService, taskService: TaskService, sprintService: SprintService, userService: UserService) {
@@ -45,7 +45,7 @@ export class ProjectBoardComponent {
         states,
         activeSprint,
         tasks,
-        lanes: users.filter((user) => project.users.indexOf(user.id) !== -1)
+        userData: users.filter((user) => project.users.indexOf(user.id) !== -1)
       }))
     );
   }
