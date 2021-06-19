@@ -1,3 +1,15 @@
 <app-overlay (dismiss)="dismiss.emit()">
-  {{ task.title }}
+  <app-heading>
+    Update task
+  </app-heading>
+  <form (ngSubmit)="updateTask()">
+    <app-input name="title" label="Title" [(ngModel)]="data.title"></app-input>
+    <app-input name="description" label="Description" [(ngModel)]="data.description"></app-input>
+    <app-input name="points" label="Points" type="number" [(ngModel)]="data.points"></app-input>
+    <div class="actions">
+      <app-button [palette]="['gray-0', 'yellow-200']">
+        Update
+      </app-button>
+    </div>
+  </form>
 </app-overlay>

@@ -2,15 +2,17 @@
   {{ label }}
 </label>
 <input
-  *ngIf="!date; else picker"
+  *ngIf="type !== 'date'; else date"
   [id]="name"
   [name]="name"
+  [type]="type"
   class="input"
+  min="0"
   [ngModel]="value"
   (ngModelChange)="onChange($event)"
   (blur)="onTouch()"
 />
-<ng-template #picker>
+<ng-template #date>
   <ngx-datepicker
     [id]="name"
     [name]="name"

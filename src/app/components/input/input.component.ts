@@ -5,13 +5,11 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
   selector: 'app-input',
   templateUrl: './input.component.html',
   styleUrls: ['./input.component.scss'],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => InputComponent),
-      multi: true
-    }
-  ]
+  providers: [{
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(() => InputComponent),
+    multi: true
+  }]
 })
 export class InputComponent implements ControlValueAccessor {
   @Input()
@@ -19,7 +17,7 @@ export class InputComponent implements ControlValueAccessor {
   @Input()
   public label!: string;
   @Input()
-  public date = false;
+  public type = 'text';
   @Input()
   public minDate?: Date;
   @Input()

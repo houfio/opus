@@ -44,7 +44,7 @@
     <input
       #input
       name="title"
-      class="input"
+      class="create"
       placeholder="What needs to be done?"
       [(ngModel)]="data.title"
       (blur)="setOpen(false)"
@@ -52,7 +52,7 @@
     <input type="submit" style="display: none"/>
   </form>
   <ng-template #inactive>
-    <button class="input" (click)="setOpen(true)">Add task...</button>
+    <button class="create" (click)="setOpen(true)">Add task...</button>
   </ng-template>
 </div>
 <app-task-overlay
