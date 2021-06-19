@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, QueryFn } from '@angular/fire/firestore';
+import firebase from 'firebase/app';
 import { defer, of } from 'rxjs';
 
 import { IdentifiableModel } from '../models/identifiable.model';
@@ -18,22 +19,12 @@ export class TaskService {
     return this.store.collection('projects').doc(project.id).collection<TaskModel>('tasks', filter);
   }
 
-  public getTasks(project: IdentifiableModel<ProjectModel>, sprint?: IdentifiableModel<SprintModel>) {
-    return this.getTaskCollection(
-      project,
-      (ref) => (sprint ? ref.where('sprint', '==', sprint.id) : ref).orderBy('title')
-    ).valueChanges({
-      idField: 'id'
-    });
-  }
+  public getTasks(project: IdentifiableModel<ProjectModel>, sprints?: IdentifiableModel<SprintModel>[]) {
+    const ids = sprints ? [...sprints.map((sprint) => sprint.id), ''] : [project.currentSprint];
 
-  public getTaskBacklog(project: IdentifiableModel<ProjectModel>, sprints: IdentifiableModel<SprintModel>[]) {
     return this.getTaskCollection(
       project,
-      (ref) => ref.where('sprint', 'in', [
-        ...sprints.map((sprint) => sprint.id),
-        ''
-      ]).orderBy('title')
+      (ref) => ref.where('sprint', 'in', ids).orderBy('title')
     ).valueChanges({
       idField: 'id'
     });
@@ -61,10 +52,11 @@ export class TaskService {
     }));
   }
 
-  public moveTaskToLane(project: IdentifiableModel<ProjectModel>, task: IdentifiableModel<TaskModel>, assignee?: string, state?: string) {
+  public moveTaskToState(project: IdentifiableModel<ProjectModel>, task: IdentifiableModel<TaskModel>, assignee?: string, state?: string, finished?: boolean) {
     return defer(() => this.getTaskCollection(project).doc(task.id).update({
       assignee: assignee ?? '',
-      state: state ?? ''
+      state: state ?? '',
+      finishDate: finished ? firebase.firestore.Timestamp.fromDate(new Date()) : firebase.firestore.FieldValue.delete() as any
     }));
   }
 }

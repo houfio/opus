@@ -2,7 +2,7 @@ import { animateChild, query, transition, trigger } from '@angular/animations';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostBinding, Input, ViewChild } from '@angular/core';
 import { faCog } from '@fortawesome/free-solid-svg-icons';
-import { compareDesc, startOfToday } from 'date-fns';
+import { compareDesc, format, startOfToday } from 'date-fns';
 
 import { IdentifiableModel } from '../../models/identifiable.model';
 import { ProjectModel } from '../../models/project.model';
@@ -30,6 +30,8 @@ export class BacklogSprintComponent implements AfterViewInit {
   @Input()
   public sprint?: IdentifiableModel<SprintModel>;
   @Input()
+  public index?: number;
+  @Input()
   public sprints?: IdentifiableModel<SprintModel>[];
   @Input()
   public states!: IdentifiableModel<StateModel>[];
@@ -38,7 +40,6 @@ export class BacklogSprintComponent implements AfterViewInit {
   @ViewChild('input', { read: ElementRef })
   public input?: ElementRef<HTMLElement>;
 
-  public icon = faCog;
   public details?: IdentifiableModel<TaskModel>;
   public sprintDetails?: IdentifiableModel<SprintModel>;
   public data = {
@@ -52,6 +53,10 @@ export class BacklogSprintComponent implements AfterViewInit {
   @HostBinding('class.current')
   public get current() {
     return this.sprint && this.sprint.id === this.project.currentSprint;
+  }
+
+  public get next() {
+    return !this.project.currentSprint && !this.index;
   }
 
   @HostBinding('class.backlog')
@@ -92,8 +97,9 @@ export class BacklogSprintComponent implements AfterViewInit {
     }
 
     const date = this.sprints.map((s) => s.endDate.toDate()).sort(compareDesc)[0] ?? startOfToday();
+    const name = format(date, 'MMM d');
 
-    this.sprintService.createSprint(this.project, `Sprint ${this.sprints.length + 1}`, date).subscribe();
+    this.sprintService.createSprint(this.project, `Sprint (${name})`, date).subscribe();
   }
 
   public createTask() {
@@ -103,5 +109,21 @@ export class BacklogSprintComponent implements AfterViewInit {
 
   public onDrop(event: CdkDragDrop<IdentifiableModel<TaskModel>>) {
     this.taskService.moveTaskToSprint(this.project, event.item.data, this.sprint?.id).subscribe();
+  }
+
+  public startSprint() {
+    if (!this.sprint) {
+      return;
+    }
+
+    this.sprintService.startSprint(this.project, this.sprint).subscribe();
+  }
+
+  public finishSprint() {
+    if (!this.sprint) {
+      return;
+    }
+
+    this.sprintService.finishSprint(this.project, this.sprint).subscribe();
   }
 }

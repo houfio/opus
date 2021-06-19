@@ -1,8 +1,9 @@
 <ng-container *ngIf="project$ | async; let project; else loading" cdkDropListGroup>
   <app-backlog-sprint
-    *ngFor="let sprint of project.sprints"
+    *ngFor="let sprint of project.sprints; let i = index"
     [project]="project"
     [sprint]="sprint"
+    [index]="i"
     [states]="project.states"
     [tasks]="project.tasks"
   ></app-backlog-sprint>

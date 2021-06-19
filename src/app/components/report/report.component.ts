@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ChartConfiguration } from 'chart.js';
-import { eachDayOfInterval, endOfDay, format, isAfter, isBefore, startOfTomorrow } from 'date-fns';
+import { eachDayOfInterval, format, isAfter, isBefore, startOfDay, startOfTomorrow } from 'date-fns';
 
 import { IdentifiableModel } from '../../models/identifiable.model';
 import { ProjectModel } from '../../models/project.model';
@@ -53,7 +53,7 @@ export class ReportComponent implements OnInit {
     const done = days.filter((day) => isBefore(day, tomorrow));
     const step = points / (days.length - 1);
     const pointData = done.map((day) => points - this.getFinishedPoints(day));
-    const hitData = pointData.map((point, i) => Math.min(this.getDifference(point, pointData[i - 1]) * 1.5), 16);
+    const hitData = pointData.map((point, i) => Math.min(this.getDifference(point, pointData[i - 1]) * 1.5, 16));
 
     this.data.labels = days.map((date) => format(date, 'MMM d'));
     this.data.datasets.push({
@@ -65,7 +65,7 @@ export class ReportComponent implements OnInit {
     });
     this.data.datasets.push({
       data: days.map((_, i) => points - step * i),
-      backgroundColor: 'rgba(0 ,0 ,0 , .25)',
+      backgroundColor: 'rgba(0, 0, 0, .25)',
       borderWidth: 0,
       pointRadius: 0,
       pointHitRadius: 0,
@@ -86,7 +86,7 @@ export class ReportComponent implements OnInit {
 
   private getFinishedPoints(date: Date) {
     return this.tasks.reduce((acc, { finishDate, points }) => {
-      if (!finishDate || isAfter(endOfDay(finishDate.toDate()), date)) {
+      if (!finishDate || isAfter(startOfDay(finishDate.toDate()), date)) {
         return acc;
       }
 

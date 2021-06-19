@@ -40,7 +40,7 @@ export class ProjectReportComponent {
         ...project,
         states,
         activeSprint,
-        tasks: tasks.filter((task) => task.sprint === project.currentSprint)
+        tasks
       }))
     );
   }

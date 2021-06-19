@@ -18,11 +18,22 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: 1.5rem;
   width: 100%;
   margin-bottom: 1rem;
   font-size: .9rem;
   font-weight: bold;
   text-transform: uppercase;
+}
+
+.button {
+  display: flex;
+  flex-grow: 1;
+  justify-content: space-between;
+
+  &:not(:last-child) {
+    margin-right: .5rem;
+  }
 }
 
 .list {
@@ -58,10 +69,5 @@
 
 .subtle {
   margin-right: .5rem;
-  color: var(--gray-400);
-}
-
-.icon {
-  margin-left: .5rem;
   color: var(--gray-400);
 }

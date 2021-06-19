@@ -44,7 +44,7 @@ export class ProjectBoardComponent {
         ...project,
         states,
         activeSprint,
-        tasks: tasks.filter((task) => task.sprint === project.currentSprint),
+        tasks,
         lanes: users.filter((user) => project.users.indexOf(user.id) !== -1)
       }))
     );

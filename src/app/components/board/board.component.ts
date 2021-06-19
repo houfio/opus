@@ -52,6 +52,12 @@ export class BoardComponent {
   }
 
   public onDrop(event: CdkDragDrop<{ user: IdentifiableModel<UserModel> | undefined, state: IdentifiableModel<StateModel> }>) {
-    this.taskService.moveTaskToLane(this.project, event.item.data, event.container.data.user?.id, event.container.data.state.id).subscribe();
+    const done = event.container.data.state.order === this.getLastState();
+
+    this.taskService.moveTaskToState(this.project, event.item.data, event.container.data.user?.id, event.container.data.state.id, done).subscribe();
+  }
+
+  private getLastState() {
+    return this.states.reduce((acc, { order }) => Math.max(acc, order), 0);
   }
 }

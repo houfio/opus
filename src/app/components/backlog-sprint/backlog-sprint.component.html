@@ -1,14 +1,21 @@
-<button class="title" (click)="sprintDetails = sprint" [disabled]="!sprint">
-  {{ sprint ? sprint.name : 'Backlog' }}
-  <span *ngIf="sprint" class="row">
+<button class="title">
+  <button class="button" (click)="sprintDetails = sprint" [disabled]="!sprint">
+    {{ sprint ? sprint.name : 'Backlog' }}
+    <span *ngIf="sprint" class="row">
     <span *ngIf="sprint.startDate && sprint.endDate" class="subtle">
       {{ sprint.startDate.toDate() | date }}
       -
       {{ sprint.endDate.toDate() | date }}
     </span>
     {{ points }} points
-    <fa-icon *ngIf="sprint" [icon]="icon" class="icon"></fa-icon>
   </span>
+  </button>
+  <app-button *ngIf="next" [palette]="['gray-500', 'gray-0']" (press)="startSprint()">
+    Start sprint
+  </app-button>
+  <app-button *ngIf="current" [palette]="['gray-500', 'gray-0']" (press)="finishSprint()">
+    Finish sprint
+  </app-button>
   <app-button *ngIf="!sprint" (press)="createSprint()">
     Create sprint
   </app-button>

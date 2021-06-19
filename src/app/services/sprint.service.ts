@@ -21,12 +21,6 @@ export class SprintService {
   }
 
   public getSprints(project: IdentifiableModel<ProjectModel>) {
-    return this.getSprintCollection(project).valueChanges({
-      idField: 'id'
-    });
-  }
-
-  public getSprintBacklog(project: IdentifiableModel<ProjectModel>) {
     return this.getSprintCollection(
       project,
       (ref) => ref.where('archived', '==', false).orderBy('startDate').orderBy('name')
@@ -59,5 +53,26 @@ export class SprintService {
       endDate: firebase.firestore.Timestamp.fromDate(end),
       archived: false
     }));
+  }
+
+  public startSprint(project: IdentifiableModel<ProjectModel>, sprint: IdentifiableModel<SprintModel>) {
+    return defer(() => this.store.collection('projects').doc(project.id).update({
+      currentSprint: sprint.id
+    }));
+  }
+
+  public finishSprint(project: IdentifiableModel<ProjectModel>, sprint: IdentifiableModel<SprintModel>) {
+    const batch = this.store.firestore.batch();
+    const doc = this.store.firestore.collection('projects').doc(project.id);
+
+    batch.update(doc, {
+      currentSprint: ''
+    });
+
+    batch.update(doc.collection('sprints').doc(sprint.id), {
+      archived: true
+    });
+
+    return defer(() => batch.commit());
   }
 }

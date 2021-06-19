@@ -33,10 +33,10 @@ export class ProjectBacklogComponent {
       switchMap((project) => combineLatest([
         of(project),
         stateService.getStates(project),
-        sprintService.getSprintBacklog(project).pipe(
+        sprintService.getSprints(project).pipe(
           switchMap((sprints) => combineLatest([
             of(sprints),
-            taskService.getTaskBacklog(project, sprints)
+            taskService.getTasks(project, sprints)
           ]))
         )
       ])),
