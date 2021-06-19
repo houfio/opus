@@ -59,4 +59,12 @@ export class TaskService {
       finishDate: finished ? firebase.firestore.Timestamp.fromDate(new Date()) : firebase.firestore.FieldValue.delete() as any
     }));
   }
+
+  public updateTask(project: IdentifiableModel<ProjectModel>, task: IdentifiableModel<TaskModel>) {
+    return defer(() => this.getTaskCollection(project).doc(task.id).update({
+      title: task.title,
+      description: task.description,
+      points: task.points
+    }));
+  }
 }

@@ -75,4 +75,13 @@ export class SprintService {
 
     return defer(() => batch.commit());
   }
+
+  public updateSprint(project: IdentifiableModel<ProjectModel>, sprint: IdentifiableModel<SprintModel>) {
+    return defer(() => this.getSprintCollection(project).doc(sprint.id).update({
+      name: sprint.name,
+      description: sprint.description,
+      startDate: sprint.startDate,
+      endDate: sprint.endDate
+    }));
+  }
 }

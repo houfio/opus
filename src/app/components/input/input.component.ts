@@ -18,10 +18,26 @@ export class InputComponent implements ControlValueAccessor {
   public name!: string;
   @Input()
   public label!: string;
+  @Input()
+  public date = false;
+  @Input()
+  public minDate?: Date;
+  @Input()
+  public maxDate?: Date;
 
   public value = '';
-  public onChange: any = () => {}
-  public onTouch: any = () => {}
+  public onChange: any = () => {
+  };
+  public onTouch: any = () => {
+  };
+
+  public get options() {
+    return {
+      inputClass: 'input',
+      minDate: this.minDate,
+      maxDate: this.maxDate
+    };
+  }
 
   public writeValue(obj: any) {
     this.value = obj;

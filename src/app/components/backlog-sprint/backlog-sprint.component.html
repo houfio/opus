@@ -20,6 +20,9 @@
     Create sprint
   </app-button>
 </button>
+<div *ngIf="sprint?.description" class="description">
+  {{ sprint!.description }}
+</div>
 <div
   class="list"
   [class.empty]="!tasksInSprint.length"
@@ -55,12 +58,14 @@
 <app-task-overlay
   *ngIf="details"
   @ngIfAnimation
+  [project]="project"
   [task]="details"
   (dismiss)="details = undefined"
 ></app-task-overlay>
 <app-sprint-overlay
   *ngIf="sprintDetails"
   @ngIfAnimation
+  [project]="project"
   [sprint]="sprintDetails"
   (dismiss)="sprintDetails = undefined"
 ></app-sprint-overlay>

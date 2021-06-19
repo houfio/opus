@@ -11,6 +11,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ChartsModule } from 'ng2-charts';
+import { DatepickerModule } from 'ng2-datepicker';
 
 import { environment } from '../environments/environment';
 
@@ -113,7 +114,8 @@ const routes: Routes = [
     FontAwesomeModule,
     DragDropModule,
     CdkTableModule,
-    ChartsModule
+    ChartsModule,
+    DatepickerModule
   ],
   providers: [
     AuthService,

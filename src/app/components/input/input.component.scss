@@ -16,22 +16,33 @@
   font-weight: bold;
   text-transform: uppercase;
   pointer-events: none;
+  z-index: 1;
 }
 
-.input {
-  width: 100%;
-  min-width: 0;
-  padding: 1.5rem .75rem .5rem;
-  background-color: var(--gray-100);
-  border-radius: inherit;
-  transition: box-shadow .25s ease, opacity .25s ease;
+::ng-deep {
+  .input {
+    width: 100%;
+    min-width: 0;
+    padding: 1.5rem .75rem .5rem;
+    background-color: var(--gray-100);
+    border-radius: 8px;
+    transition: box-shadow .25s ease, opacity .25s ease;
 
-  &:focus {
-    box-shadow: 0 0 0 3px inset var(--gray-500);
+    &:focus {
+      box-shadow: 0 0 0 3px inset var(--gray-500);
+    }
+
+    &:disabled {
+      pointer-events: none;
+      opacity: .75;
+    }
   }
 
-  &:disabled {
-    pointer-events: none;
-    opacity: .75;
+  .datepicker-container {
+    width: 100%;
+  }
+
+  .calendar-container {
+    top: 100% !important;
   }
 }

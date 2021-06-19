@@ -39,6 +39,7 @@
 <app-task-overlay
   *ngIf="details"
   @ngIfAnimation
+  [project]="project"
   [task]="details"
   (dismiss)="details = undefined"
 ></app-task-overlay>

@@ -2,6 +2,7 @@
   {{ label }}
 </label>
 <input
+  *ngIf="!date; else picker"
   [id]="name"
   [name]="name"
   class="input"
@@ -9,3 +10,13 @@
   (ngModelChange)="onChange($event)"
   (blur)="onTouch()"
 />
+<ng-template #picker>
+  <ngx-datepicker
+    [id]="name"
+    [name]="name"
+    [ngModel]="value"
+    (ngModelChange)="onChange($event)"
+    [options]="options"
+    (blur)="onTouch()"
+  ></ngx-datepicker>
+</ng-template>
