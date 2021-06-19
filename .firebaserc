@@ -1,9 +1,9 @@
 {
   "targets": {
-    "burgerbot-fdc33": {
+    "opus-5c2a4": {
       "hosting": {
         "opus": [
-          "burgerbot-fdc33"
+          "opus-5c2a4"
         ]
       }
     }
