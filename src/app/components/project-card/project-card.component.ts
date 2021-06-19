@@ -26,6 +26,6 @@ export class ProjectCardComponent {
   public press = new EventEmitter<void>();
 
   public get isButton() {
-    return Boolean(this.press.observers.length);
+    return Boolean(this.press.observers?.length);
   }
 }
