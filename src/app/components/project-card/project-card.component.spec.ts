@@ -74,7 +74,10 @@ describe('ProjectCardComponent', () => {
 
   it('should be an anchor', () => {
     component.press.unsubscribe();
+    fixture.detectChanges();
+
+    projectButton = fixture.nativeElement.querySelector('.card');
     expect(component.isButton).toBeFalsy();
-    // expect(projectButton).toBeInstanceOf(HTMLAnchorElement); // TODO: create element without subscription and test that first
+    expect(projectButton).toBeInstanceOf(HTMLAnchorElement);
   });
 });
