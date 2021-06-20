@@ -1,11 +1,11 @@
 <ng-container *ngIf="project$ | async; let project; else loading">
   <app-board
-    *ngIf="project.activeSprint; else empty"
+    *ngIf="project.currentSprintData; else empty"
     [project]="project"
-    [activeSprint]="project.activeSprint"
+    [activeSprint]="project.currentSprintData"
     [states]="project.states"
     [tasks]="project.tasks"
-    [users]="project.userData"
+    [users]="project.usersData"
   ></app-board>
   <ng-template #empty>
     No active sprint

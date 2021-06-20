@@ -1,7 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { Palette } from '../../types';
-
 @Component({
   selector: 'app-button',
   templateUrl: './button.component.html',
@@ -9,7 +7,7 @@ import { Palette } from '../../types';
 })
 export class ButtonComponent {
   @Input()
-  public palette?: Palette;
+  public palette?: [string, string];
   @Input()
   public route?: string[];
   @Input()

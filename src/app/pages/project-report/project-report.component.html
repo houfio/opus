@@ -1,8 +1,8 @@
 <ng-container *ngIf="project$ | async; let project; else loading">
   <app-report
-    *ngIf="project.activeSprint; else empty"
+    *ngIf="project.currentSprintData; else empty"
     [project]="project"
-    [sprint]="project.activeSprint"
+    [sprint]="project.currentSprintData"
     [states]="project.states"
     [tasks]="project.tasks"
   ></app-report>

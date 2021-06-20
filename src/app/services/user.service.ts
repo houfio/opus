@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { QueryFn } from '@angular/fire/firestore/interfaces';
+import firebase from 'firebase/app';
 import { defer, of } from 'rxjs';
 
 import { IdentifiableModel } from '../models/identifiable.model';
@@ -13,8 +15,8 @@ export class UserService {
   public constructor(private store: AngularFirestore) {
   }
 
-  private getUserCollection(project: IdentifiableModel<ProjectModel>) {
-    return this.store.collection('projects').doc(project.id).collection<UserModel>('users');
+  private getUserCollection(project: IdentifiableModel<ProjectModel>, query?: QueryFn) {
+    return this.store.collection('projects').doc(project.id).collection<UserModel>('users', query);
   }
 
   public getUsers(project: IdentifiableModel<ProjectModel>) {

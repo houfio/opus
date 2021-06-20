@@ -10,8 +10,8 @@ export class SidebarComponent {
   @Input()
   public owner!: boolean;
 
-  public backlog = faStream;
-  public board = faBorderAll;
-  public report = faChartBar;
-  public settings = faCog;
+  public readonly backlog = faStream;
+  public readonly board = faBorderAll;
+  public readonly report = faChartBar;
+  public readonly settings = faCog;
 }

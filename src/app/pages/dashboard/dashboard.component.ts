@@ -1,14 +1,10 @@
 import { Component } from '@angular/core';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
-import { combineLatest, Observable, of } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
 
 import { IdentifiableModel } from '../../models/identifiable.model';
 import { ProjectModel } from '../../models/project.model';
-import { UserModel } from '../../models/user.model';
-import { AuthService } from '../../services/auth.service';
+import { PageService } from '../../services/page.service';
 import { ProjectService } from '../../services/project.service';
-import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,26 +12,12 @@ import { UserService } from '../../services/user.service';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent {
-  public projects$: Observable<IdentifiableModel<ProjectModel & {
-    user: string,
-    ownerData?: IdentifiableModel<UserModel>
-  }>[]>;
-  public icon = faTrash;
+  public readonly projects$ = this.pageService.getDashboard();
+  public readonly icon = faTrash;
+
   public showArchived = false;
 
-  public constructor(authService: AuthService, private projectService: ProjectService, userService: UserService) {
-    this.projects$ = projectService.getProjects(true, true).pipe(
-      switchMap((projects) => !projects.length ? of([]) : combineLatest(projects.map((project) => combineLatest([
-        of(project),
-        authService.user$,
-        userService.getOwner(project)
-      ])))),
-      map((projects) => projects.map(([project, user, ownerData]) => ({
-        ...project,
-        user: user?.uid ?? '',
-        ownerData
-      })))
-    );
+  public constructor(private pageService: PageService, private projectService: ProjectService) {
   }
 
   public hasArchived(projects: IdentifiableModel<ProjectModel & { user: string }>[]) {

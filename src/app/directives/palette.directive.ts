@@ -1,13 +1,11 @@
 import { Directive, ElementRef, Input } from '@angular/core';
 
-import { Palette } from '../types';
-
 @Directive({
   selector: '[appPalette]'
 })
 export class PaletteDirective {
   @Input()
-  public set appPalette(value: Palette | undefined) {
+  public set appPalette(value: [string, string] | undefined) {
     if (!value) {
       return;
     }

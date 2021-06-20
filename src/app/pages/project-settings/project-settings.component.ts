@@ -1,13 +1,11 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
-import { combineLatest, Observable, of } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
 
 import { IdentifiableModel } from '../../models/identifiable.model';
 import { ProjectModel } from '../../models/project.model';
 import { UserModel } from '../../models/user.model';
-import { filterNullish } from '../../operators/filter-nullish';
+import { PageService } from '../../services/page.service';
 import { ProjectService } from '../../services/project.service';
 import { UserService } from '../../services/user.service';
 
@@ -17,30 +15,11 @@ import { UserService } from '../../services/user.service';
   styleUrls: ['./project-settings.component.scss']
 })
 export class ProjectSettingsComponent {
-  public project$: Observable<IdentifiableModel<ProjectModel> & {
-    userData: (IdentifiableModel<UserModel> & {
-      accepted: boolean
-    })[]
-  }>;
-  public checked = faCheck;
-  public unchecked = faTimes;
+  public readonly project$ = this.pageService.getProjectUsers(this.route.parent!.paramMap);
+  public readonly checked = faCheck;
+  public readonly unchecked = faTimes;
 
-  public constructor(route: ActivatedRoute, private router: Router, private projectService: ProjectService, private userService: UserService) {
-    this.project$ = route.parent!.paramMap.pipe(
-      switchMap((params) => projectService.getProject(params.get('project'))),
-      filterNullish(),
-      switchMap((project) => combineLatest([
-        of(project),
-        userService.getUsers(project)
-      ])),
-      map(([project, users]) => ({
-        ...project,
-        userData: users.map((user) => ({
-          ...user,
-          accepted: project.users.indexOf(user.id) !== -1
-        }))
-      }))
-    );
+  public constructor(private route: ActivatedRoute, private router: Router, private pageService: PageService, private projectService: ProjectService, private userService: UserService) {
   }
 
   public updateProject(project: IdentifiableModel<ProjectModel>) {

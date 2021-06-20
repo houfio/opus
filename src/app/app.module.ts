@@ -46,6 +46,7 @@ import { ProjectSettingsComponent } from './pages/project-settings/project-setti
 import { ProjectComponent } from './pages/project/project.component';
 import { ProjectsComponent } from './pages/projects/projects.component';
 import { AuthService } from './services/auth.service';
+import { PageService } from './services/page.service';
 import { ProjectService } from './services/project.service';
 import { SprintService } from './services/sprint.service';
 import { StateService } from './services/state.service';
@@ -119,6 +120,7 @@ const routes: Routes = [
   ],
   providers: [
     AuthService,
+    PageService,
     ProjectService,
     SprintService,
     StateService,

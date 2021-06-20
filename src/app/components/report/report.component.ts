@@ -56,21 +56,20 @@ export class ReportComponent implements OnInit {
     const hitData = pointData.map((point, i) => Math.min(this.getDifference(point, pointData[i - 1]) * 1.5, 16));
 
     this.data.labels = days.map((date) => format(date, 'MMM d'));
-    this.data.datasets.push({
+    this.data.datasets = [{
       data: pointData,
       borderColor: '#ffba05',
       pointRadius: hitData,
       pointHitRadius: hitData,
       pointHoverRadius: hitData,
-    });
-    this.data.datasets.push({
+    }, {
       data: days.map((_, i) => points - step * i),
       backgroundColor: 'rgba(0, 0, 0, .25)',
       borderWidth: 0,
       pointRadius: 0,
       pointHitRadius: 0,
       fill: 'origin'
-    });
+    }];
   }
 
   private getDays() {
