@@ -105,6 +105,10 @@ export class BacklogSprintComponent implements AfterViewInit {
   }
 
   public createTask() {
+    if (!this.data.title.trim()) {
+      return;
+    }
+
     this.taskService.createTask(this.project, this.data.title, this.sprint?.id)
       .subscribe(() => this.notifierService.notify('success', 'Task successfully created'));
     this.setOpen(false);

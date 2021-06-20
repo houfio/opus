@@ -23,6 +23,10 @@ export class ProjectSettingsComponent {
   public constructor(private route: ActivatedRoute, private router: Router, private pageService: PageService, private projectService: ProjectService, private userService: UserService, private notifierService: NotifierService) {
   }
 
+  public isValid(project: IdentifiableModel<ProjectModel>) {
+    return Boolean(project.name);
+  }
+
   public updateProject(project: IdentifiableModel<ProjectModel>) {
     this.projectService.updateProject(project)
       .subscribe(() => this.notifierService.notify('success', 'Project successfully updated'));
