@@ -9,9 +9,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "deploy": "ng deploy",
-    "cypress:open": "cypress open",
-    "cypress:run": "cypress run"
+    "deploy": "ng deploy"
   },
   "dependencies": {
     "@angular/animations": "^12.0.5",

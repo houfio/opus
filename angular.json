@@ -68,7 +68,15 @@
                 }
               ]
             },
-            "development": {}
+            "development": {},
+            "test": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.test.ts"
+                }
+              ]
+            }
           },
           "defaultConfiguration": "production"
         },
@@ -81,15 +89,12 @@
             },
             "development": {
               "browserTarget": "opus:build:development"
+            },
+            "test": {
+              "browserTarget": "opus:build:test"
             }
           },
           "defaultConfiguration": "development"
-        },
-        "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "browserTarget": "opus:build"
-          }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
@@ -120,37 +125,14 @@
         "e2e": {
           "builder": "@cypress/schematic:cypress",
           "options": {
-            "devServerTarget": "opus:serve",
+            "devServerTarget": "opus:serve:test",
             "watch": true,
             "headless": false
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "opus:serve:production"
-            }
           }
         },
         "deploy": {
           "builder": "@angular/fire:deploy",
           "options": {}
-        },
-        "cypress-run": {
-          "builder": "@cypress/schematic:cypress",
-          "options": {
-            "devServerTarget": "opus:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "opus:serve:production"
-            }
-          }
-        },
-        "cypress-open": {
-          "builder": "@cypress/schematic:cypress",
-          "options": {
-            "watch": true,
-            "headless": false
-          }
         }
       }
     }
