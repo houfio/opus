@@ -1,6 +1,6 @@
 .info, .value {
   background-color: var(--gray-100);
-  border-radius: .5rem;
+  border-radius: 8px;
 }
 
 .info {
@@ -33,7 +33,7 @@
   flex: 0 0 20rem;
   padding: .5rem .75rem;
   background-color: var(--gray-100);
-  border-radius: .5rem;
+  border-radius: 8px;
 }
 
 .row {
@@ -59,7 +59,7 @@
 .item {
   padding: 1rem;
   background-color: var(--gray-200);
-  border-radius: .5rem;
+  border-radius: 8px;
   user-select: none;
   cursor: move;
 }

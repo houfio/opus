@@ -24,7 +24,7 @@ export class TaskService {
 
     return this.getTaskCollection(
       project,
-      (ref) => ref.where('sprint', 'in', ids).orderBy('title')
+      (ref) => ref.where('archived', '==', false).where('sprint', 'in', ids).orderBy('title')
     ).valueChanges({
       idField: 'id'
     });
@@ -65,6 +65,13 @@ export class TaskService {
       title: task.title,
       description: task.description,
       points: task.points
+    }));
+  }
+
+  public archiveTask(project: IdentifiableModel<ProjectModel>, task: IdentifiableModel<TaskModel>) {
+    return defer(() => this.getTaskCollection(project).doc(task.id).update({
+      sprint: '',
+      archived: !task.archived
     }));
   }
 }

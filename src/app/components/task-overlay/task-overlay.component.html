@@ -7,6 +7,9 @@
     <app-input name="description" label="Description" [(ngModel)]="data.description"></app-input>
     <app-input name="points" label="Points" type="number" [(ngModel)]="data.points"></app-input>
     <div class="actions">
+      <app-button [palette]="['red-200', 'gray-0']" (press)="archiveTask()">
+        Archive
+      </app-button>
       <app-button [palette]="['gray-0', 'yellow-200']">
         Update
       </app-button>

@@ -39,4 +39,11 @@ export class TaskOverlayComponent implements OnInit {
       this.dismiss.emit();
     });
   }
+
+  public archiveTask() {
+    this.taskService.archiveTask(this.project, this.task).subscribe(() => {
+      this.notifierService.notify('success', 'Task successfully archived');
+      this.dismiss.emit();
+    });
+  }
 }
