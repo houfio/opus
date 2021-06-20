@@ -1,0 +1,49 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function authenticated() {
+      return request.auth != null;
+    }
+
+    function getProject(project) {
+    	return getAfter(/databases/$(database)/documents/projects/$(project));
+    }
+
+    function owner(project) {
+      let data = getProject(project);
+
+      return data != null ? data.data.owner == request.auth.uid : authenticated();
+    }
+
+    function user(project) {
+      let data = getProject(project);
+
+      return data != null ? (request.auth.uid in data.data.users && !data.data.archived) : authenticated();
+    }
+
+    match /projects/{project} {
+      allow list;
+      allow get: if user(project);
+      allow write: if owner(project);
+
+      match /sprints/{sprint} {
+      	allow read, write: if user(project);
+      }
+
+      match /states/{state} {
+        allow read: if user(project);
+        allow write: if owner(project);
+      }
+
+      match /tasks/{task} {
+      	allow read, write: if user(project) || owner(project);
+      }
+
+      match /users/{user} {
+        allow read: if user(project);
+        allow create, update: if owner(project) || user == request.auth.uid;
+        allow delete: if owner(project);
+      }
+    }
+  }
+}
