@@ -1,8 +1,8 @@
-import { attachCustomCommands } from "cypress-firebase";
-import firebase from "firebase/app";
-import "firebase/auth";
-import "firebase/database";
-import "firebase/firestore";
+import { attachCustomCommands } from 'cypress-firebase/lib';
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/database';
+import 'firebase/firestore';
 
 firebase.initializeApp({
   apiKey: 'AIzaSyCm8fqcHWtVKaqb9Z6yml8pAVI3OZ1MDG0',
