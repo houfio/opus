@@ -29,7 +29,7 @@ describe('SpinnerComponent', () => {
     expect(fixture.nativeElement.querySelector('.spinner')).toBeTruthy();
   });
 
-  it('should have te correct message', () => {
+  it('should have the correct message', () => {
     expect(fixture.nativeElement.querySelector('.message').innerText).toBe('testing');
   });
 });
