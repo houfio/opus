@@ -24,7 +24,7 @@ export class TaskService {
 
     return this.getTaskCollection(
       project,
-      (ref) => ref.where('archived', '==', false).where('sprint', 'in', ids).orderBy('title')
+      (ref) => ref.where('sprint', 'in', ids).orderBy('title')
     ).valueChanges({
       idField: 'id'
     });
