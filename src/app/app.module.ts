@@ -35,6 +35,7 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
 import { SprintOverlayComponent } from './components/sprint-overlay/sprint-overlay.component';
 import { TableComponent } from './components/table/table.component';
 import { TaskOverlayComponent } from './components/task-overlay/task-overlay.component';
+import { UnarchiveOverlayComponent } from './components/unarchive-overlay/unarchive-overlay.component';
 import { PaletteDirective } from './directives/palette.directive';
 import { authorized } from './guards/authorized';
 import { unauthorized } from './guards/unauthorized';
@@ -94,6 +95,7 @@ const routes: Routes = [
     SpinnerComponent,
     SprintOverlayComponent,
     TableComponent,
+    UnarchiveOverlayComponent,
     TaskOverlayComponent,
     // pages
     DashboardComponent,
@@ -120,6 +122,20 @@ const routes: Routes = [
     DatepickerModule,
     NotifierModule.withConfig({
       theme: 'opus',
+      animations: {
+        hide: {
+          easing: 'ease',
+          speed: 250
+        },
+        shift: {
+          easing: 'ease',
+          speed: 250
+        },
+        show: {
+          easing: 'ease',
+          speed: 250
+        }
+      },
       behaviour: {
         onClick: 'hide',
         showDismissButton: false

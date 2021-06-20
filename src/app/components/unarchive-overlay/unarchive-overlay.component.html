@@ -1,0 +1,16 @@
+<app-overlay (dismiss)="dismiss.emit()">
+  <app-heading>
+    Archived tasks
+  </app-heading>
+  <div *ngFor="let task of archivedTasks" class="task">
+    <div class="title">
+      {{ task.title }}
+    </div>
+    <app-button (press)="archiveTask(task)">
+      Unarchive
+    </app-button>
+  </div>
+  <div *ngIf="!archivedTasks.length">
+    No archived tasks
+  </div>
+</app-overlay>

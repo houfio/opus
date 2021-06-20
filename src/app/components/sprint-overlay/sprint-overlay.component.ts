@@ -38,8 +38,6 @@ export class SprintOverlayComponent implements OnInit {
       startDate: this.sprint.startDate.toDate(),
       endDate: this.sprint.endDate.toDate()
     };
-
-    console.log(this.data);
   }
 
   public getOptions(start: boolean) {

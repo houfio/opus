@@ -1,4 +1,3 @@
-import { animateChild, query, transition, trigger } from '@angular/animations';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Component, Input } from '@angular/core';
 
@@ -13,14 +12,7 @@ import { TaskService } from '../../services/task.service';
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html',
-  styleUrls: ['./board.component.scss'],
-  animations: [
-    trigger('ngIfAnimation', [
-      transition(':enter, :leave', [
-        query('@*', animateChild())
-      ])
-    ])
-  ]
+  styleUrls: ['./board.component.scss']
 })
 export class BoardComponent {
   @Input()
@@ -33,8 +25,6 @@ export class BoardComponent {
   public tasks!: IdentifiableModel<TaskModel>[];
   @Input()
   public users!: IdentifiableModel<UserModel>[];
-
-  public details?: IdentifiableModel<TaskModel>;
 
   public constructor(private taskService: TaskService) {
   }

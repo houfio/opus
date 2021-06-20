@@ -42,6 +42,7 @@ export class BacklogSprintComponent implements AfterViewInit {
 
   public details?: IdentifiableModel<TaskModel>;
   public sprintDetails?: IdentifiableModel<SprintModel>;
+  public archived = false;
   public data = {
     open: false,
     title: ''
@@ -65,7 +66,7 @@ export class BacklogSprintComponent implements AfterViewInit {
   }
 
   public get tasksInSprint() {
-    return this.tasks.filter((task) => task.sprint === (this.sprint?.id ?? ''));
+    return this.tasks.filter((task) => task.sprint === (this.sprint?.id ?? '') && !task.archived);
   }
 
   public get empty() {

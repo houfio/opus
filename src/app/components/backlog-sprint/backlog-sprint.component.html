@@ -16,9 +16,14 @@
   <app-button *ngIf="current" [palette]="['gray-500', 'gray-0']" (press)="finishSprint()">
     Finish sprint
   </app-button>
-  <app-button *ngIf="!sprint" (press)="createSprint()">
-    Create sprint
-  </app-button>
+  <ng-container *ngIf="!sprint">
+    <app-button [palette]="['gray-200', 'gray-0']" (press)="archived = true">
+      Archived
+    </app-button>
+    <app-button (press)="createSprint()">
+      Create sprint
+    </app-button>
+  </ng-container>
 </button>
 <div *ngIf="sprint?.description" class="description">
   {{ sprint!.description }}
@@ -69,3 +74,10 @@
   [sprint]="sprintDetails"
   (dismiss)="sprintDetails = undefined"
 ></app-sprint-overlay>
+<app-unarchive-overlay
+  *ngIf="archived"
+  @ngIfAnimation
+  [project]="project"
+  [tasks]="tasks"
+  (dismiss)="archived = false"
+></app-unarchive-overlay>
