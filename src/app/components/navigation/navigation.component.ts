@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { faTable } from '@fortawesome/free-solid-svg-icons';
+import { NotifierService } from 'angular-notifier';
 
 import { AuthService } from '../../services/auth.service';
 
@@ -11,10 +12,11 @@ import { AuthService } from '../../services/auth.service';
 export class NavigationComponent {
   public readonly logo = faTable;
 
-  public constructor(public authService: AuthService) {
+  public constructor(public authService: AuthService, private notifierService: NotifierService) {
   }
 
   public logout() {
-    this.authService.logout().subscribe();
+    this.authService.logout()
+      .subscribe(() => this.notifierService.notify('success', 'Successfully logged out'));
   }
 }

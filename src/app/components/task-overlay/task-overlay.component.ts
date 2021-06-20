@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { NotifierService } from 'angular-notifier';
 
 import { IdentifiableModel } from '../../models/identifiable.model';
 import { ProjectModel } from '../../models/project.model';
@@ -20,7 +21,7 @@ export class TaskOverlayComponent implements OnInit {
 
   public data!: IdentifiableModel<TaskModel>;
 
-  public constructor(private taskService: TaskService) {
+  public constructor(private taskService: TaskService, private notifierService: NotifierService) {
   }
 
   public ngOnInit() {
@@ -33,6 +34,9 @@ export class TaskOverlayComponent implements OnInit {
     this.taskService.updateTask(this.project, {
       ...this.data,
       points: parseInt(String(this.data.points), 10) || 0
-    }).subscribe(() => this.dismiss.emit());
+    }).subscribe(() => {
+      this.notifierService.notify('success', 'Task successfully updated');
+      this.dismiss.emit();
+    });
   }
 }

@@ -10,6 +10,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NotifierModule } from 'angular-notifier';
 import { ChartsModule } from 'ng2-charts';
 import { DatepickerModule } from 'ng2-datepicker';
 
@@ -116,7 +117,14 @@ const routes: Routes = [
     DragDropModule,
     CdkTableModule,
     ChartsModule,
-    DatepickerModule
+    DatepickerModule,
+    NotifierModule.withConfig({
+      theme: 'opus',
+      behaviour: {
+        onClick: 'hide',
+        showDismissButton: false
+      }
+    })
   ],
   providers: [
     AuthService,

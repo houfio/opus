@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ParamMap } from '@angular/router';
-import { combineLatest, Observable, of } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { NotifierService } from 'angular-notifier';
+import { combineLatest, EMPTY, Observable, of } from 'rxjs';
+import { catchError, map, switchMap } from 'rxjs/operators';
 
 import { IdentifiableModel } from '../models/identifiable.model';
 import { ProjectModel } from '../models/project.model';
@@ -31,7 +32,8 @@ export class PageService {
     private sprintService: SprintService,
     private stateService: StateService,
     private taskService: TaskService,
-    private userService: UserService) {
+    private userService: UserService,
+    private notifierService: NotifierService) {
   }
 
   public getDashboard(): Response<ProjectModel[], { user: string, ownerData?: UserModel }> {
@@ -45,7 +47,12 @@ export class PageService {
         ...project,
         user: user?.uid ?? '',
         ownerData
-      })))
+      }))),
+      catchError(() => {
+        this.notifierService.notify('success', 'Unable to load dashboard');
+
+        return EMPTY;
+      })
     );
   }
 
@@ -59,7 +66,12 @@ export class PageService {
         ...project,
         userId: user.uid
       })),
-      filterNullish()
+      filterNullish(),
+      catchError(() => {
+        this.notifierService.notify('success', 'Unable to load project');
+
+        return EMPTY;
+      })
     );
   }
 
@@ -85,7 +97,12 @@ export class PageService {
         states,
         tasks,
         usersData: usersData.filter(({ id }) => project.users.indexOf(id) !== -1)
-      }))
+      })),
+      catchError(() => {
+        this.notifierService.notify('success', 'Unable to load project details');
+
+        return EMPTY;
+      })
     );
   }
 
@@ -112,7 +129,12 @@ export class PageService {
         sprints,
         states,
         tasks
-      }))
+      })),
+      catchError(() => {
+        this.notifierService.notify('success', 'Unable to load project backlog');
+
+        return EMPTY;
+      })
     )
   }
 
@@ -132,7 +154,12 @@ export class PageService {
           ...user,
           accepted: project.users.indexOf(user.id) !== -1
         }))
-      }))
+      })),
+      catchError(() => {
+        this.notifierService.notify('success', 'Unable to load project users');
+
+        return EMPTY;
+      })
     );
   }
 }

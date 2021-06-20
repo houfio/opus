@@ -1,7 +1,7 @@
 import { animateChild, query, transition, trigger } from '@angular/animations';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostBinding, Input, ViewChild } from '@angular/core';
-import { faCog } from '@fortawesome/free-solid-svg-icons';
+import { NotifierService } from 'angular-notifier';
 import { compareDesc, format, startOfToday } from 'date-fns';
 
 import { IdentifiableModel } from '../../models/identifiable.model';
@@ -47,7 +47,7 @@ export class BacklogSprintComponent implements AfterViewInit {
     title: ''
   };
 
-  public constructor(private cd: ChangeDetectorRef, private sprintService: SprintService, private taskService: TaskService) {
+  public constructor(private cd: ChangeDetectorRef, private sprintService: SprintService, private taskService: TaskService, private notifierService: NotifierService) {
   }
 
   @HostBinding('class.current')
@@ -99,11 +99,13 @@ export class BacklogSprintComponent implements AfterViewInit {
     const date = this.sprints.map((s) => s.endDate.toDate()).sort(compareDesc)[0] ?? startOfToday();
     const name = format(date, 'MMM d');
 
-    this.sprintService.createSprint(this.project, `Sprint (${name})`, date).subscribe();
+    this.sprintService.createSprint(this.project, `Sprint (${name})`, date)
+      .subscribe(() => this.notifierService.notify('success', 'Sprint successfully created'));
   }
 
   public createTask() {
-    this.taskService.createTask(this.project, this.data.title, this.sprint?.id).subscribe();
+    this.taskService.createTask(this.project, this.data.title, this.sprint?.id)
+      .subscribe(() => this.notifierService.notify('success', 'Task successfully created'));
     this.setOpen(false);
   }
 
@@ -116,7 +118,8 @@ export class BacklogSprintComponent implements AfterViewInit {
       return;
     }
 
-    this.sprintService.startSprint(this.project, this.sprint).subscribe();
+    this.sprintService.startSprint(this.project, this.sprint)
+      .subscribe(() => this.notifierService.notify('success', 'Sprint successfully started'));
   }
 
   public finishSprint() {
@@ -124,6 +127,7 @@ export class BacklogSprintComponent implements AfterViewInit {
       return;
     }
 
-    this.sprintService.finishSprint(this.project, this.sprint).subscribe();
+    this.sprintService.finishSprint(this.project, this.sprint)
+      .subscribe(() => this.notifierService.notify('success', 'Task successfully finished'));
   }
 }

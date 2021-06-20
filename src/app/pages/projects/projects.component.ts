@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { NotifierService } from 'angular-notifier';
 import { Observable } from 'rxjs';
 
 import { IdentifiableModel } from '../../models/identifiable.model';
@@ -18,15 +19,21 @@ export class ProjectsComponent {
     description: ''
   };
 
-  public constructor(private router: Router, private projectService: ProjectService) {
+  public constructor(private router: Router, private projectService: ProjectService, private notifierService: NotifierService) {
     this.projects$ = projectService.getProjects(false);
   }
 
   public createProject() {
-    this.projectService.createProject(this.data.name, this.data.description).subscribe(() => this.router.navigate(['']));
+    this.projectService.createProject(this.data.name, this.data.description).subscribe(() => {
+      this.notifierService.notify('success', 'Project successfully created');
+      this.router.navigate(['']);
+    });
   }
 
   public joinProject(project: IdentifiableModel<ProjectModel>) {
-    this.projectService.joinProject(project).subscribe(() => this.router.navigate(['']));
+    this.projectService.joinProject(project).subscribe(() => {
+      this.notifierService.notify('success', 'Request successfully sent');
+      this.router.navigate(['']);
+    });
   }
 }

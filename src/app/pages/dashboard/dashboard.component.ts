@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { NotifierService } from 'angular-notifier';
 
 import { IdentifiableModel } from '../../models/identifiable.model';
 import { ProjectModel } from '../../models/project.model';
@@ -17,7 +18,7 @@ export class DashboardComponent {
 
   public showArchived = false;
 
-  public constructor(private pageService: PageService, private projectService: ProjectService) {
+  public constructor(private pageService: PageService, private projectService: ProjectService, private notifierService: NotifierService) {
   }
 
   public hasArchived(projects: IdentifiableModel<ProjectModel & { user: string }>[]) {
@@ -29,6 +30,7 @@ export class DashboardComponent {
   }
 
   public archiveProject(project: IdentifiableModel<ProjectModel>) {
-    this.projectService.archiveProject(project).subscribe();
+    this.projectService.archiveProject(project)
+      .subscribe(() => this.notifierService.notify('success', 'Project successfully unarchived'));
   }
 }

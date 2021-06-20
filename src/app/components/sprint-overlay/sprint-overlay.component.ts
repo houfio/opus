@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { NotifierService } from 'angular-notifier';
 import firebase from 'firebase/app';
 
 import { IdentifiableModel } from '../../models/identifiable.model';
@@ -28,7 +29,7 @@ export class SprintOverlayComponent implements OnInit {
     archived: boolean
   };
 
-  public constructor(private sprintService: SprintService) {
+  public constructor(private sprintService: SprintService, private notifierService: NotifierService) {
   }
 
   public ngOnInit() {
@@ -57,6 +58,9 @@ export class SprintOverlayComponent implements OnInit {
       ...this.data,
       startDate: firebase.firestore.Timestamp.fromDate(this.data.startDate),
       endDate: firebase.firestore.Timestamp.fromDate(this.data.endDate)
-    }).subscribe(() => this.dismiss.emit());
+    }).subscribe(() => {
+      this.notifierService.notify('success', 'Sprint successfully updated');
+      this.dismiss.emit();
+    });
   }
 }
