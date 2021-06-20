@@ -23,6 +23,10 @@ export class ProjectsComponent {
     this.projects$ = projectService.getProjects(false);
   }
 
+  public get valid() {
+    return Boolean(this.data.name.trim());
+  }
+
   public createProject() {
     this.projectService.createProject(this.data.name, this.data.description).subscribe(() => {
       this.notifierService.notify('success', 'Project successfully created');

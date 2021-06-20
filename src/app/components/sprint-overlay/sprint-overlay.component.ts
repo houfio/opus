@@ -32,6 +32,10 @@ export class SprintOverlayComponent implements OnInit {
   public constructor(private sprintService: SprintService, private notifierService: NotifierService) {
   }
 
+  public get valid() {
+    return Boolean(this.data.name.trim());
+  }
+
   public ngOnInit() {
     this.data = {
       ...this.sprint,

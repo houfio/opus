@@ -24,6 +24,10 @@ export class TaskOverlayComponent implements OnInit {
   public constructor(private taskService: TaskService, private notifierService: NotifierService) {
   }
 
+  public get valid() {
+    return Boolean(this.data.title.trim());
+  }
+
   public ngOnInit() {
     this.data = {
       ...this.task

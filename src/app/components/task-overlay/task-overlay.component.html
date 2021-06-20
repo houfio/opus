@@ -10,7 +10,7 @@
       <app-button [palette]="['red-200', 'gray-0']" (press)="archiveTask()">
         Archive
       </app-button>
-      <app-button [palette]="['gray-0', 'yellow-200']">
+      <app-button [disabled]="!valid" [palette]="['gray-0', 'yellow-200']">
         Update
       </app-button>
     </div>

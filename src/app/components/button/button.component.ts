@@ -12,6 +12,8 @@ export class ButtonComponent {
   public route?: string[];
   @Input()
   public params?: object;
+  @Input()
+  public disabled = false;
   @Output()
   public press = new EventEmitter<void>();
 

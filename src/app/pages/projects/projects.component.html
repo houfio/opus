@@ -7,7 +7,7 @@
       <form (ngSubmit)="createProject()" class="form">
         <app-input name="name" label="Name" [(ngModel)]="data.name"></app-input>
         <app-input name="description" label="Description" [(ngModel)]="data.description"></app-input>
-        <app-button class="submit">
+        <app-button class="submit" [disabled]="!valid">
           Create
         </app-button>
       </form>
