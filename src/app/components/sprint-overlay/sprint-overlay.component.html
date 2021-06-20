@@ -5,14 +5,8 @@
   <form (ngSubmit)="updateSprint()">
     <app-input name="name" label="Name" [(ngModel)]="data.name"></app-input>
     <app-input name="description" label="Description" [(ngModel)]="data.description"></app-input>
-    <app-row [spaces]="{ phone: 1 }">
-      <app-column [columns]="{ phone: 6 }">
-        <app-input name="startDate" label="Start Date" [(ngModel)]="data.startDate" type="date" [maxDate]="data.endDate"></app-input>
-      </app-column>
-      <app-column [columns]="{ phone: 6 }">
-        <app-input name="endDate" label="End Date" [(ngModel)]="data.endDate" type="date" [minDate]="data.startDate"></app-input>
-      </app-column>
-    </app-row>
+    <app-input name="startDate" label="Start Date" [(ngModel)]="data.startDate" type="date" [maxDate]="data.endDate"></app-input>
+    <app-input name="endDate" label="End Date" [(ngModel)]="data.endDate" type="date" [minDate]="data.startDate"></app-input>
     <div class="actions">
       <app-button [palette]="['gray-0', 'yellow-200']">
         Update
