@@ -16,6 +16,7 @@ describe('ColumnComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ColumnComponent);
     component = fixture.componentInstance;
+
     fixture.detectChanges();
   });
 

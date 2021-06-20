@@ -16,10 +16,20 @@ describe('SpinnerComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SpinnerComponent);
     component = fixture.componentInstance;
+    component.message = 'testing';
+
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should have a spinner', () => {
+    expect(fixture.nativeElement.querySelector('.spinner')).toBeTruthy();
+  });
+
+  it('should have te correct message', () => {
+    expect(fixture.nativeElement.querySelector('.message').innerText).toBe('testing');
   });
 });

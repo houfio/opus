@@ -49,9 +49,6 @@ describe('ProjectCardComponent', () => {
     fixture.detectChanges();
 
     projectButton = fixture.nativeElement.querySelector('.card');
-    console.log('Native', fixture.nativeElement);
-    console.log('Button', Array.from<HTMLElement>(fixture.nativeElement.querySelectorAll('*')));
-    console.log('Button', projectButton);
   });
 
   it('should create', () => {
@@ -62,18 +59,19 @@ describe('ProjectCardComponent', () => {
     expect(component.project).toBeTruthy();
   });
 
-  it('should emit', () => {
+  it('should emit on click', () => {
     projectButton.dispatchEvent(new Event('click'));
     expect(component.press.emit).toHaveBeenCalled();
   });
 
-  it('should be a button', () => {
+  it('should be a button if there are listeners', () => {
     expect(component.isButton).toBeTruthy();
     expect(projectButton).toBeInstanceOf(HTMLButtonElement);
   });
 
-  it('should be an anchor', () => {
+  it('should be an anchor if there are no listeners', () => {
     component.press.unsubscribe();
+
     fixture.detectChanges();
 
     projectButton = fixture.nativeElement.querySelector('.card');
